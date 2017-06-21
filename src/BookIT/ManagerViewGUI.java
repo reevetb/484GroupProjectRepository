@@ -32,6 +32,7 @@ public class ManagerViewGUI extends Application {
     Tab tab3 = new Tab ("Expenses");
     Tab tab4 = new Tab("POS");
     Tab tab5 = new Tab ("Shifts");
+    Tab tab6 = new Tab ("Customer");
     
     // grid panes
     GridPane expensePane = new GridPane();
@@ -48,6 +49,9 @@ public class ManagerViewGUI extends Application {
     GridPane shiftPane = new GridPane();
     GridPane shiftViewPane = new GridPane();
     GridPane shiftPaneOverall = new GridPane();
+    GridPane customerPane = new GridPane();
+    GridPane customerViewPane = new GridPane();
+    GridPane customerPaneOverall = new GridPane();
     GridPane reportsPane = new GridPane();
     
     //Expense View Stuff
@@ -116,6 +120,27 @@ public class ManagerViewGUI extends Application {
     Button btnShiftDelete = new Button ("Delete Shift");
     ListView shiftView = new ListView();
     
+    
+    //Customer view stuff
+    Label lblCustomerID = new Label("Customer ID:");
+    Label lblCustomerFName = new Label ("First Name: ");
+    Label lblCustomerLName = new Label ("Last Name: ");
+    Label lblCustomerStreet = new Label ("Customer Address: ");
+    Label lblCustomerCity  = new Label ("Customer City: ");
+    Label lblCustomerState = new Label ("Customer State: ");
+    Label lblCustomerZip = new Label ("Customer Zip: ");
+    TextField txtCustomerID = new TextField();
+    TextField txtCustomerFName = new TextField();
+    TextField txtCustomerLName = new TextField();
+    TextField txtCustomerStreet = new TextField();
+    TextField txtCustomerCity = new TextField();
+    TextField txtCustomerState = new TextField();
+    TextField txtCustomerZip = new TextField();
+    Button btnCustomerAdd = new Button ("Add Customer");
+    Button btnCustomerUpdate = new Button ("Update Customer");
+    Button btnCustomerDelete = new Button ("Delete Customer");
+    ListView customerView = new ListView();
+    
     @Override
     public void start(Stage primaryStage) {
         
@@ -129,9 +154,11 @@ public class ManagerViewGUI extends Application {
         tab4.setClosable(false);
         tab5.setContent(shiftPaneOverall);
         tab5.setClosable(false);
+        tab6.setContent(customerPaneOverall);
+        tab6.setClosable(false);
         
         
-        tabPane.getTabs().addAll(tab1,tab2,tab3,tab4,tab5);
+        tabPane.getTabs().addAll(tab1,tab2,tab3,tab4,tab5,tab6);
         overallPane.setAlignment(Pos.TOP_CENTER);
         overallPane.add(tabPane,0,0);
         
@@ -224,6 +251,32 @@ public class ManagerViewGUI extends Application {
         shiftViewPane.add(shiftView,0,0);
         shiftPaneOverall.add(shiftPane,0,0);
         shiftPaneOverall.add(shiftViewPane,1,0);
+        
+        
+        //Customer View 
+        customerPane.setAlignment(Pos.CENTER);
+        customerPane.add(lblCustomerID,0,0);
+        customerPane.add(txtCustomerID,1,0);
+        customerPane.add(lblCustomerFName, 0,1);
+        customerPane.add(txtCustomerFName,1,1);
+        customerPane.add(lblCustomerLName,0,2);
+        customerPane.add(txtCustomerLName,1,2);
+        customerPane.add(lblCustomerStreet,0,3);
+        customerPane.add(txtCustomerStreet,1,3);
+        customerPane.add(lblCustomerCity,0,4);
+        customerPane.add(txtCustomerCity,1,4);
+        customerPane.add(lblCustomerState,0,5);
+        customerPane.add(txtCustomerState,1,5);
+        customerPane.add(lblCustomerZip,0,6);
+        customerPane.add(txtCustomerZip,1,6);
+        customerPane.add(btnCustomerAdd,0,7);
+        customerPane.add(btnCustomerUpdate,1,7);
+        customerPane.add(btnCustomerDelete,2,7);
+        customerPaneOverall.setAlignment(Pos.CENTER);
+        customerViewPane.setAlignment(Pos.CENTER);
+        customerViewPane.add(customerView,0,0);
+        customerPaneOverall.add(customerPane,0,0);
+        customerPaneOverall.add(customerViewPane,1,0);
         
         
         Scene overallScene = new Scene(overallPane,600,550);
