@@ -13,11 +13,11 @@ import java.time.LocalDate;
  * @author Daniel
  */
 public class Expense {
-    public int expenseID;
-    public String expenseType;
-    public double expensePrice;
-    public LocalDate expenseDate;
-    public String expenseComments;
+    private int expenseID;
+    private String expenseType;
+    private double expensePrice;
+    private LocalDate expenseDate;
+    private String expenseComments;
     
     public static int expID = 0;
     
@@ -46,10 +46,7 @@ public class Expense {
     {
         this.expenseComments = comments;
     }
-    public void setID(int id)
-    {
-        this.expenseID = id;
-    }
+   
     
     public String getType()
     {
