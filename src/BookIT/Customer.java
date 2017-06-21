@@ -10,7 +10,7 @@ package BookIT;
  * @author KP
  */
 public class Customer {
-    
+    //the customer class
     public int custID;
     public String fName;
     public String lName;
@@ -21,11 +21,23 @@ public class Customer {
     public String cell;
     public String email;
     
+    public static int customerID = 0;
+    
     // constructor
-    public Customer()
+    public Customer(String first, String last, String street, String city, String state, int zip, String phone, String email)
     {
+        // hello!!!!
+        //daniel b
         
-        
+        this.fName = first;
+        this.lName = last;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zip = zip; 
+        this.cell = phone;
+        this.email = email;
+        this.custID = ++customerID;
         
         
     }
