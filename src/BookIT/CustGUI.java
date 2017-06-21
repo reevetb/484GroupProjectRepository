@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 public class CustGUI extends Application {
     // intial customer scene, tab pane, & tabs
     TabPane custTabs = new TabPane();
-    Scene custScene = new Scene(custTabs, 300, 300);
+    Scene custScene = new Scene(custTabs, 500, 500);
     Tab custInvTab = new Tab("Inventory:");
     Tab custMemTab = new Tab("Membership Info:");
     Tab custInfoTab = new Tab("Customer Info:");
