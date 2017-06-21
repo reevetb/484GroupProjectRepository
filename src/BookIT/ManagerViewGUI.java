@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import java.util.*;
 
 /**
  *
@@ -71,6 +72,7 @@ public class ManagerViewGUI extends Application {
     Button btnExpenseDelete = new Button("Delete");
     Button btnExpenseUpdate = new Button("Update");    
     ListView expenseView = new ListView();
+    ArrayList <Expense> expenseArray = new ArrayList<>();
     
     // Inventory View stuff
     Label lblInventoryID = new Label("ID:");
