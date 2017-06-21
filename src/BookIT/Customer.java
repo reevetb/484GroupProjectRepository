@@ -10,7 +10,7 @@ package BookIT;
  * @author KP
  */
 public class Customer {
-    
+    //the customer class
     public int custID;
     public String fName;
     public String lName;
