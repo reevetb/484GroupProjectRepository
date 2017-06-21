@@ -32,7 +32,7 @@ public class ManagerViewGUI extends Application {
     Tab tab3 = new Tab ("Expenses");
     Tab tab4 = new Tab("POS");
     Tab tab5 = new Tab ("Shifts");
-    Tab tab6 = new Tab ("Customer");
+    Tab tab6 = new Tab ("Member");
     
     // grid panes
     GridPane expensePane = new GridPane();
@@ -91,17 +91,25 @@ public class ManagerViewGUI extends Application {
     
     // Employee View Stuff
     Label lblEmployeeID = new Label ("ID:");
-    Label lblEmployeeFName = new Label ("First Name:");
-    Label lblEmployeeLName = new Label ("Last Name:");
-    Label lblEmployeeUsername = new Label ("Username:");
-    Label lblEmployeePassword = new Label ("Password:");
-    Label lblEmployeePay = new Label ("Starting $/hr:");
+    Label lblEmployeeFName = new Label ("First Name: ");
+    Label lblEmployeeLName = new Label ("Last Name: ");
+    Label lblEmployeeUsername = new Label ("Username: ");
+    Label lblEmployeePassword = new Label ("Password: ");
+    Label lblEmployeePay = new Label ("Starting $/hr: ");
+    Label lblEmployeeAddress = new Label ("Address: ");
+    Label lblEmployeeCity = new Label ("City: ");
+    Label lblEmployeeState = new Label ("State: ");
+    Label lblEmployeeZip = new Label ("Zip: ");
     TextField txtEmployeeID = new TextField();
     TextField txtEmployeeFirst = new TextField();
     TextField txtEmployeeLast = new TextField();
     TextField txtEmployeeUsername = new TextField();
     TextField txtEmployeePassword = new TextField();
     TextField txtEmployeePay = new TextField();
+    TextField txtEmployeeAddress = new TextField();
+    TextField txtEmployeeCity = new TextField();
+    TextField txtEmployeeState = new TextField();
+    TextField txtEmployeeZip = new TextField();
     Button btnEmployeeAdd = new Button ("Add Employee");
     Button btnEmployeeUpdate = new Button ("Update Employee");
     Button btnEmployeeDelete = new Button ("Delete Employee");
@@ -122,13 +130,15 @@ public class ManagerViewGUI extends Application {
     
     
     //Customer view stuff
-    Label lblCustomerID = new Label("Customer ID:");
+    Label lblCustomerID = new Label("Member ID:");
     Label lblCustomerFName = new Label ("First Name: ");
     Label lblCustomerLName = new Label ("Last Name: ");
-    Label lblCustomerStreet = new Label ("Customer Address: ");
-    Label lblCustomerCity  = new Label ("Customer City: ");
-    Label lblCustomerState = new Label ("Customer State: ");
-    Label lblCustomerZip = new Label ("Customer Zip: ");
+    Label lblCustomerUsername = new Label ("Username: ");
+    Label lblCustomerPassword = new Label ("Password: ");
+    Label lblCustomerStreet = new Label ("Address: ");
+    Label lblCustomerCity  = new Label ("City: ");
+    Label lblCustomerState = new Label ("State: ");
+    Label lblCustomerZip = new Label ("Zip: ");
     TextField txtCustomerID = new TextField();
     TextField txtCustomerFName = new TextField();
     TextField txtCustomerLName = new TextField();
@@ -136,9 +146,12 @@ public class ManagerViewGUI extends Application {
     TextField txtCustomerCity = new TextField();
     TextField txtCustomerState = new TextField();
     TextField txtCustomerZip = new TextField();
-    Button btnCustomerAdd = new Button ("Add Customer");
-    Button btnCustomerUpdate = new Button ("Update Customer");
-    Button btnCustomerDelete = new Button ("Delete Customer");
+    TextField txtCustomerUsername = new TextField();    
+    TextField txtCustomerPassword = new TextField();    
+    Button btnCustomerAdd = new Button ("Add Member");
+    Button btnCustomerUpdate = new Button ("Update Member");
+    Button btnCustomerDelete = new Button ("Delete Member");
+    Button btnCustomerReports = new Button ("Member Reports");
     ListView customerView = new ListView();
     
     @Override
@@ -158,7 +171,7 @@ public class ManagerViewGUI extends Application {
         tab6.setClosable(false);
         
         
-        tabPane.getTabs().addAll(tab1,tab2,tab3,tab4,tab5,tab6);
+        tabPane.getTabs().addAll(tab2,tab6,tab1,tab3,tab4,tab5);
         overallPane.setAlignment(Pos.TOP_CENTER);
         overallPane.add(tabPane,0,0);
         
@@ -219,15 +232,23 @@ public class ManagerViewGUI extends Application {
         employeePane.add(txtEmployeeFirst,1,1);
         employeePane.add(lblEmployeeLName,0,2);
         employeePane.add(txtEmployeeLast,1,2);
-        employeePane.add(lblEmployeeUsername,0,3);
-        employeePane.add(txtEmployeeUsername,1,3);
-        employeePane.add(lblEmployeePassword,0,4);
-        employeePane.add(txtEmployeePassword,1,4);
-        employeePane.add(lblEmployeePay,0,5);
-        employeePane.add(txtEmployeePay,1,5);
-        employeePane.add(btnEmployeeAdd,0,6);
-        employeePane.add(btnEmployeeUpdate,1,6);
-        employeePane.add(btnEmployeeDelete,2,6);
+        employeePane.add(lblEmployeeAddress,0,3);
+        employeePane.add(txtEmployeeAddress,1,3);
+        employeePane.add(lblEmployeeCity,0,4);
+        employeePane.add(txtEmployeeCity,1,4);
+        employeePane.add(lblEmployeeState,0,5);
+        employeePane.add(txtEmployeeState,1,5);
+        employeePane.add(lblEmployeeZip,0,6);
+        employeePane.add(txtEmployeeZip,1,6);
+        employeePane.add(lblEmployeeUsername,0,7);
+        employeePane.add(txtEmployeeUsername,1,7);
+        employeePane.add(lblEmployeePassword,0,8);
+        employeePane.add(txtEmployeePassword,1,8);
+        employeePane.add(lblEmployeePay,0,9);
+        employeePane.add(txtEmployeePay,1,9);
+        employeePane.add(btnEmployeeAdd,0,10);
+        employeePane.add(btnEmployeeUpdate,1,10);
+        employeePane.add(btnEmployeeDelete,2,10);
         employeeViewPane.setAlignment(Pos.CENTER);
         employeePaneOverall.setAlignment(Pos.CENTER);
         employeeViewPane.add(employeeView,0,0);
@@ -261,17 +282,21 @@ public class ManagerViewGUI extends Application {
         customerPane.add(txtCustomerFName,1,1);
         customerPane.add(lblCustomerLName,0,2);
         customerPane.add(txtCustomerLName,1,2);
-        customerPane.add(lblCustomerStreet,0,3);
-        customerPane.add(txtCustomerStreet,1,3);
-        customerPane.add(lblCustomerCity,0,4);
-        customerPane.add(txtCustomerCity,1,4);
-        customerPane.add(lblCustomerState,0,5);
-        customerPane.add(txtCustomerState,1,5);
-        customerPane.add(lblCustomerZip,0,6);
-        customerPane.add(txtCustomerZip,1,6);
-        customerPane.add(btnCustomerAdd,0,7);
-        customerPane.add(btnCustomerUpdate,1,7);
-        customerPane.add(btnCustomerDelete,2,7);
+        customerPane.add(lblCustomerUsername,0,3);
+        customerPane.add(txtCustomerUsername,1,3);
+        customerPane.add(lblCustomerPassword,0,4);
+        customerPane.add(txtCustomerPassword,1,4);
+        customerPane.add(lblCustomerStreet,0,5);
+        customerPane.add(txtCustomerStreet,1,5);
+        customerPane.add(lblCustomerCity,0,6);
+        customerPane.add(txtCustomerCity,1,6);
+        customerPane.add(lblCustomerState,0,7);
+        customerPane.add(txtCustomerState,1,7);
+        customerPane.add(lblCustomerZip,0,8);
+        customerPane.add(txtCustomerZip,1,8);
+        customerPane.add(btnCustomerAdd,0,9);
+        customerPane.add(btnCustomerUpdate,1,9);
+        customerPane.add(btnCustomerDelete,2,9);
         customerPaneOverall.setAlignment(Pos.CENTER);
         customerViewPane.setAlignment(Pos.CENTER);
         customerViewPane.add(customerView,0,0);
@@ -279,14 +304,11 @@ public class ManagerViewGUI extends Application {
         customerPaneOverall.add(customerViewPane,1,0);
         
         
-        Scene overallScene = new Scene(overallPane,600,550);
+        Scene overallScene = new Scene(overallPane,700,650);
         
         primaryStage.setScene(overallScene);
         primaryStage.setTitle("Manager View");
         primaryStage.show();
-        
-        
-        
         
     }
 
