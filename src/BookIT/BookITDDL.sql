@@ -34,5 +34,8 @@ CREATE TABLE PAYROLL
 CREATE TABLE STORES
 (
     STORE_ID            INTEGER,
-    
-)
+    STREET              VARCHAR(25),
+    CITY                VARCHAR(25),
+    UTLITIES_EXP        NUMBER(7,2)
+    PRIMARY KEY         (STORE_ID)
+);
