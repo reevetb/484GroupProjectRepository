@@ -46,10 +46,7 @@ public class Expense {
     {
         this.expenseComments = comments;
     }
-    public void setID(int id)
-    {
-        this.expenseID = id;
-    }
+   
     
     public String getType()
     {
