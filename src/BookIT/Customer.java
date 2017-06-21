@@ -23,10 +23,24 @@ public class Customer {
     public String username;
     public String password;
     
+    public static int customerID = 0;
+
+    
     // constructor
-    public Customer()
+    public Customer(String first, String last, String street, String city, 
+            String state, int zip, String phone, String email, String user, String pass)
     {
-        
+        this.fName = first;
+        this.lName = last;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zip = zip; 
+        this.cell = phone;
+        this.email = email;
+        this.username = user;
+        this.password = pass;
+        this.custID = ++customerID;
         
         
     }
