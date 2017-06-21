@@ -43,12 +43,18 @@ public class CustGUI extends Application {
     Label lblCustPass = new Label("Password:");
     Label lblCustEmail = new Label("eMail:");
     Label lblCustPhone = new Label("Phone:");
-    Label lblCustAddress = new Label("Address:");
+    Label lblCustStreet = new Label("Street:");
+    Label lblCustCity = new Label("City:");
+    Label lblCustState = new Label("State");
+    Label lblCustZip = new Label("ZIP:");
     TextField txtCustUser = new TextField();
     TextField txtCustPass = new TextField();
     TextField txtCustEmail = new TextField();
     TextField txtCustPhone = new TextField();
-    TextField txtCustAddress = new TextField();
+    TextField txtCustStreet = new TextField();
+    TextField txtCustCity = new TextField();
+    TextField txtCustState = new TextField();
+    TextField txtCustZip = new TextField();
     Button btnCustUpdate = new Button("Update");
     
     
@@ -99,21 +105,28 @@ public class CustGUI extends Application {
         custInfoPane.add(lblCustPass, 0, 1);
         custInfoPane.add(lblCustEmail, 0, 2);
         custInfoPane.add(lblCustPhone, 0, 3);
-        custInfoPane.add(lblCustAddress, 0, 4);
+        custInfoPane.add(lblCustStreet, 0, 4);
+        custInfoPane.add(lblCustCity, 0, 5);
+        custInfoPane.add(lblCustState, 0, 6);
+        custInfoPane.add(lblCustZip, 0, 7);
         custInfoPane.add(txtCustUser, 1, 0);
         custInfoPane.add(txtCustPass, 1, 1);
         custInfoPane.add(txtCustEmail, 1, 2);
         custInfoPane.add(txtCustPhone, 1, 3);
-        custInfoPane.add(txtCustAddress, 1, 4);
-        custInfoPane.add(btnCustUpdate, 1, 5);
+        custInfoPane.add(txtCustStreet, 1, 4);
+        custInfoPane.add(txtCustCity, 1, 5);
+        custInfoPane.add(txtCustState, 1, 6);
+        custInfoPane.add(txtCustZip, 1, 7);
+        custInfoPane.add(btnCustUpdate, 1, 8);
            
         // adding columns to customer inventory table
         TableColumn tblcBookID = new TableColumn("ID");
         TableColumn tblcBook = new TableColumn("Book");
+        TableColumn tblcGenre = new TableColumn("Genre");
         TableColumn tblcBookPrice = new TableColumn("Price");
         TableColumn tblcBookStore = new TableColumn("Store");
-        custInvTbl.getColumns().addAll(tblcBookID, tblcBook, tblcBookPrice,
-                tblcBookStore);
+        custInvTbl.getColumns().addAll(tblcBookID, tblcBook, tblcGenre, 
+                tblcBookPrice, tblcBookStore);
                 
         // populating customer inventory table cells
         

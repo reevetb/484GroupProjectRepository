@@ -20,6 +20,8 @@ public class Employee {
     public int zipCode;
     public String permLevel;
     public int managerID;
+    public String username;
+    public String password;
     
     // constructor
     public Employee()
@@ -118,6 +120,26 @@ public class Employee {
     public void setManagerID(int ID)
     {
         this.managerID = ID;
+    }
+    
+    public String getUsername()
+    {
+        return this.username;
+    }
+    
+    public void setUsername(String user)
+    {
+        this.username = user;
+    }
+    
+    public String getPassword()
+    {
+        return this.password;
+    }
+    
+    public void setPassword(String pass)
+    {
+        this.password = pass;
     }
     
     

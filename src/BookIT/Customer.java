@@ -20,13 +20,12 @@ public class Customer {
     public int zip;
     public String cell;
     public String email;
+    public String username;
+    public String password;
     
     // constructor
     public Customer()
     {
-        // hello!!!!
-        //daniel b
-        // another one
         
         
         
@@ -121,6 +120,26 @@ public class Customer {
     public void setEmail(String email)
     {
         this.email = email;
+    }
+    
+    public String getUsername()
+    {
+        return this.username;
+    }
+    
+    public void setUsername(String user)
+    {
+        this.username = user;
+    }
+    
+    public String getPassword()
+    {
+        return this.password;
+    }
+    
+    public void setPassword(String pass)
+    {
+        this.password = pass;
     }
     
 }
