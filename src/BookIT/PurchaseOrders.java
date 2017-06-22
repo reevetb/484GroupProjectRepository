@@ -11,49 +11,44 @@ package BookIT;
  * @author KP
  */
 public class PurchaseOrders {
-    
-    public int supplierID;
-    public int invID;
-    public int quantity;
-    
+
+    private int supplierID;
+    private int invID;
+    private int quantity;
+    public static int supplierCount;
+    public static int invCount;
+
     // constructor
-    public PurchaseOrders()
-    {
-        
-        
-        
+    public PurchaseOrders() {
+        supplierID = 0;
+        invID = 0;
+        quantity = 0;
+        supplierCount = 1;
+        invCount = 1;
     }
-    
+
+    public PurchaseOrders(int quantity) {
+        this.quantity = quantity;
+        supplierID = supplierCount++;
+        invID = invCount++;
+
+    }
+
     // getters & setters
-    public int getSupplierID()
-    {
+    public int getSupplierID() {
         return this.supplierID;
     }
-    
-    public void setSupplierID(int ID)
-    {
-        this.supplierID = ID;
-    }
-    
-    public int getInvID()
-    {
+
+    public int getInvID() {
         return this.invID;
     }
-    
-    public void setInvID(int ID)
-    {
-        this.invID = ID;
-    }
-    
-    public int getQuantity()
-    {
+
+    public int getQuantity() {
         return this.quantity;
     }
-    
-    public void setQuantity(int quan)
-    {
-        this.quantity = quan;
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
-    
-    
+
 }

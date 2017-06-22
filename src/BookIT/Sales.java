@@ -5,65 +5,61 @@ Assignment: CIS 484 Group Project
 Purpose: Sales entity class in order to see which inventory is in what store
  */
 package BookIT;
+
 /**
  *
  * @author KP
  */
 public class Sales {
-    
-    public int invID;
-    public int storeID;
-    public int qis;
-    public double price;
-    
+
+    private int invID;
+    private int storeID;
+    private int qis;
+    private double price;
+    public static int invCount;
+    public static int storeCount;
+
     // constructor
-    public Sales()
-    {
-        
-        
-        
-        
+    public Sales() {
+        invID = 0;
+        storeID = 0;
+        qis = 0;
+        price = 0.0;
+        invCount = 1;
+        storeCount = 1;
     }
-    
+
+    public Sales(int qis, double price) {
+        this.qis = qis;
+        this.price = price;
+        invID = invCount++;
+        storeID = storeCount++;
+
+    }
     // getters & setters
-    public int getInvID()
-    {
+
+    public int getInvID() {
         return this.invID;
     }
-    
-    public void setInvID(int ID)
-    {
-        this.invID = ID;
-    }
-    
-    public int getStoreID()
-    {
+
+    public int getStoreID() {
         return this.storeID;
     }
-    
-    public void setStoreID(int ID)
-    {
-        this.storeID = ID;
-    }
-    
-    public int getQIS()
-    {
+
+    public int getQis() {
         return this.qis;
     }
-    
-    public void setQIS(int qis)
-    {
+
+    public void setQis(int qis) {
         this.qis = qis;
     }
-    
-    public double getPrice()
-    {
+
+    public double getPrice() {
         return this.price;
     }
-    
-    public void setPrice(double price)
-    {
+
+    public void setPrice(double price) {
         this.price = price;
     }
-    
+
 }

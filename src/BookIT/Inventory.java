@@ -5,64 +5,63 @@ Assignment: CIS 484 Group Project
 Purpose: Inventory entity class 
  */
 package BookIT;
+
 /**
  *
  * @author KP
  */
 public class Inventory {
-    
-    public int invID;
-    public String itemName;
-    public String itemDesc;
-    public int quantity;
-    
+
+    private int invID;
+    private String itemName;
+    private String itemDesc;
+    private int quantity;
+    public static int invCount;
+
     // constructor
-    public Inventory()
-    {
-        
-        
-        
+    public Inventory() {
+        invID = 0;
+        itemName = "";
+        itemDesc = "";
+        quantity = 0;
+        invCount = 1;
     }
-    
+
+    public Inventory(String itemName, String itemDesc, int quantity) {
+        this.itemName = itemName;
+        this.itemDesc = itemDesc;
+        this.quantity = quantity;
+        invID = invCount++;
+
+    }
+
     // getters & setters
-    public int getInvID()
-    {
+    public int getInvID() {
         return this.invID;
     }
-    
-    public void setInvID(int ID)
-    {
-        this.invID = ID;
-    }
-    
-    public String getItemName()
-    {
+
+    public String getItemName() {
         return this.itemName;
     }
-    
-    public void setItemName(String item)
-    {
+
+    public void setItemName(String item) {
         this.itemName = item;
     }
-    
-    public String getItemDesc()
-    {
+
+    public String getItemDesc() {
         return this.itemDesc;
     }
-    
-    public void setItemDesc(String desc)
-    {
+
+    public void setItemDesc(String desc) {
         this.itemDesc = desc;
     }
-    
-    public int getQuantity()
-    {
+
+    public int getQuantity() {
         return this.quantity;
     }
-    
-    public void setQuantity(int quan)
-    {
-        this.quantity = quan;
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
-    
+
 }

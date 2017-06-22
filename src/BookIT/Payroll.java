@@ -5,67 +5,104 @@ Assignment: CIS 484 Group Project
 Purpose: Payroll entity class to keep track of employee shifts worked
  */
 package BookIT;
+
 /**
  *
  * @author KP
  */
 public class Payroll {
-    
-    public String date;
-    public double hours;
-    public double wage;
-    public double otHours;
-    public double otWage;
-    public int empID;
-    
+
+    private int payID;
+    private String date;
+    private double hours;
+    private double wage;
+    private double otHours;
+    private double otWage;
+    private int empID_FK;
+    private int storeID_FK;
+    public static int payCount;
+    public static int empCount;
+    public static int storeCount;
+
     // constructor
-    public Payroll()
-    {
-        
-        
-        
-        
+    public Payroll() {
+        payID = 0;
+        date = "";
+        hours = 0.0;
+        wage = 0.0;
+        otHours = 0.0;
+        otWage = 0.0;
+        empID_FK = 0;
+        storeID_FK = 0;
+        payCount = 1;
+        empCount = 1;
+        storeCount = 1;
+
     }
-    
+
+    public Payroll(String date, double hours, double wage, double otHours,
+            double otWage) {
+        this.date = date;
+        this.hours = hours;
+        this.wage = wage;
+        this.otHours = otHours;
+        this.otWage = otWage;
+        payID = payCount++;
+        empID_FK = empCount++;
+        storeID_FK = storeCount++;
+    }
+
     // getters & setters
-    public String getDate()
-    {
+    public int getPayID() {
+        return this.payID;
+    }
+
+    public int getEmpID_FK() {
+        return this.empID_FK;
+    }
+
+    public int getStoreID_FK() {
+        return this.storeID_FK;
+    }
+
+    public String getDate() {
         return this.date;
     }
-    
-    public void setDate(String date)
-    {
+
+    public void setDate(String date) {
         this.date = date;
     }
-    
-    public double getHours()
-    {
+
+    public double getHours() {
         return this.hours;
     }
-    
-    public void setHours(double hours)
-    {
+
+    public void setHours(double hours) {
         this.hours = hours;
     }
-    
-    public double getWage()
-    {
+
+    public double getWage() {
         return this.wage;
     }
-    
-    public void setWage(double wage)
-    {
+
+    public void setWage(double wage) {
         this.wage = wage;
     }
-    
-    public int getEmpID()
-    {
-        return this.empID;
+
+    public double getOtHours() {
+        return this.otHours;
     }
-    
-    public void setEmpID(int ID)
-    {
-        this.empID = ID;
+
+    public void setOtHours(double otHours) {
+        this.otHours = otHours;
     }
-    
+
+    public double getOtWage() {
+        return this.otWage;
+    }
+
+    public void setOtWage(double otWage) {
+        this.otWage = otWage;
+    }
+
 }

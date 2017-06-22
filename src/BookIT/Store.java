@@ -5,87 +5,74 @@ Assignment: CIS 484 Group Project
 Purpose: Store entity class
  */
 package BookIT;
+
 /**
  *
  * @author KP
  */
 public class Store {
-    
-    public int storeID;
-    public String street;
-    public String city;
-    public String state;
-    public int zip;
-    public double utilExp;
-    
+
+    private int storeID;
+    private String street;
+    private String city;
+    private String state;
+    private int zipCode;
+    public static int storeCount;
+
     // constructor
-    public Store()
-    {
-        
-        
-        
-        
-        
+    public Store() {
+        storeID = 0;
+        street = "";
+        city = "";
+        state = "";
+        zipCode = 0;
+        storeCount = 1;
+
     }
-    
-    public int getStoreID()
-    {
+
+    public Store(String street, String city, String state, int zipCode) {
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        storeID = storeCount;
+
+    }
+
+    public int getStoreID() {
         return this.storeID;
     }
-    
-    public void setStoreID(int ID)
-    {
-        this.storeID = ID;
-    }
-    
-    public String getStreet()
-    {
+
+    public String getStreet() {
         return this.street;
     }
-    
-    public void setStreet(String street)
-    {
+
+    public void setStreet(String street) {
         this.street = street;
     }
-    
-    public String getCity()
-    {
+
+    public String getCity() {
         return this.city;
     }
-    
-    public void setCity(String city)
-    {
+
+    public void setCity(String city) {
         this.city = city;
     }
-    
-    public String getState()
-    {
+
+    public String getState() {
         return this.state;
     }
-    
-    public void setState(String state)
-    {
+
+    public void setState(String state) {
         this.state = state;
     }
-    
-    public int getZip()
-    {
-        return this.zip;
+
+    public int getZipCode() {
+        return this.zipCode;
     }
-    
-    public void setZip(int zip)
-    {
-        this.zip = zip;
+
+    public void setZipCode(int zipCdoe) {
+        this.zipCode = zipCode;
     }
-    
-    public double getUtilExp()
-    {
-        return this.utilExp;
-    }
-    
-    public void setUtilExp(double util)
-    {
-        this.utilExp = util;
-    }
-    
+
 }
