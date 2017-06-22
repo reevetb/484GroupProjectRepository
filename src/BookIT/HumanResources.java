@@ -6,55 +6,50 @@ Purpose: Human Resource entity class used as a bridge table between employees
 and stores
  */
 package BookIT;
+
 /**
  *
  * @author KP
  */
 public class HumanResources {
-    
-    public int empID;
-    public int storeID;
-    public String empType;
-    
+
+    private int empID;
+    private int storeID;
+    private String empType;
+    public static int empCount;
+    public static int storeCount;
+
     // constructor
-    public HumanResources()
-    {
-        
-        
-        
-        
+    public HumanResources() {
+        empID = 0;
+        storeID = 0;
+        empType = "";
+        empCount = 1;
+        storeCount = 1;
     }
-    
+
+    public HumanResources(String empType) {
+        this.empType = empType;
+        empID = empCount++;
+        storeID = storeCount++;
+
+    }
+
     // getters & setters
-    public int getEmpID()
-    {
+    public int getEmpID() {
         return this.empID;
     }
-    
-    public void setEmpID(int ID)
-    {
-        this.empID = ID;
-    }
-    
-    public int getStoreID()
-    {
+
+    public int getStoreID() {
         return this.storeID;
     }
-    
-    public void setStoreID(int ID)
-    {
-        this.storeID = ID;
-    }
-    
-    public String getEmpType()
-    {
+
+    public String getEmpType() {
         return this.empType;
     }
-    
-    public void setEmpType(String type)
-    {
+
+    public void setEmpType(String type) {
         this.empType = type;
     }
-    
-    
+
 }

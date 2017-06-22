@@ -5,100 +5,96 @@ Assignment: CIS 484 Group Project
 Purpose: Supplier entity class
  */
 package BookIT;
+
 /**
  *
  * @author KP
  */
 public class Supplier {
-    
-    public int supplierID;
-    public String name;
-    public String street;
-    public String city;
-    public String state;
-    public int zip;
-    public String cell;
-    
+
+    private int supplierID;
+    private String name;
+    private String street;
+    private String city;
+    private String state;
+    private int zipCode;
+    private String cell;
+    public static int supplierCount;
+
     // constructor
-    public Supplier()
-    {
-        
-        
-        
-        
+    public Supplier() {
+        supplierID = 0;
+        name = "";
+        street = "";
+        city = "";
+        state = "";
+        zipCode = 0;
+        cell = "";
+        supplierCount = 1;
     }
-    
+
+    public Supplier(String name, String street, String city, String state,
+            int zipCode, String cell) {
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.cell = cell;
+        supplierID = supplierCount++;
+    }
+
     // getters & setters
-    public int getSupplierID()
-    {
+    public int getSupplierID() {
         return this.supplierID;
     }
-    
-    public void setSupplierID(int ID)
-    {
-        this.supplierID = ID;
-    }
-    
-    public String getName()
-    {
+
+    public String getName() {
         return this.name;
     }
-    
-    public void setName(String name)
-    {
+
+    public void setName(String name) {
         this.name = name;
     }
-    
-    public String getStreet()
-    {
+
+    public String getStreet() {
         return this.street;
     }
-    
-    public void setStreet(String street)
-    {
+
+    public void setStreet(String street) {
         this.street = street;
     }
-    
-    public String getCity()
-    {
+
+    public String getCity() {
         return this.city;
     }
-    
-    public void setCity(String city)
-    {
+
+    public void setCity(String city) {
         this.city = city;
     }
-    
-    public String getState()
-    {
+
+    public String getState() {
         return this.state;
     }
-    
-    public void setState(String state)
-    {
+
+    public void setState(String state) {
         this.state = state;
     }
-    
-    public int getZip()
-    {
-        return this.zip;
+
+    public int getZipCode() {
+        return this.zipCode;
     }
-    
-    public void setZip(int zip)
-    {
-        this.zip = zip;
+
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
     }
-    
-    public String getCell()
-    {
+
+    public String getCell() {
         return this.cell;
     }
-    
-    public void setCell(String cell)
-    {
+
+    public void setCell(String cell) {
         this.cell = cell;
     }
-    
-    
-    
+
 }
