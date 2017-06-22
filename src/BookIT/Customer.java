@@ -28,6 +28,7 @@ public class Customer {
     {
         // hello!!!!
         //daniel b
+        // zach thacker
         
         this.fName = first;
         this.lName = last;
