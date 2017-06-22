@@ -1,69 +1,52 @@
-/*
-Author: Kyle Porter
-Date: 6/21/17
-Assignment: CIS 484 Group Project
-Purpose: Membership entity class to keep track of customer's membership status
- */
 package BookIT;
-/**
- *
- * @author KP
- */
+
 public class Membership {
-    
-    public int custID;
-    public int storeID;
-    public int points;
-    public String status;
-    
-    // constructor
-    public Membership()
-    {
-        
-        
-        
-        
+
+    private int storeID;
+    private int memID;
+    private double points;
+    private String status;
+    public static int storeCount;
+    public static int memCount;
+
+    public Membership() {
+        storeID = 0;
+        memID = 0;
+        points = 0.0;
+        status = "";
+        storeCount = 1;
+        memCount = 1;
     }
-    
-    // getters & settors
-    public int getCustID()
-    {
-        return this.custID;
+
+    public Membership(double points, String status) {
+        this.points = points;
+        this.status = status;
+        storeID = storeCount++;
+        memID = memCount++;
     }
-    
-    public void setCustID(int ID)
-    {
-        this.custID = ID;
-    }
-    
-    public int getStoreID()
-    {
+
+    public int getStoreID() {
         return this.storeID;
     }
-    
-    public void setStoreID(int ID)
-    {
-        this.storeID = ID;
+
+    public int getMemID() {
+        return this.memID;
     }
-    
-    public int getPoints()
-    {
+
+    public double getPoints() {
         return this.points;
     }
-    
-    public void setPoints(int points)
-    {
+
+    public void setPoints(double points) {
         this.points = points;
     }
-    
-    public String getStatus()
-    {
+
+    public String getStatus() {
         return this.status;
     }
-    
-    public void setStatus(String status)
-    {
+
+    public void setStatus(String status) {
         this.status = status;
     }
-    
+
 }
