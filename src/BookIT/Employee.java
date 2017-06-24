@@ -5,120 +5,140 @@ Assignment: CIS 484 Group Project
 Purpose: Employee entity class
  */
 package BookIT;
+
 /**
  *
  * @author KP
  */
 public class Employee {
-    
-    public int empID;
-    public String fName;
-    public String lName;
-    public String street;
-    public String city;
-    public String state;
-    public int zipCode;
-    public String permLevel;
-    public int managerID;
-    
+
+    private int empID;
+    private String fName;
+    private String lName;
+    private String street;
+    private String city;
+    private String state;
+    private int zipCode;
+    private String cell;
+    private String userName;
+    private String password;
+    public static int empCount;
+
     // constructor
-    public Employee()
-    {
-        
-        
-        
-        
+    public Employee() {
+        empID = 0;
+        fName = "";
+        lName = "";
+        street = "";
+        city = "";
+        state = "";
+        zipCode = 0;
+        cell = "";
+        userName = "";
+        password = "";
+        empCount = 1;
+
     }
-    
-    public int getEmpID()
-    {
+
+    public Employee(String fName, String lName, String street, String city,
+            String state, int zipCode, String cell,
+            String userName, String password) {
+        this.fName = fName;
+        this.lName = lName;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.cell = cell;
+        this.userName = userName;
+        this.password = password;
+        empID = empCount++;
+
+    }
+
+    public int getEmpID() {
         return this.empID;
     }
-    
-    public void setEmpID(int empID)
-    {
-        this.empID = empID;
-    }
-    
-    public String getFName()
-    {
+
+    public String getFName() {
         return this.fName;
     }
-    
-    public void setFName(String name)
-    {
+
+    public void setFName(String name) {
         this.fName = name;
     }
-    
-    public String getLName()
-    {
+
+    public String getLName() {
         return this.lName;
     }
-    
-    public void setLName(String name)
-    {
+
+    public void setLName(String name) {
         this.lName = name;
     }
-    
-    public String getStreet()
-    {
+
+    public String getStreet() {
         return this.street;
     }
-    
-    public void setStreet(String street)
-    {
+
+    public void setStreet(String street) {
         this.street = street;
     }
-    
-    public String getCity()
-    {
+
+    public String getCity() {
         return this.city;
     }
-    
-    public void setCity(String city)
-    {
+
+    public void setCity(String city) {
         this.city = city;
     }
-    
-    public String getState()
-    {
+
+    public String getState() {
         return this.state;
     }
-    
-    public void setState(String state)
-    {
+
+    public void setState(String state) {
         this.state = state;
     }
-    
-    public int getZipCode()
-    {
+
+    public int getZipCode() {
         return this.zipCode;
     }
-    
-    public void setZipCode(int zip)
-    {
+
+    public void setZipCode(int zip) {
         this.zipCode = zip;
     }
-    
-    public String getPermLevel()
-    {
-        return this.permLevel;
+
+    public String getCell() {
+        return this.cell;
     }
-    
-    public void setPermLevel(String level)
-    {
-        this.permLevel = level;
+
+    public void setCell(String cell) {
+        this.cell = cell;
     }
-    
-    public int getManagerID()
-    {
-        return this.managerID;
+
+    public String getUserName() {
+        return this.userName;
     }
-    
-    public void setManagerID(int ID)
-    {
-        this.managerID = ID;
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
-    
-    
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    //methods
+    public boolean checkCredentials(String userName, String password) {   //If username and password match return true
+        if (this.userName.equals(userName) & this.password.equals(password)) {
+            return true;
+        } else //return false if username and password do not match
+        {
+            return false;
+        }
+    }
 }

@@ -5,65 +5,59 @@ Assignment: CIS 484 Group Project
 Purpose: Order entity class storing orders that customers purchase
  */
 package BookIT;
+
 /**
  *
  * @author KP
  */
 public class Orders {
-    
-    public int storeID;
-    public int custID;
-    public int invID;
-    public String orderDate;
-    
+
+    private int storeID;
+    private int custID;
+    private int invID;
+    private String orderDate;
+    public static int storeCount;
+    public static int custCount;
+    public static int invCount;
+
     // constructor
-    public Orders()
-    {
-        
-        
-        
+    public Orders() {
+        storeID = 0;
+        custID = 0;
+        invID = 0;
+        orderDate = "";
+        storeCount = 1;
+        custCount = 1;
+        invCount = 1;
+
     }
-    
+
+    public Orders(String orderDate) {
+        this.orderDate = orderDate;
+        storeID = storeCount++;
+        custID = custCount++;
+        invID = invCount++;
+    }
+
     // getters & setters
-    public int getStoreID()
-    {
+    public int getStoreID() {
         return this.storeID;
     }
-    
-    public void setStoreID(int ID)
-    {
-        this.storeID = ID;
-    }
-    
-    public int getCustID()
-    {
+
+    public int getCustID() {
         return this.custID;
     }
-    
-    public void setCustID(int ID)
-    {
-        this.custID = ID;
-    }
-    
-    public int getInvID()
-    {
+
+    public int getInvID() {
         return this.invID;
     }
-    
-    public void setInvID(int ID)
-    {
-        this.invID = ID;
-    }
-    
-    public String getOrderDate()
-    {
+
+    public String getOrderDate() {
         return this.orderDate;
     }
-    
-    public void setOrderDate(String date)
-    {
+
+    public void setOrderDate(String date) {
         this.orderDate = date;
     }
-    
-    
+
 }
