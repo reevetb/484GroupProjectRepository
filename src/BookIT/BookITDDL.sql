@@ -30,7 +30,9 @@ CREATE TABLE EMPLOYEES
     WAGE                NUMBER(7,2),
     OT_WAGE             NUMBER(7,2),
     EMP_TYPE            VARCHAR(25),
+    MANAGER_ID          INTEGER,
     PRIMARY KEY         (EMP_ID)
+    FOREIGN KEY         (MANAGER_ID) REFERENCES EMPLOYEES
 );
 
 CREATE TABLE STORES
