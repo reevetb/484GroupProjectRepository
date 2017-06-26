@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 import java.sql.*;
 import oracle.jdbc.pool.*;
 import java.util.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 /**
  *
  * @author KP
@@ -29,6 +31,9 @@ public class MainForm extends Application {
     // ArrayLists
     ArrayList<Member> memberArray = new ArrayList<>();
     ArrayList<Employee> empArray = new ArrayList<>();
+    
+    //Observable Lists
+    ObservableList<Employee> empList = FXCollections.observableArrayList(empArray);
 
     // login controls
     Label lblUser = new Label("Username:");
@@ -248,7 +253,7 @@ public class MainForm extends Application {
     
     
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws SQLException {
      
         
         
@@ -598,11 +603,7 @@ public class MainForm extends Application {
             {
                 primaryStage.setScene(overallScene);
                 primaryStage.setTitle("Manager View");
-                primaryStage.show();
-                
-                
-                
-                
+                primaryStage.show();                
             }
             
         });
@@ -618,20 +619,62 @@ public class MainForm extends Application {
         });
         
         //manager view employee add button
+        
+        ArrayList<Employee> employees = new ArrayList<>();
+        String sqlEmpSizeQuery = "";
+        sqlEmpSizeQuery = "SELECT * FROM JAVAUSER.EMPLOYEES";
+        sendDBCommand(sqlEmpSizeQuery);
+        
+            while(dbResults.next())
+            {
+                 Employee empArray = new Employee(dbResults.getString(2),dbResults.getString(3)
+                     , dbResults.getString(4),dbResults.getString(5)
+                        ,dbResults.getString(6),Integer.valueOf(dbResults.getString(7)),
+                        dbResults.getString(8),dbResults.getString(9), dbResults.getString(10),Double.valueOf(dbResults.getString(11)),dbResults.getString(13));
+                 employees.add(empArray);
+                 empList.add(empArray);
+                 employeeView.setItems(empList);
+            }
+            
+        
+        
         btnEmployeeAdd.setOnAction(e->{
+            
+            int empIDStart = employees.size();
+            
             empArray.add(new Employee(txtEmployeeFirst.getText(),txtEmployeeLast.getText(),txtEmployeeAddress.getText(),
             txtEmployeeCity.getText(),txtEmployeeState.getText(),Integer.valueOf(txtEmployeeZip.getText()),txtEmployeePhone.getText(),
             txtEmployeeUsername.getText(),txtEmployeePassword.getText(),Double.valueOf(txtEmployeePay.getText()),
-            cbxEmployeeType.getSelectionModel().getSelectedItem().toString()));
+            cbxEmployeeType.getSelectionModel().getSelectedItem().toString()));            
             
             Employee tempRef = empArray.get(empArray.size()-1);
             
+            empList.add(tempRef);
+            employeeView.setItems(empList);
             
-           
+            
+            
+            String sqlQuery = "";
+            
+            sqlQuery +="INSERT INTO JAVAUSER.EMPLOYEES (EMP_ID,FNAME,LNAME,STREET,CITY,STATE,ZIPCODE,CELL,USERNAME,PASSWORD,WAGE,EMP_TYPE) VALUES(";
+            sqlQuery += (++empIDStart) + ",'";
+            sqlQuery += txtEmployeeFirst.getText() +"','";
+            sqlQuery += txtEmployeeLast.getText() + "','";
+            sqlQuery += txtEmployeeAddress.getText() +"','";
+            sqlQuery += txtEmployeeCity.getText() + "','";
+            sqlQuery += txtEmployeeState.getText() +"',";
+            sqlQuery += Integer.valueOf(txtEmployeeZip.getText()) +",'";
+            sqlQuery += txtEmployeePhone.getText() +"','";
+            sqlQuery += txtEmployeeUsername.getText() +"','";
+            sqlQuery += txtEmployeePassword.getText() +"',";
+            sqlQuery += Double.valueOf(txtEmployeePay.getText()) + ",'";
+            sqlQuery += cbxEmployeeType.getSelectionModel().getSelectedItem() +"')";
+            
+            sendDBCommand(sqlQuery);
+            
+            
             
         });
-        
-        
         
         
     }
@@ -641,6 +684,55 @@ public class MainForm extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    
+    public void sendDBCommand(String sqlQuery)
+    {
+        // Set up your connection strings
+        // IF YOU ARE IN CIS330 NOW: use YOUR Oracle Username/Password
+        String URL = "jdbc:oracle:thin:@localhost:1521:XE";
+        String userID = "javauser"; // Change to YOUR Oracle username
+        String userPASS = "javapass"; // Change to YOUR Oracle password
+        OracleDataSource ds;
+        
+        // Clear Box Testing - Print each query to check SQL syntax
+        //  sent to this method.
+        // You can comment this line out when your program is finished
+        System.out.println(sqlQuery);
+        
+        // Lets try to connect
+        try
+        {
+            // instantiate a new data source object
+            ds = new OracleDataSource();
+            // Where is the database located? Web? Local?
+            ds.setURL(URL);
+            // Send the user/pass and get an open connection.
+            dbConn = ds.getConnection(userID,userPASS);
+            // When we get results
+            //  -TYPE_SCROLL_SENSITIVE means if the database data changes we
+            //   will see our resultset update in real time.
+            //  -CONCUR_READ_ONLY means that we cannot accidentally change the
+            //   data in our database by using the .update____() methods of
+            //   the ResultSet class - TableView controls are impacted by
+            //   this setting as well.
+            commStmt = dbConn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            // We send the query to the DB. A ResultSet object is instantiated
+            //  and we are returned a reference to it, that we point to from
+            // dbResults.
+            // Because we declared dbResults at the datafield level
+            // we can see the results from anywhere in our Class.
+            dbResults = commStmt.executeQuery(sqlQuery); // Sends the Query to the DB
+            // The results are stored in a ResultSet structure object
+            // pointed to by the reference variable dbResults
+            // Because we declared this variable globally above, we can use
+            // the results in any method in the class.
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e.toString());
+        }
     }
     
 }
