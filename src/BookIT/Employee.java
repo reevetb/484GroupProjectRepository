@@ -168,5 +168,13 @@ public class Employee {
         {
             return false;
         }
+  
+    }
+    @Override
+    public String toString(){
+        return "First Name: " + fName + ", Last Name: " + lName + ", Street: "
+                + street + ", City: " + city + ", State: " + state + ", ZipCode: " +
+                zipCode + ", Cell: " + cell + ", Username: " + userName + ", password: "
+                + password + ", Wage: " + wage + ", Type: " + type;
     }
 }
