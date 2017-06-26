@@ -511,7 +511,38 @@ public class MainForm extends Application {
         shiftPaneOverall.add(shiftViewPane,1,0);
         
         
+        //Customer View 
+        customerPane.setAlignment(Pos.CENTER);
+        customerPane.add(lblCustomerID,0,0);
+        customerPane.add(txtCustomerID,1,0);
+        customerPane.add(lblCustomerFName, 0,1);
+        customerPane.add(txtCustomerFName,1,1);
+        customerPane.add(lblCustomerLName,0,2);
+        customerPane.add(txtCustomerLName,1,2);
+        customerPane.add(lblCustomerUsername,0,3);
+        customerPane.add(txtCustomerUsername,1,3);
+        customerPane.add(lblCustomerPassword,0,4);
+        customerPane.add(txtCustomerPassword,1,4);
+        customerPane.add(lblCustomerStreet,0,5);
+        customerPane.add(txtCustomerStreet,1,5);
+        customerPane.add(lblCustomerCity,0,6);
+        customerPane.add(txtCustomerCity,1,6);
+        customerPane.add(lblCustomerState,0,7);
+        customerPane.add(txtCustomerState,1,7);
+        customerPane.add(lblCustomerZip,0,8);
+        customerPane.add(txtCustomerZip,1,8);
+        customerPane.add(btnCustomerAdd,0,9);
+        customerPane.add(btnCustomerUpdate,1,9);
+        customerPane.add(btnCustomerDelete,2,9);
+        customerPaneOverall.setAlignment(Pos.CENTER);
+        customerViewPane.setAlignment(Pos.CENTER);
+        customerViewPane.add(customerView,0,0);
+        customerPaneOverall.add(customerPane,0,0);
+        customerPaneOverall.add(customerViewPane,1,0);
+        
+        
         Scene overallScene = new Scene(overallPane,600,550);
+     
         
         
         
@@ -565,7 +596,9 @@ public class MainForm extends Application {
             // if management is selected
             if (cboLoginType.getSelectionModel().getSelectedItem() == "Management")
             {
-                
+                primaryStage.setScene(overallScene);
+                primaryStage.setTitle("Manager View");
+                primaryStage.show();
                 
                 
                 
