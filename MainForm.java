@@ -7,9 +7,6 @@ Purpose: Main UI Form
 package BookIT;
 
 import java.time.LocalTime;
-
-import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,11 +15,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-
-import java.sql.*;
-import oracle.jdbc.pool.*;
 import java.util.*;
+import java.util.ArrayList;
+import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  *
@@ -30,11 +26,6 @@ import java.util.*;
  */
 public class MainForm extends Application {
     
-
-    // created java user to keep open shit 
-    String user = "javauser";
-    String pass = "javapass";
-
     // ArrayLists
     ArrayList<Customer> custArray = new ArrayList<>();
     ArrayList<Employee> empArray = new ArrayList<>();
@@ -42,13 +33,10 @@ public class MainForm extends Application {
     
     // MY created objects to get login stuff working
     Customer kpCust = new Customer("Kyle", "Porter", "881 Port Republic Rd.", 
-            "Harrisonburg", "VA", 23456, "5402149556", "porterkc@dukes.jmu.edu", 
-            "custuser", "custpass");
-    Employee kpEmp = new Employee("Kyle", "Porter", "blah Street", "city", "VA", 
-    23456, "555555555", "empuser", "emppass");
+            "Harrisonburg", "VA", 23456, "5402149556", "porterkc@dukes.jmu.edu");
+    Employee kpEmp = new Employee();
+    Manager kpMan = new Manager(0, 0);
     
-
-
     // login controls
     Label lblUser = new Label("Username:");
     Label lblPass = new Label("Password:");
@@ -71,6 +59,8 @@ public class MainForm extends Application {
     
     // pane & controls for customer membership tab
     GridPane custMemPane = new GridPane();
+    
+    
     
     
     // pane & controls for customer info tab
@@ -209,11 +199,16 @@ public class MainForm extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-
-        custArray.add(kpCust);
-        empArray.add(kpEmp);
-
         
+        // created customer, setting username & password, & add to ArrayList
+        kpCust.setUsername("KCP757");
+        kpCust.setPassword("K3ll@mBB");
+        custArray.add(kpCust);
+        kpEmp.setUsername("empuser");
+        kpEmp.setPassword("emppass");
+        empArray.add(kpEmp);
+        
+        // adding login controls
         cboLoginType.getItems().add("Customer");
         cboLoginType.getItems().add("Employee");
         cboLoginType.getItems().add("Management");
@@ -294,8 +289,11 @@ public class MainForm extends Application {
                 tblcBookPrice, tblcBookStore);
                 
         // populating customer inventory table cells
-        
-        
+        tblcBookID.setCellValueFactory(new PropertyValueFactory<Inventory, Integer>("invID"));
+        tblcBook.setCellValueFactory(new PropertyValueFactory<Inventory, String>("itemName"));
+        tblcGenre.setCellValueFactory(new PropertyValueFactory<Inventory, String>("itemDesc"));
+        tblcBookPrice.setCellValueFactory(new PropertyValueFactory<Inventory, Double>("itemPrice"));
+        tblcBookStore.setCellValueFactory(new PropertyValueFactory<Inventory, Store>("itemStore"));
         
         
         // adding tabs to employee tab pane
@@ -368,7 +366,6 @@ public class MainForm extends Application {
         expenseViewPane.add(expenseView,0,0);        
         expensePaneOverall.add(expensePane,0,0);
         expensePaneOverall.add(expenseViewPane,1,0);
-        
         cbxExpenseType.getItems().addAll("Maintenance","Purchase Order","Utilities", "Payroll");
         
         
@@ -444,38 +441,40 @@ public class MainForm extends Application {
         
         // Login button action
         btnLogIn.setOnAction(e -> {
+            // getting username & password entered
             String user = txtUser.getText();
             String pass = txtPass.getText();
             
             // if customer is selected
             if (cboLoginType.getSelectionModel().getSelectedItem() == "Customer")
             {
+                // search through customer array looking for login credentials
                 for (Customer c: custArray)
                 {
                     if (user.equals(c.getUsername()) & pass.equals(c.getPassword()))
                     {
-                        // open customer GUI
+                        // open Customer GUI
                         primaryStage.setScene(custScene);
                         primaryStage.setTitle(c.getFName() + " " + c.getLName());
                         primaryStage.show();
                     }
                     else
                     {
+                        // login error message
                         Alert loginAlert = new Alert(Alert.AlertType.ERROR);
                         loginAlert.setContentText("Invalid login credentials");
                         loginAlert.show();
                     }
                 }
-
             }
             
             // if employee is selected
             if (cboLoginType.getSelectionModel().getSelectedItem() == "Employee")
             {
-
+                // search thru employee array for login credentials
                 for (Employee p: empArray)
                 {
-                    if (user.equals(p.getUserName()) & pass.equals(p.getPassword()))
+                    if (user.equals(p.getUsername()) & pass.equals(p.getPassword()))
                     {
                         // open employee GUI
                         primaryStage.setScene(empScene);
@@ -484,19 +483,22 @@ public class MainForm extends Application {
                     }
                     else
                     {
+                        // login error message
                         Alert loginAlert = new Alert(Alert.AlertType.ERROR);
                         loginAlert.setContentText("Invalid login credentials");
                         loginAlert.show();
                     }
                 }
-
             }
             
             // if management is selected
             if (cboLoginType.getSelectionModel().getSelectedItem() == "Management")
             {
-
-                // error check login
+                // search thru manager array for login credentials
+                for (Manager m: manArray)
+                {
+                    if (user.equals())
+                }
                 
                 
                 // if login successful, open Manager Gui
@@ -504,7 +506,7 @@ public class MainForm extends Application {
                 primaryStage.setScene(overallScene);
                 primaryStage.setTitle("Manager Name");
                 primaryStage.show();
-
+                
             }
             
         });

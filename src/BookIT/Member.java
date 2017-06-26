@@ -1,129 +1,161 @@
+
+/*
+Author: Kyle Porter
+Date: 6/21/17
+Assignment: CIS 484 Group Project
+Purpose: Customer entity class to keep track of customers within the system
+ */
 package BookIT;
-
+/**
+ *
+ * @author KP
+ */
 public class Member {
+    //the customer class
+    public int custID;
+    public String fName;
+    public String lName;
+    public String street;
+    public String city;
+    public String state;
+    public int zip;
+    public String cell;
+    public String email;
+    public String username;
+    public String password;
+    
+    public static int customerID = 0;
 
-    private int memID = 0;
-    private String fName;
-    private String lName;
-    private String street;
-    private String city;
-    private String state;
-    private String zipCode;
-    private String cell;
-    private String email;
-    private String userName;
-    private String password;
-    public static int memCount = 1;
-
-    public Member(String fName, String lName, String street, String city,
-            String state, String zipCode, String cell, String email,
-            String userName, String password) {
-        this.fName = fName;
-        this.lName = lName;
+    
+    // constructor
+    public Member(String first, String last, String street, String city, 
+            String state, int zip, String phone, String email, String user, String pass)
+    {
+        this.fName = first;
+        this.lName = last;
         this.street = street;
         this.city = city;
         this.state = state;
-        this.zipCode = zipCode;
-        this.cell = cell;
+        this.zip = zip; 
+        this.cell = phone;
         this.email = email;
-        this.userName = userName;
-        this.password = password;
-        memID = memCount++;
-
+        this.username = user;
+        this.password = pass;
+        this.custID = ++customerID;
+        
+        
     }
-
-    public int getMemID() {
-        return this.memID;
+    
+    // getters & settors
+    public int getCustID()
+    {
+        return this.custID;
     }
-
-    public String getFName() {
+    
+    public void setCustID(int ID)
+    {
+        this.custID = ID;
+    }
+    
+    public String getFName()
+    {
         return this.fName;
     }
-
-    public void setfName(String fName) {
-        this.fName = fName;
+    
+    public void setFName(String name)
+    {
+        this.fName = name;
     }
-
-    public String getLName() {
+    
+    public String getLName()
+    {
         return this.lName;
     }
-
-    public void setlName(String lName) {
-        this.lName = lName;
+    
+    public void setLName(String name)
+    {
+        this.lName = name;
     }
-
-    public String getStreet() {
+    
+    public String getStreet()
+    {
         return this.street;
     }
-
-    public void setStreet(String street) {
+    
+    public void setStreet(String street)
+    {
         this.street = street;
     }
-
-    public String getCity() {
+    
+    public String getCity()
+    {
         return this.city;
     }
-
-    public void setCity(String city) {
+    
+    public void setCity(String city)
+    {
         this.city = city;
     }
-
-    public String getState() {
+    
+    public String getState()
+    {
         return this.state;
     }
-
-    public void setState(String state) {
+    
+    public void setState(String state)
+    {
         this.state = state;
     }
-
-    public String getZipCode() {
-        return this.zipCode;
+    
+    public int getZip()
+    {
+        return this.zip;
     }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    
+    public void setZip(int zip)
+    {
+        this.zip = zip;
     }
-
-    public String getCell() {
+    
+    public String getCell()
+    {
         return this.cell;
     }
-
-    public void setCell(String cell) {
+    
+    public void setCell(String cell)
+    {
         this.cell = cell;
     }
-
-    public String getEmail() {
+    
+    public String getEmail()
+    {
         return this.email;
     }
-
-    public void setEmail(String email) {
+    
+    public void setEmail(String email)
+    {
         this.email = email;
     }
-
-    public String getUserName() {
-        return this.userName;
+    
+    public String getUsername()
+    {
+        return this.username;
     }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    
+    public void setUsername(String user)
+    {
+        this.username = user;
     }
-
-    public String getPassword() {
+    
+    public String getPassword()
+    {
         return this.password;
     }
-
-    public void setPassword(String password) {
-        this.password = password;
+    
+    public void setPassword(String pass)
+    {
+        this.password = pass;
     }
-
-    public boolean checkCredentials(String userName, String password) {   //If username and password match return true
-        if (this.userName.equals(userName) & this.password.equals(password)) {
-            return true;
-        } else //return false if username and password do not match
-        {
-            return false;
-        }
-
-    }
-
+    
 }
+

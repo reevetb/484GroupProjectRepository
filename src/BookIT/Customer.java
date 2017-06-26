@@ -20,11 +20,17 @@ public class Customer {
     public int zip;
     public String cell;
     public String email;
+    public String username;
+    public String password;
+    
+    public static int customerID = 0;
+
     
     public static int customerID = 0;
     
     // constructor
-    public Customer(String first, String last, String street, String city, String state, int zip, String phone, String email)
+    public Customer(String first, String last, String street, String city, 
+            String state, int zip, String phone, String email, String user, String pass)
     {
 
         this.fName = first;
@@ -35,6 +41,9 @@ public class Customer {
         this.zip = zip; 
         this.cell = phone;
         this.email = email;
+
+        this.username = user;
+        this.password = pass;
         this.custID = ++customerID;
         
         
@@ -129,6 +138,26 @@ public class Customer {
     public void setEmail(String email)
     {
         this.email = email;
+    }
+    
+    public String getUsername()
+    {
+        return this.username;
+    }
+    
+    public void setUsername(String user)
+    {
+        this.username = user;
+    }
+    
+    public String getPassword()
+    {
+        return this.password;
+    }
+    
+    public void setPassword(String pass)
+    {
+        this.password = pass;
     }
     
 }

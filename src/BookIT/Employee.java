@@ -11,7 +11,6 @@ package BookIT;
  * @author KP
  */
 public class Employee {
-
     private int empID;
     private String fName;
     private String lName;
@@ -158,6 +157,7 @@ public class Employee {
     {
         this.type = type;
     }
+    
     
 
     //methods
