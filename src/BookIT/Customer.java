@@ -26,10 +26,7 @@ public class Customer {
     // constructor
     public Customer(String first, String last, String street, String city, String state, int zip, String phone, String email)
     {
-        // hello!!!!
-        //daniel b
-        // zach thacker
-        
+
         this.fName = first;
         this.lName = last;
         this.street = street;
