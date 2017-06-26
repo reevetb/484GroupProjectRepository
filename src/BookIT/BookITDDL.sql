@@ -29,6 +29,7 @@ CREATE TABLE EMPLOYEES
     PASSWORD            VARCHAR(50) NOT NULL,
     WAGE                NUMBER(7,2),
     OT_WAGE             NUMBER(7,2),
+    EMP_TYPE            VARCHAR(25),
     PRIMARY KEY         (EMP_ID)
 );
 
@@ -57,7 +58,6 @@ CREATE TABLE HUMAN_RESOURCES
 (
     EMP_ID              INTEGER,
     STORE_ID            INTEGER,
-    EMP_TYPE            VARCHAR(50),
     PRIMARY KEY         (EMP_ID, STORE_ID),
     FOREIGN KEY         (EMP_ID) REFERENCES EMPLOYEES,
     FOREIGN KEY         (STORE_ID) REFERENCES STORES
