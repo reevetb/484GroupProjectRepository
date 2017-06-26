@@ -121,6 +121,12 @@ CREATE TABLE INVENTORY
     ITEM_NAME           VARCHAR(100),
     ITEM_DESC           VARCHAR(100),
     ITEM_QUANTITY       INTEGER,
+    PRICE               NUMBER(7,2),
+    ISBN                VARCHAR(17),
+    GENRE               VARCHAR(50),
+    AUTHOR              VARCHAR(50),
+    PUBLISHER           VARCHAR(50),
+    BOOK_YEAR           INTEGER,
     PRIMARY KEY         (INV_ID)
 );
 
