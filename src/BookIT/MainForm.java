@@ -481,7 +481,7 @@ public class MainForm extends Application {
             // if management is selected
             if (cboLoginType.getSelectionModel().getSelectedItem() == "Management")
             {
-                for 
+                
                 
                 
                 
