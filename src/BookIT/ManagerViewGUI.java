@@ -93,10 +93,22 @@ public class ManagerViewGUI extends Application {
     TextField txtInventoryName = new TextField();
     TextField txtInventoryDescription = new TextField();
     TextField txtInventoryPrice = new TextField();
-    Button btnInventorySubmit = new Button ("Add Item");
+    Button btnInventoryAdd = new Button ("Add Item");
     Button btnInventoryUpdate = new Button ("Update Item");
     Button btnInventoryDelete = new Button ("Delete Item");
     ListView inventoryView = new ListView();
+    GridPane bookPane = new GridPane();
+    Label lblBookAuthor = new Label("Author: ");
+    Label lblBookGenre = new Label ("Genre: ");
+    Label lblBookISBN = new Label ("ISBN: ");
+    Label lblBookPublisher = new Label("Publisher: ");
+    Label lblBookYear = new Label ("Year: ");
+    TextField txtBookAuthor = new TextField();
+    TextField txtBookISBN = new TextField();
+    ComboBox cbxBookGenre = new ComboBox();
+    TextField txtBookPublisher = new TextField();
+    TextField txtBookYear = new TextField();
+    Button btnAddBook = new Button ("Add Book");
     
     // Employee View Stuff
     Label lblEmployeeID = new Label ("ID:");
@@ -215,7 +227,7 @@ public class ManagerViewGUI extends Application {
         expensePaneOverall.add(expenseViewPane,1,0);
         
         cbxExpenseType.getItems().addAll("Maintenance","Purchase Order","Utilities", "Payroll");
-        cbxEmployeeType.getItems().addAll("Manager","Floor","Cafe");
+        
         
         
         // Inventory pane adds
@@ -232,7 +244,7 @@ public class ManagerViewGUI extends Application {
         rbInventoryCoffee.setToggleGroup(inventoryToggle);
         inventoryPane.add(rbInventoryBook,0,4);
         inventoryPane.add(rbInventoryCoffee,1,4);
-        inventoryPane.add(btnInventorySubmit,0,5);
+        inventoryPane.add(btnInventoryAdd,0,5);
         inventoryPane.add(btnInventoryUpdate,1,5);
         inventoryPane.add(btnInventoryDelete,2,5);
         inventoryViewPane.setAlignment(Pos.CENTER);
@@ -240,6 +252,26 @@ public class ManagerViewGUI extends Application {
         inventoryViewPane.add(inventoryView,0,0);
         inventoryPaneOverall.add(inventoryPane,0,0);
         inventoryPaneOverall.add(inventoryViewPane,1,0);
+        
+        cbxBookGenre.getItems().addAll("Fiction","Non-Fiction","Mystery","Fantasy/Sci-Fi","Childrens","Young Adult","Educational",
+                "Romance","Horror","Art");
+        bookPane.setAlignment(Pos.CENTER);
+        bookPane.add(lblBookISBN,0,0);
+        bookPane.add(txtBookISBN,1,0);
+        bookPane.add(lblBookAuthor,0,1);
+        bookPane.add(txtBookAuthor,1,1);
+        bookPane.add(lblBookGenre,0,2);
+        bookPane.add(cbxBookGenre,1,2);
+        bookPane.add(lblBookPublisher,0,3);
+        bookPane.add(txtBookPublisher,1,3);
+        bookPane.add(lblBookYear,0,4);
+        bookPane.add(txtBookYear,1,4);
+        bookPane.add(btnAddBook,0,5);
+        
+        Stage bookStage = new Stage();
+        
+        Scene bookScene = new Scene(bookPane,400,300);
+        bookStage.setScene(bookScene);
         
         
         // Employee View
@@ -262,16 +294,20 @@ public class ManagerViewGUI extends Application {
         employeePane.add(txtEmployeeUsername,1,7);
         employeePane.add(lblEmployeePassword,0,8);
         employeePane.add(txtEmployeePassword,1,8);
-        employeePane.add(lblEmployeePay,0,9);
-        employeePane.add(txtEmployeePay,1,9);
-        employeePane.add(btnEmployeeAdd,0,10);
-        employeePane.add(btnEmployeeUpdate,1,10);
-        employeePane.add(btnEmployeeDelete,2,10);
+        employeePane.add(lblEmployeeType,0,9);
+        employeePane.add(cbxEmployeeType,1,9);
+        employeePane.add(lblEmployeePay,0,10);
+        employeePane.add(txtEmployeePay,1,10);
+        employeePane.add(btnEmployeeAdd,0,11);
+        employeePane.add(btnEmployeeUpdate,1,11);
+        employeePane.add(btnEmployeeDelete,2,11);
         employeeViewPane.setAlignment(Pos.CENTER);
         employeePaneOverall.setAlignment(Pos.CENTER);
         employeeViewPane.add(employeeView,0,0);
         employeePaneOverall.add(employeePane, 0, 0);
         employeePaneOverall.add(employeeViewPane,1,0);
+        cbxEmployeeType.getItems().addAll("Manager","Floor","Cafe");
+        
         
         
         // Shift View
@@ -327,6 +363,16 @@ public class ManagerViewGUI extends Application {
         primaryStage.setScene(overallScene);
         primaryStage.setTitle("Manager View");
         primaryStage.show();
+        
+        
+        btnInventoryAdd.setOnAction(e->{
+            if(rbInventoryBook.isSelected())
+        {
+            bookStage.show();
+        }
+            
+        });
+        
         
     }
 
