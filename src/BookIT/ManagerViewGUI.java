@@ -121,6 +121,7 @@ public class ManagerViewGUI extends Application {
     Label lblEmployeeCity = new Label ("City: ");
     Label lblEmployeeState = new Label ("State: ");
     Label lblEmployeeZip = new Label ("Zip: ");
+    Label lblEmployeePhone = new Label ("Phone #: ");
     Label lblEmployeeType = new Label ("Employee Type: ");
     ComboBox cbxEmployeeType = new ComboBox();
     TextField txtEmployeeID = new TextField();
@@ -133,11 +134,12 @@ public class ManagerViewGUI extends Application {
     TextField txtEmployeeCity = new TextField();
     TextField txtEmployeeState = new TextField();
     TextField txtEmployeeZip = new TextField();
+    TextField txtEmployeePhone = new TextField();
     Button btnEmployeeAdd = new Button ("Add Employee");
     Button btnEmployeeUpdate = new Button ("Update Employee");
     Button btnEmployeeDelete = new Button ("Delete Employee");
     ListView employeeView = new ListView();
-    
+    ArrayList<Employee> empArray = new ArrayList<>();
     
     // Shifts View
     Label lblShiftDate = new Label("Shift Date: "); //Incorporate calendar
@@ -290,17 +292,19 @@ public class ManagerViewGUI extends Application {
         employeePane.add(txtEmployeeState,1,5);
         employeePane.add(lblEmployeeZip,0,6);
         employeePane.add(txtEmployeeZip,1,6);
-        employeePane.add(lblEmployeeUsername,0,7);
-        employeePane.add(txtEmployeeUsername,1,7);
-        employeePane.add(lblEmployeePassword,0,8);
-        employeePane.add(txtEmployeePassword,1,8);
-        employeePane.add(lblEmployeeType,0,9);
-        employeePane.add(cbxEmployeeType,1,9);
-        employeePane.add(lblEmployeePay,0,10);
-        employeePane.add(txtEmployeePay,1,10);
-        employeePane.add(btnEmployeeAdd,0,11);
-        employeePane.add(btnEmployeeUpdate,1,11);
-        employeePane.add(btnEmployeeDelete,2,11);
+        employeePane.add(lblEmployeePhone,0,7);
+        employeePane.add(txtEmployeePhone,1,7);
+        employeePane.add(lblEmployeeUsername,0,8);
+        employeePane.add(txtEmployeeUsername,1,8);
+        employeePane.add(lblEmployeePassword,0,9);
+        employeePane.add(txtEmployeePassword,1,9);
+        employeePane.add(lblEmployeeType,0,10);
+        employeePane.add(cbxEmployeeType,1,10);
+        employeePane.add(lblEmployeePay,0,11);
+        employeePane.add(txtEmployeePay,1,11);
+        employeePane.add(btnEmployeeAdd,0,12);
+        employeePane.add(btnEmployeeUpdate,1,12);
+        employeePane.add(btnEmployeeDelete,2,12);
         employeeViewPane.setAlignment(Pos.CENTER);
         employeePaneOverall.setAlignment(Pos.CENTER);
         employeeViewPane.add(employeeView,0,0);
@@ -370,6 +374,19 @@ public class ManagerViewGUI extends Application {
         {
             bookStage.show();
         }
+            
+        });
+        
+        btnEmployeeAdd.setOnAction(e->{
+            empArray.add(new Employee(txtEmployeeFirst.getText(),txtEmployeeLast.getText(),txtEmployeeAddress.getText(),
+            txtEmployeeCity.getText(),txtEmployeeState.getText(),Integer.valueOf(txtEmployeeZip.getText()),txtEmployeePhone.getText(),
+            txtEmployeeUsername.getText(),txtEmployeePassword.getText(),Double.valueOf(txtEmployeePay.getText()),
+            cbxEmployeeType.getSelectionModel().getSelectedItem().toString()));
+            
+            Employee tempRef = empArray.get(empArray.size()-1);
+            
+            
+           
             
         });
         
