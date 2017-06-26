@@ -24,6 +24,7 @@ public class Employee {
     private String password;
     private double wage;
     private double otWage = wage* 1.5;
+    private String type;
     public static int empCount;
 
     // constructor
@@ -39,13 +40,14 @@ public class Employee {
         userName = "";
         password = "";
         wage = 0.0;
+        type = "";
         empCount = 1;
 
     }
 
     public Employee(String fName, String lName, String street, String city,
             String state, int zipCode, String cell,
-            String userName, String password,double wage) {
+            String userName, String password,double wage, String type) {
         this.fName = fName;
         this.lName = lName;
         this.street = street;
@@ -56,6 +58,7 @@ public class Employee {
         this.userName = userName;
         this.password = password;
         this.wage = wage;
+        this.type = type;
         empID = empCount++;
 
     }
@@ -145,6 +148,17 @@ public class Employee {
     {
         this.wage = wage;
     }
+    
+    public String getType()
+    {
+        return this.type;
+    }
+    
+    public void setType(String type)
+    {
+        this.type = type;
+    }
+    
 
     //methods
     public boolean checkCredentials(String userName, String password) {   //If username and password match return true
