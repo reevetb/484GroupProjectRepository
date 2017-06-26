@@ -27,6 +27,8 @@ CREATE TABLE EMPLOYEES
     CELL                VARCHAR(13),
     USERNAME            VARCHAR(50) NOT NULL,
     PASSWORD            VARCHAR(50) NOT NULL,
+    WAGE                NUMBER(7,2),
+    OT_WAGE             NUMBER(7,2),
     PRIMARY KEY         (EMP_ID)
 );
 
