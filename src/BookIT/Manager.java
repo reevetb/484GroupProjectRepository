@@ -4,6 +4,7 @@ public class Manager extends Employee {
 
     private int managerID;
     private int storeID_FK;
+    private int salary;
     public static int manageCount;
     public static int storeCount;
 
@@ -16,8 +17,8 @@ public class Manager extends Employee {
     }
     public Manager(String fName, String lName, String street, String city,
             String state, int zipCode, String cell,
-            String userName, String password) {
-        super(fName, lName, street, city, state, zipCode, cell, userName, password);
+            String userName, String password, double wage) {
+        super(fName, lName, street, city, state, zipCode, cell, userName, password,wage);
         managerID = manageCount++;
         storeID_FK = storeCount++;
 

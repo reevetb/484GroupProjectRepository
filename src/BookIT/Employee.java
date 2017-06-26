@@ -45,7 +45,7 @@ public class Employee {
 
     public Employee(String fName, String lName, String street, String city,
             String state, int zipCode, String cell,
-            String userName, String password, double wage) {
+            String userName, String password,double wage) {
         this.fName = fName;
         this.lName = lName;
         this.street = street;
