@@ -22,6 +22,8 @@ public class Employee {
     private String cell;
     private String userName;
     private String password;
+    private double wage;
+    private double otWage = wage* 1.5;
     public static int empCount;
 
     // constructor
@@ -36,13 +38,14 @@ public class Employee {
         cell = "";
         userName = "";
         password = "";
+        wage = 0.0;
         empCount = 1;
 
     }
 
     public Employee(String fName, String lName, String street, String city,
             String state, int zipCode, String cell,
-            String userName, String password) {
+            String userName, String password, double wage) {
         this.fName = fName;
         this.lName = lName;
         this.street = street;
@@ -52,6 +55,7 @@ public class Employee {
         this.cell = cell;
         this.userName = userName;
         this.password = password;
+        this.wage = wage;
         empID = empCount++;
 
     }
@@ -130,6 +134,16 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public double getWage()
+    {
+        return this.wage;
+    }
+    
+    public void setWage(double wage)
+    {
+        this.wage = wage;
     }
 
     //methods
