@@ -27,17 +27,8 @@ import java.util.*;
 public class MainForm extends Application {
     
     // ArrayLists
-    ArrayList<Customer> custArray = new ArrayList<>();
+    ArrayList<Member> memberArray = new ArrayList<>();
     ArrayList<Employee> empArray = new ArrayList<>();
-    ArrayList<Manager> manArray = new ArrayList<>();
-    
-    // MY created objects to get login stuff working
-    Customer kpCust = new Customer("Kyle", "Porter", "881 Port Republic Rd.", 
-            "Harrisonburg", "VA", 23456, "5402149556", "porterkc@dukes.jmu.edu", 
-            "custuser", "custpass");
-    Employee kpEmp = new Employee("Kyle", "Porter", "blah Street", "city", "VA", 
-    23456, "555555555", "empuser", "emppass");
-    
 
     // login controls
     Label lblUser = new Label("Username:");
@@ -199,8 +190,7 @@ public class MainForm extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        custArray.add(kpCust);
-        empArray.add(kpEmp);
+     
         
         
         cboLoginType.getItems().add("Customer");
@@ -439,13 +429,13 @@ public class MainForm extends Application {
             // if customer is selected
             if (cboLoginType.getSelectionModel().getSelectedItem() == "Customer")
             {
-                for (Customer c: custArray)
+                for (Member m: memberArray)
                 {
-                    if (user.equals(c.getUsername()) & pass.equals(c.getPassword()))
+                    if (user.equals(m.getUserName()) & pass.equals(m.getPassword()))
                     {
                         // open customer GUI
                         primaryStage.setScene(custScene);
-                        primaryStage.setTitle(c.getFName() + " " + c.getLName());
+                        primaryStage.setTitle(m.getFName() + " " + m.getLName());
                         primaryStage.show();
                     }
                     else
