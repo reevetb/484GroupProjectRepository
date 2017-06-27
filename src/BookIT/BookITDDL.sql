@@ -27,9 +27,9 @@ CREATE TABLE EMPLOYEES
     CELL                VARCHAR(13),
     USERNAME            VARCHAR(50) NOT NULL,
     PASSWORD            VARCHAR(50) NOT NULL,
-    WAGE                REAL,
+    WAGE                REAL NOT NULL,
     OT_WAGE             REAL,
-    EMP_TYPE            VARCHAR(25),
+    EMP_TYPE            VARCHAR(25) NOT NULL,
     MANAGER_ID          INTEGER,
     PRIMARY KEY         (EMP_ID)
     FOREIGN KEY         (MANAGER_ID) REFERENCES EMPLOYEES
@@ -60,7 +60,7 @@ CREATE TABLE EXPENSES
 CREATE TABLE PAYROLL
 (
     PAYROLL_NUM         INTEGER,
-    WORK_DATE           DATE,
+    WORK_DATE           DATE NOT NULL,
     HOURS               INTEGER NOT NULL,
     OT_HOURS            INTEGER,
     TOTAL_HOURS         INTEGER,
@@ -116,21 +116,33 @@ CREATE TABLE INVENTORY
     PRIMARY KEY         (INV_ID)
 );
 
-CREATE TABLE SALES
+CREATE TABLE LINE_ITEMS
 (
     INV_ID              INTEGER,
     STORE_ID            INTEGER,
     QIS                 INTEGER,
-    PRICE               REAL,
     PRIMARY KEY         (INV_ID, STORE_ID),
     FOREIGN KEY         (INV_ID) REFERENCES INVENTORY,
     FOREIGN KEY         (STORE_ID) REFERENCES STORES
 );
 
+CREATE TABLE ORDERS
+(
+    STORE_ID            INTEGER,
+    MEMBER_ID           INTEGER,
+    INV_ID              INTEGER,
+    ORDER_DATE          DATE,
+    PRIMARY KEY         (STORE_ID, MEMBER_ID, INV_ID),
+    FOREIGN KEY         (STORE_ID)  REFERENCES STORES,
+    FOREIGN KEY         (MEMBER_ID) REFERENCES MEMBERS,
+    FOREIGN KEY         (INV_ID)    REFERENCES INVENTORY
+)   
+
+
 CREATE TABLE SUPPLIERS
 (
     SUPPLIER_ID         INTEGER,
-    NAME                VARCHAR(50),
+    SUPPLIER_NAME       VARCHAR(50),
     STREET              VARCHAR(50),
     CITY                VARCHAR(50),
     STATE               CHAR(2),
