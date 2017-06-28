@@ -8,7 +8,7 @@ public class Member {
     private String street;
     private String city;
     private String state;
-    private String zipCode;
+    private int zipCode;
     private String cell;
     private String email;
     private String userName;
@@ -16,7 +16,7 @@ public class Member {
     public static int memCount = 1;
 
     public Member(String fName, String lName, String street, String city,
-            String state, String zipCode, String cell, String email,
+            String state, int zipCode, String cell, String email,
             String userName, String password) {
         this.fName = fName;
         this.lName = lName;
@@ -28,7 +28,25 @@ public class Member {
         this.email = email;
         this.userName = userName;
         this.password = password;
-        memID = memCount++;
+        memID = ++memCount;
+
+    }
+    //loading from the database
+    public Member(int memdID, String fName, String lName, String street, String city,
+            String state, int zipCode, String cell, String email,
+            String userName, String password) {
+        this.fName = fName;
+        this.lName = lName;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.cell = cell;
+        this.email = email;
+        this.userName = userName;
+        this.password = password;
+        this.memID = memID;
+        memCount++;
 
     }
 
@@ -76,11 +94,11 @@ public class Member {
         this.state = state;
     }
 
-    public String getZipCode() {
+    public int getZipCode() {
         return this.zipCode;
     }
 
-    public void setZipCode(String zipCode) {
+    public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
     }
 
