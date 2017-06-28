@@ -24,6 +24,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -163,6 +164,7 @@ public class MainForm extends Application
     GridPane employeePaneOverall = new GridPane();
     GridPane employeeViewPane = new GridPane();
     GridPane posPane = new GridPane();
+    GridPane posViewPane = new GridPane();
     GridPane posPaneOverall = new GridPane();
     GridPane shiftPane = new GridPane();
     GridPane shiftViewPane = new GridPane();
@@ -289,6 +291,19 @@ public class MainForm extends Application
     Button btnMemberViewDelete = new Button("Delete Member");
     Button btnMemberViewReports = new Button("Member Reports");
     ListView MemberView = new ListView();
+    
+    //POS view stuff
+    Label lblPosItem = new Label("Select Item:");
+    ComboBox cboPosItem = new ComboBox();
+    Label lblPosQuantity = new Label("Quantity:");
+    TextField txtPosQuantity = new TextField();
+    Label lblPosEmail = new Label("Member Email");
+    TextField txtPosEmail = new TextField();
+    ListView posView = new ListView();
+    TextArea textaPosTotal = new TextArea();
+    Label lblPosTotal = new Label("Total: ");
+    
+    
 
     Connection dbConn;
     Statement commStmt;
@@ -427,7 +442,7 @@ public class MainForm extends Application
         });
 
         /**
-         * ************************CUSTOMERS*********************************
+         * ************************MEMBERS*********************************
          */
         // adding tabs to Members tab pane
         memberTabs.getTabs().add(memberInvTab);
@@ -538,10 +553,47 @@ public class MainForm extends Application
         overallPane.setAlignment(Pos.TOP_CENTER);
         overallPane.setStyle("-fx-background-image: url(https://ae01.alicdn.com/kf/HTB18yb5JVXXXXbjXXXXq6xXFXXXh/Photo-Backdrops-Children-Vinyl-Photo-Props-for-Studio-Photography-font-b-Background-b-font-font-b.jpg)");
         overallPane.add(tabPane, 0, 0);
-
+        /***************************POS**************************************/
+        posPane.setAlignment(Pos.CENTER);
+        posPane.setHgap(5);
+        posPane.setVgap(5);
+        posPane.setPadding(new Insets( 25, 25, 25, 25));
+        posViewPane.setHgap(5);
+        posViewPane.setVgap(5);
+        posViewPane.setPadding(new Insets( 25, 25, 25, 25));
+        posPaneOverall.setHgap(5);
+        posPaneOverall.setVgap(5);
+        posPaneOverall.setPadding(new Insets( 25, 25, 25, 25));
+        
+        posPane.add(lblPosItem, 0, 0);
+        posPane.add(cboPosItem, 0, 1);
+        posPane.add(lblPosQuantity, 0, 2);
+        posPane.add(txtPosQuantity, 1, 2);
+        posPane.add(lblPosEmail, 0, 3);
+        posPane.add(txtPosEmail, 1, 3);
+        posViewPane.setAlignment(Pos.CENTER);
+        posPaneOverall.setAlignment(Pos.TOP_CENTER);
+        posViewPane.add(posView, 0, 0);
+        posViewPane.add(textaPosTotal, 0, 2);
+        posViewPane.add(lblPosTotal, 0, 1);
+        posPaneOverall.add(posPane, 0,0);
+        posPaneOverall.add(posViewPane, 1, 0);
+        
+        
+//        lblPosItem.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 20));
+//        lblPosItem.setTextFill(Color.DIMGREY);
+//        lblPosQuantity.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 20));
+//        lblPosQuantity.setTextFill(Color.DIMGREY);
+//        lblPosEmail.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 20));
+//        lblPosEmail.setTextFill(Color.DIMGREY);
+//        lblPosTotal.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 20));
+//        lblPosTotal.setTextFill(Color.DIMGREY);
+        
+        
+        
+        
         //Expense Pane adds
         expensePane.setAlignment(Pos.CENTER);
-        expensePane.setStyle("-fx-background-image: url(https://ae01.alicdn.com/kf/HTB18yb5JVXXXXbjXXXXq6xXFXXXh/Photo-Backdrops-Children-Vinyl-Photo-Props-for-Studio-Photography-font-b-Background-b-font-font-b.jpg)");
         expensePane.add(lblExpenseID, 0, 0);
         expensePane.add(txtExpenseID, 1, 0);//Eventually this will be a field that pulls the current ID number from the class
         expensePane.add(lblExpenseType, 0, 1);
@@ -720,25 +772,25 @@ public class MainForm extends Application
             // if employee is selected
             if (cboLoginType.getSelectionModel().getSelectedItem() == "Employee")
             {
-                for (Employee p : empArray)
-                {
-                    if (user.equals(p.getUserName()) & pass.equals(p.getPassword()))
-                    {
-                        // open employee GUI
+//                for (Employee p : empArray)
+//                {
+//                    if (user.equals(p.getUserName()) & pass.equals(p.getPassword()))
+//                    {
+//                        // open employee GUI
                         primaryStage.setScene(empScene);
-                        primaryStage.setTitle(p.getFName() + " " + p.getLName());
+                        //primaryStage.setTitle(p.getFName() + " " + p.getLName());
                         primaryStage.show();
-                    } else
-                    {
-                        Alert loginAlert = new Alert(Alert.AlertType.ERROR);
-                        loginAlert.setContentText("Invalid login credentials");
-                        loginAlert.show();
-                    }
-                }
+//                    } else
+//                    {
+//                        Alert loginAlert = new Alert(Alert.AlertType.ERROR);
+//                        loginAlert.setContentText("Invalid login credentials");
+//                        loginAlert.show();
+//                    }
+//                }
             }
 
             // if Manager is selected
-            if (cboLoginType.getSelectionModel().getSelectedItem() == "Management")
+            if (cboLoginType.getSelectionModel().getSelectedItem() == "Manager")
             {
                 primaryStage.setScene(overallScene);
                 primaryStage.setTitle("Manager View");
