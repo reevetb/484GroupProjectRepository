@@ -8,8 +8,8 @@ public class Coffee_Shop extends Inventory {
         food_genre = "";
     }
 
-    public Coffee_Shop(String food_genre, String itemName, String itemDesc, double price, int quantity) {
-        super(itemName, itemDesc, price, quantity);
+    public Coffee_Shop(String food_genre, String itemName, String itemDesc, int quantity, String itemType, double price) {
+        super(itemName, itemDesc, quantity, itemType, price);
         this.food_genre = food_genre;
     }
 
