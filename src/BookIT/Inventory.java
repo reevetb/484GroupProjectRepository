@@ -16,6 +16,8 @@ public class Inventory {
     private String itemName;
     private String itemDesc;
     private int quantity;
+    private String itemType;
+    private double itemPrice;
     public static int invCount;
 
     // constructor
@@ -24,13 +26,17 @@ public class Inventory {
         itemName = "";
         itemDesc = "";
         quantity = 0;
+        itemType ="";
+        itemPrice =0.00;
         invCount = 1;
     }
 
-    public Inventory(String itemName, String itemDesc, int quantity) {
+    public Inventory(String itemName, String itemDesc, int quantity, String type, double price) {
         this.itemName = itemName;
         this.itemDesc = itemDesc;
         this.quantity = quantity;
+        this.itemType = type;
+        this.itemPrice = price;
         invID = invCount++;
 
     }
@@ -62,6 +68,20 @@ public class Inventory {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+    
+    public double getPrice()
+    {
+        return this.itemPrice;
+    }
+    
+    public void setPrice(double price)
+    {
+        this.itemPrice = price;
+    }
+    public String getType()
+    {
+        return this.itemType;
     }
 
 }
