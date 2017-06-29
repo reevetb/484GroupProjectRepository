@@ -370,42 +370,42 @@ public class MainForm extends Application
         mainPane.add(btnGuest, 1, 4);
         mainPane.add(lblAccType, 0, 3);
         mainPane.add(cboLoginType, 0, 4);
-        mainPane.add(lblCreate, 0, 6);
-        mainPane.add(btnNewMember, 0, 7);
+//        mainPane.add(lblCreate, 0, 6);
+//        mainPane.add(btnNewMember, 0, 7);
 
-        btnNewMember.setOnAction(e ->
-        {
-            //         mainPane.add(lblCreate, 0, 5);
-            mainPane.add(lblFName, 0, 8);
-            mainPane.add(lblLName, 0, 9);
-            mainPane.add(lblStreet, 0, 10);
-            mainPane.add(lblCity, 0, 11);
-            mainPane.add(lblState, 0, 12);
-            mainPane.add(lblZipCode, 0, 13);
-            mainPane.add(lblCell, 0, 14);
-            mainPane.add(lblEmail, 0, 15);
-            mainPane.add(lblUser2, 0, 16);
-            mainPane.add(lblPass2, 0, 17);
-
-            mainPane.add(txtFName, 1, 8);
-            mainPane.add(txtLName, 1, 9);
-            mainPane.add(txtStreet, 1, 10);
-            mainPane.add(txtCity, 1, 11);
-            mainPane.add(txtState, 1, 12);
-            mainPane.add(txtZipCode, 1, 13);
-            mainPane.add(txtCell, 1, 14);
-            mainPane.add(txtEmail, 1, 15);
-            mainPane.add(txtUser2, 1, 16);
-            mainPane.add(txtPass2, 1, 17);
-
-            mainPane.add(btnCreate, 1, 18);
-            mainPane.add(blankText, 0, 18);
-           // mainPane.add(scroll, 20, 0);
+//        btnNewMember.setOnAction(e ->
+//        {
+//            //         mainPane.add(lblCreate, 0, 5);
+//            mainPane.add(lblFName, 0, 8);
+//            mainPane.add(lblLName, 0, 9);
+//            mainPane.add(lblStreet, 0, 10);
+//            mainPane.add(lblCity, 0, 11);
+//            mainPane.add(lblState, 0, 12);
+//            mainPane.add(lblZipCode, 0, 13);
+//            mainPane.add(lblCell, 0, 14);
+//            mainPane.add(lblEmail, 0, 15);
+//            mainPane.add(lblUser2, 0, 16);
+//            mainPane.add(lblPass2, 0, 17);
+//
+//            mainPane.add(txtFName, 1, 8);
+//            mainPane.add(txtLName, 1, 9);
+//            mainPane.add(txtStreet, 1, 10);
+//            mainPane.add(txtCity, 1, 11);
+//            mainPane.add(txtState, 1, 12);
+//            mainPane.add(txtZipCode, 1, 13);
+//            mainPane.add(txtCell, 1, 14);
+//            mainPane.add(txtEmail, 1, 15);
+//            mainPane.add(txtUser2, 1, 16);
+//            mainPane.add(txtPass2, 1, 17);
+//
+//            mainPane.add(btnCreate, 1, 18);
+//            mainPane.add(blankText, 0, 18);
+//           // mainPane.add(scroll, 20, 0);
 
 //        txtLength.setOpacity(0);
 //        txtLength.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 30));
 //        txtLength.setText("-----------------------------");
-        });
+//        });
 
         Scene scene = new Scene(mainPane, 350, 500);
         primaryStage.setScene(scene);
