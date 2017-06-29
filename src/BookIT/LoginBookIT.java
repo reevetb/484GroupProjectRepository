@@ -189,24 +189,24 @@ public class LoginBookIT extends Application {
             else
             {
      
-                int newCustID = ++Customers.counter;
-
-                customersArray.add(new Customers(newCustID, txtCustFName.getText(),
-                txtCustLName.getText(), txtCustCell.getText(), txtCustStreet.getText(),
-                txtCustCity.getText(), txtCustState.getText(), Integer.parseInt(txtCustZip.getText())));
-                System.out.println(newCustID);
-               String sqlQuery = "";
-                    sqlQuery += "INSERT INTO SUMMER484.CUSTOMERS (CUST_ID, FNAME, LNAME, CELL, STREET, CITY, STATE, ZIP) VALUES (";
-                    sqlQuery += "'" + newCustID + "',";
-                    sqlQuery += "'" + txtCustFName.getText() + "',";
-                    sqlQuery += "'" + txtCustLName.getText() + "',";
-                    sqlQuery += "'" + txtCustCell.getText() + "',";
-                    sqlQuery += "'" + txtCustStreet.getText() + "',";
-                    sqlQuery += "'" + txtCustCity.getText() + "',";
-                    sqlQuery += "'" + txtCustState.getText() + "',";
-                    sqlQuery += "'" + Integer.parseInt(txtCustZip.getText()) + "')";
-
-                sendDBCommand(sqlQuery);
+//                int newCustID = ++Customers.counter;
+//
+//                customersArray.add(new Customers(newCustID, txtCustFName.getText(),
+//                txtCustLName.getText(), txtCustCell.getText(), txtCustStreet.getText(),
+//                txtCustCity.getText(), txtCustState.getText(), Integer.parseInt(txtCustZip.getText())));
+//                System.out.println(newCustID);
+//               String sqlQuery = "";
+//                    sqlQuery += "INSERT INTO SUMMER484.CUSTOMERS (CUST_ID, FNAME, LNAME, CELL, STREET, CITY, STATE, ZIP) VALUES (";
+//                    sqlQuery += "'" + newCustID + "',";
+//                    sqlQuery += "'" + txtCustFName.getText() + "',";
+//                    sqlQuery += "'" + txtCustLName.getText() + "',";
+//                    sqlQuery += "'" + txtCustCell.getText() + "',";
+//                    sqlQuery += "'" + txtCustStreet.getText() + "',";
+//                    sqlQuery += "'" + txtCustCity.getText() + "',";
+//                    sqlQuery += "'" + txtCustState.getText() + "',";
+//                    sqlQuery += "'" + Integer.parseInt(txtCustZip.getText()) + "')";
+//
+//                sendDBCommand(sqlQuery);
     
             }
         });

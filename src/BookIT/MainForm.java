@@ -318,7 +318,7 @@ public class MainForm extends Application
         /**
          * ***************************LOGIN*********************************
          */
-        cboLoginType.getItems().add("Member");
+//        cboLoginType.getItems().add("Member");
         cboLoginType.getItems().add("Employee");
         cboLoginType.getItems().add("Manager");
         //changint the aesthetics 
@@ -366,10 +366,10 @@ public class MainForm extends Application
         mainPane.add(lblPass1, 0, 2);
         mainPane.add(txtUser1, 1, 1);
         mainPane.add(txtPass1, 1, 2);
-        mainPane.add(btnLogIn, 1, 3);
-        mainPane.add(btnGuest, 1, 4);
+        mainPane.add(btnLogIn, 1, 4);
+//        mainPane.add(btnGuest, 1, 4);
         mainPane.add(lblAccType, 0, 3);
-        mainPane.add(cboLoginType, 0, 4);
+        mainPane.add(cboLoginType, 1, 3);
 //        mainPane.add(lblCreate, 0, 6);
 //        mainPane.add(btnNewMember, 0, 7);
 
