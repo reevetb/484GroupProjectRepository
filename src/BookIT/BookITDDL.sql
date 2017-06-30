@@ -56,40 +56,33 @@ CREATE TABLE EXPENSES
     FOREIGN KEY         (STORE_ID) REFERENCES STORES
 );
 
-
-CREATE TABLE PAYROLL
-(
-    PAYROLL_NUM         INTEGER,
-    WORK_DATE           DATE NOT NULL,
-    
-    TOTAL_OT            INTEGER,
-    TOTAL_HOURS         INTEGER,
-    TOTAL_PAY           REAL,
-    EMP_ID              INTEGER,
-    STORE_ID            INTEGER,
-    PRIMARY KEY         (PAYROLL_NUM, EMP_ID, STORE_ID),
-    FOREIGN KEY         (EMP_ID) REFERENCES EMPLOYEES,
-    FOREIGN KEY         (STORE_ID) REFERENCES STORES
-);
-CREATE TABLE TIME_CLOCK
-(
-    INSTANCE_ID         INTEGER,
-    WORK_DATE           DATE,
-    CLOCKIN             VARCHAR(5),
-    CLOCKOUT            VARCHAR(5),
-    PRIMARY KEY         (INSTANCE_ID)
-);
-
 CREATE TABLE SHIFTS
 (
     INSTANCE_ID         INTEGER,
-    PAYROLL_NUM         INTEGER,
-    HOURS               REAL,
-    OT_HOURS            REAL,
-    PRIMARY KEY         (INTANCE_ID, PAYROLL_NUM),
-    FOREIGN KEY         (INSTANCE_ID) REFERENCES TIME_CLOCK,
-    FOREIGN KEY         (PAYROLL_NUM) REFERENCES PAYROLL
+    WORK_DATE           DATE,
+    CLOCKIN             TIMESTAMP,
+    CLOCKOUT            TIMESTAMP,
+    HOURS               INTEGER,
+    OT_HOURS            INTEGER,
+    PRIMARY KEY         (INSTANCE_ID)
 );
+
+CREATE TABLE PAYROLL
+(
+    PAY_STUB            INTEGER,
+    EMP_ID              INTEGER,
+    STORE_ID            INTEGER,
+    TOTAL_OT            INTEGER,
+    TOTAL_HOURS         INTEGER,
+    TOTAL_PAY           REAL,
+    INSTANCE_ID         INTEGER,
+    PRIMARY KEY         (PAY_STUB, EMP_ID, STORE_ID, INSTANCE_ID),
+    FOREIGN KEY         (EMP_ID) REFERENCES EMPLOYEES,
+    FOREIGN KEY         (STORE_ID) REFERENCES STORES,
+    FOREIGN KEY         (INSTANCE_ID) REFERENCES SHIFTS
+);
+
+
 
 
 
@@ -126,13 +119,14 @@ CREATE TABLE INVENTORY
     ITEM_NAME           VARCHAR(100),
     ITEM_DESC           VARCHAR(100),
     ITEM_QUANTITY       INTEGER,
-    PRICE               REAL,
+    ITEM_TYPE           VARCHAR(50),
+    ITEM_PRICE          REAL,
     ISBN                VARCHAR(17),
     GENRE               VARCHAR(50),
     AUTHOR              VARCHAR(50),
     PUBLISHER           VARCHAR(50),
     BOOK_YEAR           INTEGER,
-    TYPE                VARCHAR(50),
+    FOOD_GENRE          VARCHAR(50),
     PRIMARY KEY         (INV_ID)
 );
 
@@ -149,23 +143,26 @@ CREATE TABLE STORE_STOCK
 CREATE TABLE ORDERS
 (
     ORDER_ID            INTEGER,
-    MEMBER_ID           INTEGER,
     ORDER_DATE          DATE,
+    TOTAL_PRICE         REAL,
+    TOTAL_QUANTITY      INTEGER,
     PRIMARY KEY         (ORDER_ID)
-    FOREIGN KEY         (MEMBER_ID) REFERENCES MEMBERS,
   ); 
+
 CREATE TABLE POS
 (
     ORDER_ID            INTEGER,
     INV_ID              INTEGER,
     STORE_ID            INTEGER,
-    QUANTITY            INTEGER,
-    TOTAL_PRICE         REAL,
-    DISCOUNT            DOUBLE,
-    PRIMARY KEY         (ORDER_ID, INV_ID, STORE_ID)
+    MEMBER_ID           INTEGER,
+    QUANTITY            INTEGER NOT NULL,
+    PRICE               REAL    NOT NULL,
+    DISCOUNT            REAL,
+    PRIMARY KEY         (ORDER_ID, INV_ID, STORE_ID, MEMBER_ID),
     FOREIGN KEY         (ORDER_ID) REFERENCES ORDERS,
     FOREIGN KEY         (INV_ID)   REFERENCES INVENTORY,
-    FOREIGN KEY         (STORE_ID) REFERENCES STORES
+    FOREIGN KEY         (STORE_ID) REFERENCES STORES,
+    FOREIGN KEY         (MEMBER_ID) REFERENCES MEMBERS
 );
 
 CREATE TABLE SUPPLIERS
