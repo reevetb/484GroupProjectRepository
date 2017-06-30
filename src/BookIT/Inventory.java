@@ -31,11 +31,11 @@ public class Inventory {
         invCount = 1;
     }
 
-    public Inventory(String itemName, String itemDesc, int quantity, String type, double price) {
+    public Inventory(String itemName, String itemDesc, int quantity, String itemType, double price) {
         this.itemName = itemName;
         this.itemDesc = itemDesc;
         this.quantity = quantity;
-        this.itemType = type;
+        this.itemType = itemType;
         this.itemPrice = price;
         invID = invCount++;
 
