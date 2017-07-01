@@ -43,27 +43,30 @@ public class MainForm extends Application
     // ArrayLists
     ArrayList<Member> memberArray = new ArrayList<>();
     ArrayList<Employee> empArray = new ArrayList<>();
+    
 
-    //Observable Lists
-    ObservableList<Employee> empList = FXCollections.observableArrayList(empArray);
-    //scroll bar
-    final ScrollBar scroll = new ScrollBar();
+//    //Observable Lists
+//    ObservableList<Employee> empList = FXCollections.observableArrayList(empArray);
+//    //scroll bar
+//    final ScrollBar scroll = new ScrollBar();
+    
+    
     // login controls
     Label lblLogIn = new Label("-------Log In---------");
     Label lblUser1 = new Label("Username:");
     Label lblPass1 = new Label("Password:");
     Label lblAccType = new Label("Select account type:");
-    Label lblCreate = new Label("------------------------");
-    Label lblFName = new Label("First Name:");
-    Label lblLName = new Label("Last Name:");
-    Label lblStreet = new Label("Street:");
-    Label lblCity = new Label("City:");
-    Label lblState = new Label("State:");
-    Label lblZipCode = new Label("Zip Code:");
-    Label lblCell = new Label("Cell#:");
-    Label lblEmail = new Label("Email:");
-    Label lblUser2 = new Label("Username:");
-    Label lblPass2 = new Label("Password:");
+//    Label lblCreate = new Label("------------------------");
+//    Label lblFName = new Label("First Name:");
+//    Label lblLName = new Label("Last Name:");
+//    Label lblStreet = new Label("Street:");
+//    Label lblCity = new Label("City:");
+//    Label lblState = new Label("State:");
+//    Label lblZipCode = new Label("Zip Code:");
+//    Label lblCell = new Label("Cell#:");
+//    Label lblEmail = new Label("Email:");
+//    Label lblUser2 = new Label("Username:");
+//    Label lblPass2 = new Label("Password:");
     TextField txtFName = new TextField();
     TextField txtLName = new TextField();
     TextField txtStreet = new TextField();
@@ -333,29 +336,29 @@ public class MainForm extends Application
         lblPass1.setTextFill(Color.DIMGREY);
         lblAccType.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
         lblAccType.setTextFill(Color.DIMGREY);
-        lblCreate.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        lblCreate.setTextFill(Color.DIMGREY);
-        lblFName.setTextFill(Color.DIMGREY);
-        lblFName.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
-        lblLName.setTextFill(Color.DIMGREY);
-        lblLName.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
-        lblStreet.setTextFill(Color.DIMGREY);
-        lblStreet.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
-        lblCity.setTextFill(Color.DIMGREY);
-        lblCity.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
-        lblState.setTextFill(Color.DIMGREY);
-        lblState.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
-        lblZipCode.setTextFill(Color.DIMGREY);
-        lblZipCode.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
-        lblCell.setTextFill(Color.DIMGREY);
-        lblCell.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
-        lblEmail.setTextFill(Color.DIMGREY);
-        lblEmail.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
-        lblUser2.setTextFill(Color.DIMGREY);
-        lblUser2.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
-        lblPass2.setTextFill(Color.DIMGREY);
-        lblPass2.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
-        //adding stuff to the MainPane
+//        lblCreate.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 20));
+//        lblCreate.setTextFill(Color.DIMGREY);
+//        lblFName.setTextFill(Color.DIMGREY);
+//        lblFName.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
+//        lblLName.setTextFill(Color.DIMGREY);
+//        lblLName.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
+//        lblStreet.setTextFill(Color.DIMGREY);
+//        lblStreet.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
+//        lblCity.setTextFill(Color.DIMGREY);
+//        lblCity.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
+//        lblState.setTextFill(Color.DIMGREY);
+//        lblState.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
+//        lblZipCode.setTextFill(Color.DIMGREY);
+//        lblZipCode.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
+//        lblCell.setTextFill(Color.DIMGREY);
+//        lblCell.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
+//        lblEmail.setTextFill(Color.DIMGREY);
+//        lblEmail.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
+//        lblUser2.setTextFill(Color.DIMGREY);
+//        lblUser2.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
+//        lblPass2.setTextFill(Color.DIMGREY);
+//        lblPass2.setFont(Font.font("Calibri", FontWeight.BOLD, FontPosture.REGULAR, 15));
+//        //adding stuff to the MainPane
 
         mainPane.setAlignment(Pos.CENTER);
         mainPane.setHgap(15);
@@ -504,6 +507,9 @@ public class MainForm extends Application
                 tblcBookPrice, tblcBookStore);
 
         // populating Members inventory table cells
+        
+        
+        /******************************Employees******************************/
         // adding tabs to employee tab pane
         empTabs.getTabs().addAll(empChkTab, empShiftTab);
 
@@ -742,7 +748,7 @@ public class MainForm extends Application
         MembersPaneOverall.add(MembersViewPane, 1, 0);
 
         Scene overallScene = new Scene(overallPane, 600, 550);
-
+/****************************************************************************/
         // Login button action
         btnLogIn.setOnAction(e ->
         {
