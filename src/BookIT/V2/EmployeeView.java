@@ -41,6 +41,8 @@ public class EmployeeView extends LoginMainForm{
     ListView<Inventory> bookView = new ListView<>();
     ListView<Inventory> totalsView = new ListView<>();
     ListView empShiftView = new ListView();
+    ListView employeeView = new ListView();
+    ArrayList<Employee> employeeArray = new ArrayList<>();
     
     
     //overall stuff
@@ -106,6 +108,8 @@ public class EmployeeView extends LoginMainForm{
     VBox payButtons = new VBox();
     
    /**************************Employee Stuff*********************************/
+    GridPane tcOverallPane = new GridPane();
+   
     Label lblEmployeeID = new Label("ID:");
     Label lblEmployeeFName = new Label("First Name: ");
     Label lblEmployeeLName = new Label("Last Name: ");
@@ -134,8 +138,7 @@ public class EmployeeView extends LoginMainForm{
     Button btnEmployeeAdd = new Button("Add Employee");
     Button btnEmployeeUpdate = new Button("Update Employee");
     Button btnEmployeeDelete = new Button("Delete Employee");
-    ListView employeeView = new ListView();
-    ArrayList<Employee> employeeArray = new ArrayList<>();
+    
     
     //controls for employee check in/out tab
     Label lblTime = new Label("Time:");
@@ -152,8 +155,12 @@ public class EmployeeView extends LoginMainForm{
         //the overall view setup
         tab1.setContent(posOverallPane);
         tab1.setClosable(false);
+        tab2.setContent(tcOverallPane);
+        tab2.setClosable(false);
         
         empPane.getTabs().addAll(tab1, tab2, tab3);
+        empPane.setStyle("-fx-background-image: url(https://ae01.alicdn.com/kf/HTB18yb5JVXXXXbjXXXXq6xXFXXXh/Photo-Backdrops-Children-Vinyl-Photo-Props-for-Studio-Photography-font-b-Background-b-font-font-b.jpg)");
+        
 
         /*************************Setting POS PANE***************************/
         posOverallPane.setAlignment(Pos.CENTER);
@@ -232,9 +239,27 @@ public class EmployeeView extends LoginMainForm{
         posOverallPane.add(cashPane,1,1);
         
         /**************************Setting TimeClock**************************/
+     
+      // adding controls to employee check in/out tab
+        tcOverallPane.setAlignment(Pos.CENTER);
+//        tcOverallPane.setStyle("-fx-background-image: url(https://ae01.alicdn.com/kf/HTB18yb5JVXXXXbjXXXXq6xXFXXXh/Photo-Backdrops-Children-Vinyl-Photo-Props-for-Studio-Photography-font-b-Background-b-font-font-b.jpg)");
+        tcOverallPane.setVgap(5);
+        tcOverallPane.setHgap(5);
+        tcOverallPane.add(lblTime, 0, 0);
+        tcOverallPane.add(txtTime, 1, 0);
+        tcOverallPane.add(btnChkIn, 1, 1);
+        tcOverallPane.add(btnChkOut, 1, 2);
+         // setting the time text box equal to current time
+        String hour = String.valueOf(LocalTime.now().getHour());
+        String min = String.valueOf(LocalTime.now().getMinute());
+        txtTime.setText(hour + ":" + min);
+        txtTime.setEditable(false);
+        
         
         /**************************Setting ShiftPane**************************/
         
+        
+        /*********************************************************************/
         
         //needs to be converted to the overall employee view panes
         Scene empScene = new Scene(empPane,700,700);
