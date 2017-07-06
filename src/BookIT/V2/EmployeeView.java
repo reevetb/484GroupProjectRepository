@@ -36,10 +36,11 @@ public class EmployeeView extends LoginMainForm{
     Statement commStmt;
     ResultSet dbResults;
     
-    //list views to store and view information
+    //listview and array lists
     ListView<Inventory> cafeView = new ListView<>();
     ListView<Inventory> bookView = new ListView<>();
     ListView<Inventory> totalsView = new ListView<>();
+    ArrayList<Inventory> mainArray = new ArrayList<>();
     ListView empShiftView = new ListView();
     ListView employeeView = new ListView();
     ArrayList<Employee> employeeArray = new ArrayList<>();
@@ -101,6 +102,7 @@ public class EmployeeView extends LoginMainForm{
     Button btnSearch = new Button ("Search");
     Button btnAddBook = new Button ("Add");
     Button btnAddCafe = new Button ("Add");
+    Button btnFinalPay = new Button ("Pay -->");
     TextField txtSubtotal = new TextField();
     TextField txtTax = new TextField();
     TextField txtTotal = new TextField();

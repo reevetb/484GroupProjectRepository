@@ -159,7 +159,7 @@ public class LoginMainForm extends Application
                               if(emp.getType().equalsIgnoreCase(cboLoginType.getSelectionModel().getSelectedItem()))
                               {
                                   System.out.println("open MANAGER window");
-                                  ManagerView newWindow 
+//                                  ManagerView newWindow 
                                   break;
                               }
                               else
