@@ -1,7 +1,5 @@
 package BookIT.V2;
 
-import BookIT.*;
-
 public class Member {
 
     private int memID = 0;
@@ -144,6 +142,12 @@ public class Member {
             return false;
         }
 
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "Member Email: \n" + this.email;
     }
 
 }
