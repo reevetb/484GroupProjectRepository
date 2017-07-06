@@ -6,8 +6,6 @@ Purpose: Inventory entity class
  */
 package BookIT.V2;
 
-import BookIT.*;
-
 /**
  *
  * @author KP
@@ -33,11 +31,11 @@ public class Inventory {
         invCount = 1;
     }
 
-    public Inventory(String itemName, String itemDesc, int quantity, String itemType, double price) {
+    public Inventory(String itemName, String itemDesc, int quantity, String type, double price) {
         this.itemName = itemName;
         this.itemDesc = itemDesc;
         this.quantity = quantity;
-        this.itemType = itemType;
+        this.itemType = type;
         this.itemPrice = price;
         invID = invCount++;
 
@@ -84,6 +82,13 @@ public class Inventory {
     public String getType()
     {
         return this.itemType;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "Item: " + this.getItemName()
+                + "\n Price: " + this.getPrice();
     }
 
 }
