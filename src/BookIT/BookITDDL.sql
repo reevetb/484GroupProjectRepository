@@ -119,16 +119,15 @@ CREATE TABLE INVENTORY
     ITEM_NAME           VARCHAR(100),
     ITEM_DESC           VARCHAR(100),
     ITEM_QUANTITY       INTEGER,
-    ITEM_TYPE           VARCHAR(50),
     ITEM_PRICE          REAL,
     ISBN                VARCHAR(17),
     GENRE               VARCHAR(50),
     AUTHOR              VARCHAR(50),
     PUBLISHER           VARCHAR(50),
     BOOK_YEAR           INTEGER,
-    FOOD_GENRE          VARCHAR(50),
+    TYPE                VARCHAR(50),
     PRIMARY KEY         (INV_ID)
-    CONSTRAINT ITEM_TYPE    CHECK(ITEM_TYPE IN ('Book', 'Cafe')));
+    CONSTRAINT TYPE    CHECK(TYPE IN ('Book', 'Cafe'))
 );
 
 CREATE TABLE STORE_STOCK
