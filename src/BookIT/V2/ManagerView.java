@@ -80,8 +80,8 @@ public class ManagerView extends LoginMainForm {
     Label lblMemberID = new Label("Member ID: ");
 
     TabPane posPane = new TabPane();
-    Tab tab10 = new Tab("Books");
-    Tab tab11 = new Tab("Cafe");
+    Tab booksTab = new Tab("Books");
+    Tab cafeTab = new Tab("Cafe");
 
     //GridPane overallPane = new GridPane();
     GridPane posOverallPane = new GridPane();
@@ -145,12 +145,12 @@ public class ManagerView extends LoginMainForm {
          */
         posOverallPane.setAlignment(Pos.CENTER);
 
-        tab10.setContent(bookPane);
-        tab10.setClosable(false);
-        tab11.setContent(cafePane);
-        tab11.setClosable(false);
+        booksTab.setContent(bookPane);
+        booksTab.setClosable(false);
+        cafeTab.setContent(cafePane);
+        cafeTab.setClosable(false);
 
-        posPane.getTabs().addAll(tab4, tab5);
+        posPane.getTabs().addAll(booksTab, cafeTab);
 
         bookPane.setAlignment(Pos.CENTER);
         bookPaneRight.setAlignment(Pos.CENTER);

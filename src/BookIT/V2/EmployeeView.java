@@ -176,6 +176,8 @@ public class EmployeeView extends LoginMainForm
         tab1.setClosable(false);
         tab2.setContent(tcOverallPane);
         tab2.setClosable(false);
+        //shift tab
+        //tab3.setContent(shiftsOverallPane);
 
         empPane.getTabs().addAll(tab1, tab2, tab3);
         empPane.setStyle("-fx-background-image: url(https://ae01.alicdn.com/kf/HTB18yb5JVXXXXbjXXXXq6xXFXXXh/Photo-Backdrops-Children-Vinyl-Photo-Props-for-Studio-Photography-font-b-Background-b-font-font-b.jpg)");
