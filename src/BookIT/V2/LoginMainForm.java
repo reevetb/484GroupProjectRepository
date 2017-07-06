@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.*;
 import javafx.collections.*;
 import javafx.event.*;
@@ -136,14 +138,18 @@ public class LoginMainForm extends Application
                           {
                               if(!emp.getType().equals(cboLoginType.getSelectionModel().getSelectedItem()))
                               {
-                                  System.out.println("open employee window");
-                                  //works
-                                  EmployeeView newWindow = new EmployeeView();
-                                  txtUser1.clear();
-                                  txtPass1.clear();
-                                  cboLoginType.getSelectionModel().clearSelection();
-            
-                                  break;
+                                  try {
+                                      System.out.println("open employee window");
+                                      //works
+                                      EmployeeView newWindow = new EmployeeView();
+                                      txtUser1.clear();
+                                      txtPass1.clear();
+                                      cboLoginType.getSelectionModel().clearSelection();
+                                      
+                                      break;
+                                  } catch (SQLException ex) {
+                                      Logger.getLogger(LoginMainForm.class.getName()).log(Level.SEVERE, null, ex);
+                                  }
                               }
                               else
                               {
@@ -159,7 +165,16 @@ public class LoginMainForm extends Application
                               if(emp.getType().equalsIgnoreCase(cboLoginType.getSelectionModel().getSelectedItem()))
                               {
                                   System.out.println("open MANAGER window");
-//                                  ManagerView newWindow 
+                                  try
+                                  {
+                                      ManagerView newWindow = new ManagerView();
+                                  } catch (SQLException ex)
+                                  {
+                                      Logger.getLogger(LoginMainForm.class.getName()).log(Level.SEVERE, null, ex);
+                                  }
+                                  txtUser1.clear();
+                                  txtPass1.clear();
+                                  cboLoginType.getSelectionModel().clearSelection();
                                   break;
                               }
                               else
