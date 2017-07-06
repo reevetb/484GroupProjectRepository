@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -39,6 +41,8 @@ public class POSgui extends Application {
     ListView<Inventory> cafeView = new ListView<>();
     ListView<Inventory> bookView = new ListView<>();
     ListView<Inventory> totalsView = new ListView<>();
+    ArrayList<Inventory> mainArray = new ArrayList<>();
+    
     
     
     TextArea taPay = new TextArea();
@@ -48,6 +52,9 @@ public class POSgui extends Application {
     Label lblTax = new Label ("Tax: ");
     Label lblTotal = new Label ("Total: ");
     Label lblQty = new Label ("QTY: ");
+    Button btnFinalPay = new Button ("Pay -->");
+    Label lblMemberID = new Label ("Member ID: ");
+    ComboBox cbxMemberID = new ComboBox();
     
     
     TabPane tbPane = new TabPane();
@@ -98,9 +105,18 @@ public class POSgui extends Application {
     TextField txtPayment= new TextField();
     VBox payButtons = new VBox();
     
+    Inventory newItem;
+    Inventory newBook;
+    
+    ArrayList <Inventory> itemTotals = new ArrayList<>();
+    
+    double orderSubtotal;
+    double orderTax;
+    double orderTotal;
+    double total = 0.00;
     
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws SQLException {
         
         overallPane.setAlignment(Pos.CENTER);
         
@@ -166,6 +182,9 @@ public class POSgui extends Application {
         totalPaneLeft.add(txtTax,2,1);
         totalPaneLeft.add(lblTotal,1,2);
         totalPaneLeft.add(txtTotal,2,2);
+        totalPaneLeft.add(lblMemberID,1,3);
+        totalPaneLeft.add(cbxMemberID,2,3);
+        totalPaneLeft.add(btnFinalPay,1,4);
         totalPane.add(totalPaneRight,1,0);
         totalPane.add(totalPaneLeft,0,0);
         
@@ -183,25 +202,122 @@ public class POSgui extends Application {
         Scene posScene = new Scene(overallPane,700,700);
         primaryStage.setScene(posScene);
         primaryStage.setTitle("POS");
-        primaryStage.show();       
+        primaryStage.show(); 
+        
+        fillInventoryBook();
+        fillInventoryCafe();  
+        fillCbxMember();
+        cbxMemberID.getItems().addAll("Guest");
+        
+        
+        cafeView.setOnMouseClicked(e->{            
+            
+            newItem = cafeView.getSelectionModel().getSelectedItem();            
+            
+            do{
+            itemTotals.add(newItem);
+            ObservableList<Inventory> cafeList = FXCollections.observableArrayList(itemTotals);
+            totalsView.setItems(cafeList);
+            }
+            while(primaryStage.hasProperties());   
+            
+            for(Inventory a: itemTotals)
+            {
+                total = a.getPrice();
+                
+            }
+           orderSubtotal+=total;
+        
+            txtSubtotal.setText(orderSubtotal+""); 
+            txtTax.setText((orderSubtotal*0.06)+"");
+            txtTotal.setText( Double.valueOf(txtTax.getText()) + Double.valueOf(txtSubtotal.getText()) +"");
+        });
+        
+        bookView.setOnMouseClicked(j->{
+            newBook = bookView.getSelectionModel().getSelectedItem();
+            
+            
+            do{
+                itemTotals.add(newBook);
+                ObservableList<Inventory> bookList = FXCollections.observableArrayList(itemTotals);
+                totalsView.setItems(bookList);
+            }
+            while(primaryStage.hasProperties());
+
+            for(Inventory a: itemTotals)
+            {
+                total = a.getPrice();
+                
+            }
+           orderSubtotal+=total;
+        
+            txtSubtotal.setText(orderSubtotal+"");
+            txtTax.setText((orderSubtotal*0.06)+"");
+            txtTotal.setText( Double.valueOf(txtTax.getText()) + Double.valueOf(txtSubtotal.getText()) +"");
+        });        
+        
     }
     
-    public void fillInventoryBook()
+
+    
+    public void fillInventoryBook() throws SQLException
     {
         String sqlQuery ="";
-        sqlQuery = "SELECT * FROM BOOKITDB.INVENTORY";
+        sqlQuery = "SELECT * FROM BOOKITDB.INVENTORY WHERE TYPE = 'Book'";
         
         ArrayList<Book> bookArray = new ArrayList<>();
         
         sendDBCommand(sqlQuery);
-          try {
-              while(dbResults.next())
+        while(dbResults.next())
               {
+                  bookArray.add(new Book(dbResults.getString(6),dbResults.getString(7),dbResults.getString(8),dbResults.getString(9),
+                  Integer.valueOf(dbResults.getString(10)),dbResults.getString(2),dbResults.getString(3),Integer.valueOf(dbResults.getString(4)),
+                  dbResults.getString(11),Double.valueOf(dbResults.getString(5)))); 
+                                   
+              } 
+         
+                ObservableList<Inventory> bookList = FXCollections.observableArrayList(bookArray);
                   
-              } } catch (SQLException ex) {
-              Logger.getLogger(POSgui.class.getName()).log(Level.SEVERE, null, ex);
-          }
+                bookView.setItems(bookList);              
+          }       
+    
+    public void fillInventoryCafe () throws SQLException
+    {
+        String sqlQuery = "";
+        sqlQuery = "SELECT * FROM BOOKITDB.INVENTORY WHERE TYPE = 'Cafe'";
+        
+        ArrayList <Inventory> cafeArray = new ArrayList<>();
+        
+        sendDBCommand(sqlQuery);
+        while(dbResults.next())
+        {
+            cafeArray.add(new Inventory(dbResults.getString(2),dbResults.getString(3),
+                    Integer.valueOf(dbResults.getString(4)),dbResults.getString(11),Double.valueOf(dbResults.getString(5))));
+        }
+        
+        ObservableList<Inventory> cafeList = FXCollections.observableArrayList(cafeArray);
+        
+        cafeView.setItems(cafeList);
     }
+    
+    public void fillCbxMember() throws SQLException
+    {
+        String sqlQuery = "";
+        sqlQuery ="SELECT * FROM BOOKITDB.MEMBERS";
+        ArrayList<Member> memberArray = new ArrayList<>();
+        
+        sendDBCommand(sqlQuery);
+        while(dbResults.next())
+        {
+            memberArray.add(new Member(Integer.valueOf(dbResults.getString(1)),dbResults.getString(2),dbResults.getString(3),dbResults.getString(4),
+            dbResults.getString(5),dbResults.getString(6),Integer.valueOf(dbResults.getString(7)),dbResults.getString(8),dbResults.getString(9),dbResults.getString(10),
+            dbResults.getString(11)));
+        }
+        ObservableList<Member> memberList = FXCollections.observableArrayList(memberArray);
+        cbxMemberID.getItems().addAll(memberList);
+
+    }
+    
 
     
     public void sendDBCommand(String sqlQuery)
@@ -209,8 +325,8 @@ public class POSgui extends Application {
         // Set up your connection strings
         // IF YOU ARE IN CIS330 NOW: use YOUR Oracle Username/Password
         String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-        String userID = "javauser"; // Change to YOUR Oracle username
-        String userPASS = "javapass"; // Change to YOUR Oracle password
+        String userID = "BOOKITDB"; // Change to YOUR Oracle username
+        String userPASS = "OVALTINE"; // Change to YOUR Oracle password
         OracleDataSource ds;
         
         // Clear Box Testing - Print each query to check SQL syntax

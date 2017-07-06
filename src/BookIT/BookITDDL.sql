@@ -62,8 +62,8 @@ CREATE TABLE SHIFTS
     WORK_DATE           DATE,
     CLOCKIN             TIME,
     CLOCKOUT            TIME,
-    HOURS               INTEGER,
-    OT_HOURS            INTEGER,
+    HOURS               DOUBLE,
+    OT_HOURS            DOUBLE,
     PRIMARY KEY         (INSTANCE_ID)
 );
 

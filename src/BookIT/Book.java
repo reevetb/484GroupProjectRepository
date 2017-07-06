@@ -24,9 +24,7 @@ public class Book extends Inventory {
 
     public Book(String isbn, String genre, String author, String publisher,
             int bookYr, String itemName, String itemDesc, int quantity, String itemType, double price) {
-
-        super(itemName, itemDesc, quantity, itemType, price);
-
+        super(itemName, itemDesc, quantity,itemType,price);
         this.isbn = isbn;
         this.genre = genre;
         this.author = author;
@@ -73,5 +71,14 @@ public class Book extends Inventory {
 
     public void setBookYr(int bookYr) {
         this.bookYr = bookYr;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "Book Title: " + this.getItemName() 
+                + "\n Author: " + author
+                + "\n Year: " + bookYr
+                + "\n Price: " + this.getPrice();
     }
 }

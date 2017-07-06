@@ -21,5 +21,12 @@ public class Coffee_Shop extends Inventory {
     public void setFoodGenre(String food_genre) {
         this.food_genre = food_genre;
     }
+    
+    @Override
+    public String toString()
+    {
+        return "Item: " + this.getItemName()
+                + "\n Price: " + this.getPrice();
+    }
 
 }

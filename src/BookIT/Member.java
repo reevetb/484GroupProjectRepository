@@ -143,5 +143,11 @@ public class Member {
         }
 
     }
+    
+    @Override
+    public String toString()
+    {
+        return "Member Email: \n" + this.email;
+    }
 
 }
