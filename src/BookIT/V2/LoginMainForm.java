@@ -137,6 +137,12 @@ public class LoginMainForm extends Application
                               if(!emp.getType().equals(cboLoginType.getSelectionModel().getSelectedItem()))
                               {
                                   System.out.println("open employee window");
+                                  //works
+                                  EmployeeView newWindow = new EmployeeView();
+                                  txtUser1.clear();
+                                  txtPass1.clear();
+                                  cboLoginType.getSelectionModel().clearSelection();
+            
                                   break;
                               }
                               else
@@ -153,6 +159,7 @@ public class LoginMainForm extends Application
                               if(emp.getType().equalsIgnoreCase(cboLoginType.getSelectionModel().getSelectedItem()))
                               {
                                   System.out.println("open MANAGER window");
+                                  ManagerView newWindow 
                                   break;
                               }
                               else

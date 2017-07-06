@@ -30,7 +30,9 @@ CREATE TABLE EMPLOYEES
     WAGE                REAL NOT NULL,
     OT_WAGE             REAL,
     EMP_TYPE            VARCHAR(25) NOT NULL,
-    PRIMARY KEY         (EMP_ID)
+    MANAGER_ID          INTEGER,
+    PRIMARY KEY         (EMP_ID),
+    FOREIGN KEY         (MANAGER_ID) REFERENCES EMPLOYEES
 );
 
 CREATE TABLE STORES
@@ -58,8 +60,8 @@ CREATE TABLE SHIFTS
 (
     INSTANCE_ID         INTEGER,
     WORK_DATE           DATE,
-    CLOCKIN             TIMESTAMP,
-    CLOCKOUT            TIMESTAMP,
+    CLOCKIN             TIME,
+    CLOCKOUT            TIME,
     HOURS               INTEGER,
     OT_HOURS            INTEGER,
     PRIMARY KEY         (INSTANCE_ID)
@@ -126,6 +128,7 @@ CREATE TABLE INVENTORY
     BOOK_YEAR           INTEGER,
     FOOD_GENRE          VARCHAR(50),
     PRIMARY KEY         (INV_ID)
+    CONSTRAINT ITEM_TYPE    CHECK(ITEM_TYPE IN ('Book', 'Cafe')));
 );
 
 CREATE TABLE STORE_STOCK
