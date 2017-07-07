@@ -53,6 +53,7 @@ public class ManagerView extends LoginMainForm
     public static ArrayList<Inventory> invArray = new ArrayList();
     public static ArrayList<Book> bookArray = new ArrayList();
     public static ArrayList<Coffee_Shop> coffeeArray = new ArrayList();
+    ListView invView = new ListView();
 
     //overall stuff
     TabPane managerPane = new TabPane();
@@ -216,7 +217,6 @@ public class ManagerView extends LoginMainForm
     TextField txtItemType = new TextField();
     TextField txtItemPrice = new TextField();
     ComboBox<String> cbxType = new ComboBox();
-    ListView lstInv = new ListView();
     Button btnInventoryAdd = new Button("Add Item");
     Button btnInventoryUpdate = new Button("Update Item");
     Button btnInventoryDelete = new Button("Delete Item");
@@ -348,6 +348,8 @@ public class ManagerView extends LoginMainForm
         fillInventoryBook();
         fillInventoryCafe();
         fillCbxMember();
+        
+        
         cbxMemberID.getItems().addAll("Guest");
 
         //refresh button 
@@ -611,6 +613,13 @@ public class ManagerView extends LoginMainForm
         /**
          * ******Setting Inventory Pane*************************************
          */
+        
+        loadInventory();
+        ObservableList<Inventory> invData = FXCollections.observableArrayList(invArray);
+        
+        invView.setItems(invData);
+        
+        
         cbxType.getItems().addAll("Book", "Coffee");
         inventoryPane.setAlignment(Pos.CENTER);
         inventoryPane.add(lblItemName, 0, 0);
@@ -642,7 +651,7 @@ public class ManagerView extends LoginMainForm
 
         inventoryViewPane.setAlignment(Pos.CENTER);
         inventoryPaneOverall.setAlignment(Pos.CENTER);
-        inventoryViewPane.add(lstInv, 0, 0);
+        inventoryViewPane.add(invView, 0, 0);
         inventoryPaneOverall.add(inventoryPane, 0, 0);
         inventoryPaneOverall.add(inventoryViewPane, 1, 0);
 
@@ -693,7 +702,7 @@ public class ManagerView extends LoginMainForm
     //CREATE A LOAD STATEMENT FOR INVENTORY
     
      //connection to the database and loading inventory content
-    public void loadSuppliersDataFromDB()
+    public void loadInventory()
     {
         String sqlQuery = "";
         String listString = "";
@@ -720,11 +729,19 @@ public class ManagerView extends LoginMainForm
                 String publisher = dbResults.getString(9);
                 int book_year = Integer.parseInt(dbResults.getString(10));
                 String type = dbResults.getString(11);
-
-                invArray.add(new Inventory(supplierID, supplierName,
-                        supplierStreet, supplierCity, supplierState, supplierZip, srFName,
-                        srLName, srCell, srEmail));
-                System.out.println(suppliersArray.get(suppliersArray.size() - 1).toString());
+                
+                if(dbResults.getString(6).equalsIgnoreCase("null"))
+                {
+                    invArray.add(new Inventory(inv_id, item_name, item_desc, item_Quantity, item_price, type));
+                   
+                }
+                else
+                {
+                    invArray.add(new Book(inv_id, item_name, item_desc, item_Quantity, item_price, type,
+                                            ISBN, genre, author, publisher, book_year));
+                }
+        
+                System.out.println(invArray.get(invArray.size() - 1).toString());
 
             }
         } catch (SQLException e)
@@ -751,7 +768,7 @@ public class ManagerView extends LoginMainForm
         sqlQuery += "'" + Integer.parseInt(txtBookYear.getText()) + "')";
         sqlQuery += "'" + cbxType.getSelectionModel().getSelectedItem().toString() + "',";
         sendDBCommand(sqlQuery);
-        lstInv.getItems().add(sqlQuery);
+        
 
     }
 
@@ -774,7 +791,7 @@ public class ManagerView extends LoginMainForm
         sqlQuery += "'" + Integer.parseInt("null") + "')";
         sqlQuery += "'" + cbxType.getSelectionModel().getSelectedItem().toString() + "',";
         sendDBCommand(sqlQuery);
-        lstInv.getItems().add(sqlQuery);
+     
 
     }
 
@@ -792,7 +809,6 @@ public class ManagerView extends LoginMainForm
                 + "'" + txtBookAuthor.getText() + "', Publisher="
                 + "'" + txtBookPublisher.getText() + "', Book_Year="
                 + "'" + Integer.parseInt(txtBookYear.getText()) + "' WHERE INV_ID='" + Integer.valueOf(invRef.getInvID()) + "'";
-        lstInv.getItems().add(sqlQuery);
         sendDBCommand(sqlQuery);
     }
 
@@ -838,9 +854,10 @@ public class ManagerView extends LoginMainForm
 
         while (dbResults.next())
         {
-            priceArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
-                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
-                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+//            priceArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
+//                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
+//                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+           
         }
         ObservableList<Inventory> priceList = FXCollections.observableArrayList(priceArray);
         bookView.setItems(priceList);
@@ -859,9 +876,13 @@ public class ManagerView extends LoginMainForm
 
         while (dbResults.next())
         {
-            yearArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
-                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
-                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+//            yearArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
+//                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
+//                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+//            
+            yearArray.add(new Book(dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)), 
+                    Double.valueOf(dbResults.getString(5)), dbResults.getString(11), dbResults.getString(6),
+                    dbResults.getString(7), dbResults.getString(8), dbResults.getString(9), Integer.valueOf(dbResults.getString(10))));
         }
         ObservableList<Inventory> yearList = FXCollections.observableArrayList(yearArray);
         bookView.setItems(yearList);
@@ -882,9 +903,13 @@ public class ManagerView extends LoginMainForm
 
         while (dbResults.next())
         {
-            genreArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
-                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
-                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+//            genreArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
+//                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
+//                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+            
+            genreArray.add(new Book(dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)), 
+                    Double.valueOf(dbResults.getString(5)), dbResults.getString(11), dbResults.getString(6),
+                    dbResults.getString(7), dbResults.getString(8), dbResults.getString(9), Integer.valueOf(dbResults.getString(10))));
         }
         ObservableList<Inventory> genreList = FXCollections.observableArrayList(genreArray);
         bookView.setItems(genreList);
@@ -902,11 +927,14 @@ public class ManagerView extends LoginMainForm
 
         while (dbResults.next())
         {
-            bookArray.add(new Book(dbResults.getString(6), dbResults.getString(7),
-                    dbResults.getString(8), dbResults.getString(9),
-                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2),
-                    dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
-                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+//            bookArray.add(new Book(dbResults.getString(6), dbResults.getString(7),
+//                    dbResults.getString(8), dbResults.getString(9),
+//                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2),
+//                    dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
+//                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+            bookArray.add(new Book(dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)), 
+                    Double.valueOf(dbResults.getString(5)), dbResults.getString(11), dbResults.getString(6),
+                    dbResults.getString(7), dbResults.getString(8), dbResults.getString(9), Integer.valueOf(dbResults.getString(10))));
 
         }
         ObservableList<Inventory> bookList = FXCollections.observableArrayList(bookArray);
@@ -925,7 +953,7 @@ public class ManagerView extends LoginMainForm
         while (dbResults.next())
         {
             cafeArray.add(new Inventory(dbResults.getString(2), dbResults.getString(3),
-                    Integer.valueOf(dbResults.getString(4)), dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+                    Integer.valueOf(dbResults.getString(4)), Double.valueOf(dbResults.getString(5)),dbResults.getString(11)));
         }
 
         ObservableList<Inventory> cafeList = FXCollections.observableArrayList(cafeArray);

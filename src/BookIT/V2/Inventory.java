@@ -31,13 +31,25 @@ public class Inventory {
         invCount = 1;
     }
 
-    public Inventory(String itemName, String itemDesc, int quantity, String type, double price) {
+    public Inventory(String itemName, String itemDesc, int quantity, double price, String type) {
         this.itemName = itemName;
         this.itemDesc = itemDesc;
         this.quantity = quantity;
         this.itemType = type;
         this.itemPrice = price;
         invID = invCount++;
+
+    }
+    
+    public Inventory(int invID, String itemName, String itemDesc, int quantity, double price, String type) {
+        this.itemName = itemName;
+        this.itemDesc = itemDesc;
+        this.quantity = quantity;
+        this.itemType = type;
+        this.itemPrice = price;
+        this.invID = invID;
+        
+        invCount++;
 
     }
 
@@ -87,8 +99,12 @@ public class Inventory {
     @Override
     public String toString()
     {
-        return "Item: " + this.getItemName()
-                + "\n Price: " + this.getPrice();
+        return "ID: " + this.getInvID()
+                + "\n\t Name: " + this.getItemName()
+                + "\n\t Desc: " + this.getItemDesc()
+                + "\n\t Quantity: " + this.getQuantity()
+                + "\n\t Price: " + this.getPrice()
+                + "\n\t Type: " + this.getType();
     }
 
 }

@@ -603,9 +603,10 @@ public class EmployeeView extends LoginMainForm
 
         while (dbResults.next())
         {
-            priceArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
-                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
-                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+//            priceArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
+//                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
+//                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+           
         }
         ObservableList<Inventory> priceList = FXCollections.observableArrayList(priceArray);
         bookView.setItems(priceList);
@@ -624,16 +625,21 @@ public class EmployeeView extends LoginMainForm
 
         while (dbResults.next())
         {
-            yearArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
-                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
-                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+//            yearArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
+//                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
+//                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+//            
+            yearArray.add(new Book(dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)), 
+                    Double.valueOf(dbResults.getString(5)), dbResults.getString(11), dbResults.getString(6),
+                    dbResults.getString(7), dbResults.getString(8), dbResults.getString(9), Integer.valueOf(dbResults.getString(10))));
         }
         ObservableList<Inventory> yearList = FXCollections.observableArrayList(yearArray);
         bookView.setItems(yearList);
 
     }
-    
-    public void filterGenre() throws SQLException {        
+
+    public void filterGenre() throws SQLException
+    {
         String sqlQuery = "";
         String genre;
         genre = cbxGenre.getSelectionModel().getSelectedItem().toString();
@@ -641,13 +647,18 @@ public class EmployeeView extends LoginMainForm
         System.out.println(toUpperCase);
         sqlQuery = "SELECT * FROM BOOKITDB.INVENTORY WHERE TYPE ='Book' AND GENRE ='" + toUpperCase + "'";
         sendDBCommand(sqlQuery);
-        
+
         ArrayList<Book> genreArray = new ArrayList<>();
 
-        while (dbResults.next()) {
-            genreArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
-                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
-                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+        while (dbResults.next())
+        {
+//            genreArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
+//                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
+//                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+            
+            genreArray.add(new Book(dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)), 
+                    Double.valueOf(dbResults.getString(5)), dbResults.getString(11), dbResults.getString(6),
+                    dbResults.getString(7), dbResults.getString(8), dbResults.getString(9), Integer.valueOf(dbResults.getString(10))));
         }
         ObservableList<Inventory> genreList = FXCollections.observableArrayList(genreArray);
         bookView.setItems(genreList);
@@ -665,11 +676,14 @@ public class EmployeeView extends LoginMainForm
 
         while (dbResults.next())
         {
-            bookArray.add(new Book(dbResults.getString(6), dbResults.getString(7),
-                    dbResults.getString(8), dbResults.getString(9),
-                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2),
-                    dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
-                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+//            bookArray.add(new Book(dbResults.getString(6), dbResults.getString(7),
+//                    dbResults.getString(8), dbResults.getString(9),
+//                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2),
+//                    dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
+//                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+            bookArray.add(new Book(dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)), 
+                    Double.valueOf(dbResults.getString(5)), dbResults.getString(11), dbResults.getString(6),
+                    dbResults.getString(7), dbResults.getString(8), dbResults.getString(9), Integer.valueOf(dbResults.getString(10))));
 
         }
         ObservableList<Inventory> bookList = FXCollections.observableArrayList(bookArray);
@@ -688,7 +702,7 @@ public class EmployeeView extends LoginMainForm
         while (dbResults.next())
         {
             cafeArray.add(new Inventory(dbResults.getString(2), dbResults.getString(3),
-                    Integer.valueOf(dbResults.getString(4)), dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+                    Integer.valueOf(dbResults.getString(4)), Double.valueOf(dbResults.getString(5)),dbResults.getString(11)));
         }
 
         ObservableList<Inventory> cafeList = FXCollections.observableArrayList(cafeArray);

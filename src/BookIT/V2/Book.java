@@ -21,22 +21,25 @@ public class Book extends Inventory {
         publisher = "";
         bookYr = 0;
     }
-
-    public Book(String isbn, String genre, String author, String publisher,
-            int bookYr, String itemName, String itemDesc, int quantity, String itemType, double price) {
-        super(itemName, itemDesc, quantity, itemType, itemPrice);
+    
+    public Book(String itemName, String itemDesc, int quantity, double itemPrice, String itemType, 
+                String isbn, String genre, String author, String publisher, int bookyear)
+    {
+        super(itemName, itemDesc, quantity, itemPrice, itemType);
+       
         this.isbn = isbn;
         this.genre = genre;
         this.author = author;
         this.publisher = publisher;
         this.bookYr = bookYr;
+      
     }
-    public Book(int invID, String itemName, String itemDesc, int quantity, itemType, itemPrice,
-                int String isbn, String genre, String author, String publisher, int bookyear)
+
+    public Book(int invID, String itemName, String itemDesc, int quantity, double itemPrice, String itemType, 
+                String isbn, String genre, String author, String publisher, int bookyear)
     {
-        super(invID, itemName, itemDesc, quantity, itemType, itemPrice);
-        super();
-        this.Inventory.inv
+        super(invID, itemName, itemDesc, quantity, itemPrice, itemType);
+       
         this.isbn = isbn;
         this.genre = genre;
         this.author = author;
@@ -85,12 +88,12 @@ public class Book extends Inventory {
         this.bookYr = bookYr;
     }
     
-    @Override
-    public String toString()
-    {
-        return "Book Title: " + this.getItemName() 
-                + "\n Author: " + author
-                + "\n Year: " + bookYr
-                + "\n Price: " + this.getPrice();
-    }
+//    @Override
+//    public String toString()
+//    {
+//        return "Book Title: " + this.getItemName() 
+//                + "\n Author: " + author
+//                + "\n Year: " + bookYr
+//                + "\n Price: " + this.getPrice();
+//    }
 }
