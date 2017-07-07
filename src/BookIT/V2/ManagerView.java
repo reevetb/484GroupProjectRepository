@@ -50,6 +50,9 @@ public class ManagerView extends LoginMainForm
     ListView empShiftView = new ListView();
     ListView employeeView = new ListView();
     ArrayList<Employee> employeeArray = new ArrayList<>();
+    public static ArrayList<Inventory> invArray = new ArrayList();
+    public static ArrayList<Book> bookArray = new ArrayList();
+    public static ArrayList<Coffee_Shop> coffeeArray = new ArrayList();
 
     //overall stuff
     TabPane managerPane = new TabPane();
@@ -103,6 +106,9 @@ public class ManagerView extends LoginMainForm
     GridPane totalPaneRight = new GridPane();
     GridPane totalPaneLeft = new GridPane();
     GridPane filterPane = new GridPane();
+    GridPane inventoryPane = new GridPane();
+    GridPane inventoryViewPane = new GridPane();
+    GridPane inventoryPaneOverall = new GridPane();
 
     Button btn1 = new Button("1");
     Button btn2 = new Button("2");
@@ -127,8 +133,7 @@ public class ManagerView extends LoginMainForm
     Button btnFilter = new Button("Filter");
     Button btnRefresh = new Button("Refresh");
     Button btnSearch = new Button("Search");
-    Button btnAddBook = new Button("Add");
-    Button btnAddCafe = new Button("Add");
+
 //    Button btnFinalPay = new Button("Pay -->");
     Button btnFilterItem = new Button("Go!");
     Button btnDeleteItem = new Button("Remove Item");
@@ -200,6 +205,33 @@ public class ManagerView extends LoginMainForm
     /**
      * ********Inventory Stuff*********************************************
      */
+    Label lblItemName = new Label("Item Name:");
+    Label lblItemDesc = new Label("Item Desc:");
+    Label lblItemQuantity = new Label("Item Quantity:");
+    Label lblItemType = new Label("Item Type:");
+    Label lblItemPrice = new Label("Item Price:");
+    TextField txtItemName = new TextField();
+    TextField txtItemDesc = new TextField();
+    TextField txtItemQuantity = new TextField();
+    TextField txtItemType = new TextField();
+    TextField txtItemPrice = new TextField();
+    ComboBox<String> cbxType = new ComboBox();
+    ListView lstInv = new ListView();
+    Button btnInventoryAdd = new Button("Add Item");
+    Button btnInventoryUpdate = new Button("Update Item");
+    Button btnInventoryDelete = new Button("Delete Item");
+    Button btnAddBook = new Button("Add Book");
+    Label lblBookAuthor = new Label("Author: ");
+    Label lblBookGenre = new Label("Genre: ");
+    Label lblBookISBN = new Label("ISBN: ");
+    Label lblBookPublisher = new Label("Publisher: ");
+    Label lblBookYear = new Label("Year: ");
+    TextField txtBookAuthor = new TextField();
+    TextField txtBookISBN = new TextField();
+    ComboBox cbxBookGenre = new ComboBox();
+    TextField txtBookPublisher = new TextField();
+    TextField txtBookYear = new TextField();
+
     /**
      * ********Expenses Stuff***********************************************
      */
@@ -211,6 +243,9 @@ public class ManagerView extends LoginMainForm
      */
     Stage primaryStage = new Stage();
 
+    /**
+     * *****************************CONSTRUCTOR**************************
+     */
     //Manager View constructor
     public ManagerView() throws SQLException
     {
@@ -220,6 +255,11 @@ public class ManagerView extends LoginMainForm
         tab1.setClosable(false);
         tab2.setContent(employeePaneOverall);
         tab2.setClosable(false);
+        tab3.setClosable(false);
+        tab4.setContent(inventoryPaneOverall);
+        tab4.setClosable(false);
+        tab5.setClosable(false);
+        tab6.setClosable(false);
 
         managerPane.getTabs().addAll(tab0, tab1, tab2, tab3, tab4, tab5, tab6);
         managerPane.setStyle("-fx-background-image: url(https://ae01.alicdn.com/kf/HTB18yb5JVXXXXbjXXXXq6xXFXXXh/Photo-Backdrops-Children-Vinyl-Photo-Props-for-Studio-Photography-font-b-Background-b-font-font-b.jpg)");
@@ -569,20 +609,75 @@ public class ManagerView extends LoginMainForm
          */
         //Member View 
         /**
-         * ********Setting Inventory
-         * Pane***************************************
+         * ******Setting Inventory Pane*************************************
          */
+        cbxType.getItems().addAll("Book", "Coffee");
+        inventoryPane.setAlignment(Pos.CENTER);
+        inventoryPane.add(lblItemName, 0, 0);
+        inventoryPane.add(txtItemName, 1, 0);
+        inventoryPane.add(lblItemDesc, 0, 1);
+        inventoryPane.add(txtItemDesc, 1, 1);
+        inventoryPane.add(lblItemPrice, 0, 2);
+        inventoryPane.add(txtItemPrice, 1, 2);
+        inventoryPane.add(lblItemQuantity, 0, 3);
+        inventoryPane.add(txtItemQuantity, 1, 3);
+        inventoryPane.add(lblItemType, 0, 4);
+        inventoryPane.add(cbxType, 1, 4);
+        inventoryPane.add(btnInventoryAdd, 2, 3);
+        inventoryPane.add(btnInventoryUpdate, 2, 4);
+        inventoryPane.add(btnInventoryDelete, 2, 5);
+        cbxBookGenre.getItems().addAll("Fiction", "Non-Fiction", "Mystery", "Fantasy/Sci-Fi", "Childrens", "Young Adult", "Educational",
+                "Romance", "Horror", "Art");
+
+        inventoryPane.add(lblBookISBN, 0, 5);
+        inventoryPane.add(txtBookISBN, 1, 5);
+        inventoryPane.add(lblBookAuthor, 0, 6);
+        inventoryPane.add(txtBookAuthor, 1, 6);
+        inventoryPane.add(lblBookGenre, 0, 7);
+        inventoryPane.add(cbxBookGenre, 1, 7);
+        inventoryPane.add(lblBookPublisher, 0, 8);
+        inventoryPane.add(txtBookPublisher, 1, 8);
+        inventoryPane.add(lblBookYear, 0, 9);
+        inventoryPane.add(txtBookYear, 1, 9);
+
+        inventoryViewPane.setAlignment(Pos.CENTER);
+        inventoryPaneOverall.setAlignment(Pos.CENTER);
+        inventoryViewPane.add(lstInv, 0, 0);
+        inventoryPaneOverall.add(inventoryPane, 0, 0);
+        inventoryPaneOverall.add(inventoryViewPane, 1, 0);
+
+        btnInventoryAdd.setOnAction(e ->
+        {
+
+            if (cbxType.getSelectionModel().getSelectedItem().equals("Book"))
+            {
+                insertBook();
+            } else if (cbxType.getSelectionModel().getSelectedItem().equals("Cafe"))
+            {
+                insertCafe();
+            }
+
+        });
+
+        btnInventoryUpdate.setOnAction(e ->
+        {
+            updateInventory();
+        });
+
+        btnInventoryDelete.setOnAction(e ->
+        {
+            deleteInventory();
+        });
+
         /**
-         * ********Setting Expenses
-         * Pane****************************************
+         * ********Setting ExpensesPane************************************
          */
         //Expense Pane adds
         /**
-         * ********Shifts Shifts Pane
-         * ******************************************
+         * *******Shifts Shifts Pane**************************************
          */
         /**
-         * *********************************************************************
+         * **********************************************
          */
         //needs to be converted to the overall employee view panes
         Scene managerScene = new Scene(managerPane, 1000, 600);
@@ -595,6 +690,123 @@ public class ManagerView extends LoginMainForm
     /**
      * ********************Methods****************
      */
+    //CREATE A LOAD STATEMENT FOR INVENTORY
+    
+     //connection to the database and loading inventory content
+    public void loadSuppliersDataFromDB()
+    {
+        String sqlQuery = "";
+        String listString = "";
+        sqlQuery = "Select * from BOOKITDB.INVENTORY";
+
+        //calling the sendDBCommand method
+        sendDBCommand(sqlQuery);
+        invArray.clear();
+
+        //to test the sqlException
+        try
+        {
+            //while there is a next item
+            while (dbResults.next())
+            {
+                int inv_id = Integer.parseInt(dbResults.getString(1));
+                String item_name = dbResults.getString(2);
+                String item_desc = dbResults.getString(3);
+                int item_Quantity = Integer.parseInt(dbResults.getString(4));
+                double item_price = Double.parseDouble(dbResults.getString(5));
+                String ISBN = dbResults.getString(6);
+                String genre = dbResults.getString(7);
+                String author = dbResults.getString(8);
+                String publisher = dbResults.getString(9);
+                int book_year = Integer.parseInt(dbResults.getString(10));
+                String type = dbResults.getString(11);
+
+                invArray.add(new Inventory(supplierID, supplierName,
+                        supplierStreet, supplierCity, supplierState, supplierZip, srFName,
+                        srLName, srCell, srEmail));
+                System.out.println(suppliersArray.get(suppliersArray.size() - 1).toString());
+
+            }
+        } catch (SQLException e)
+        {
+            System.out.println(e.toString());;
+        }
+    }
+    public void insertBook()
+    {
+        // creating the products     
+        Inventory invRef = new Inventory();
+        String sqlQuery = "";
+        sqlQuery += "INSERT INTO BOOKITDB.Inventory (INV_ID, ITEM_NAME, ITEM_DESC, ITEM_QUANTITY, ITEM_PRICE"
+                + " ISBN, GENRE, AUTHOR, PUBLISHER, BOOK_YEAR, TYPE) VALUES (";
+        sqlQuery += "'" + Inventory.invCount + "',";
+        sqlQuery += "'" + txtItemName.getText() + "',";
+        sqlQuery += "'" + txtItemDesc.getText() + "',";
+        sqlQuery += "'" + Integer.parseInt(txtItemQuantity.getText()) + "',";
+        sqlQuery += "'" + Double.parseDouble(txtItemPrice.getText()) + "',";
+        sqlQuery += "'" + txtBookISBN.getText() + "',";
+        sqlQuery += "'" + cbxBookGenre.getSelectionModel().getSelectedItem().toString() + "',";
+        sqlQuery += "'" + txtBookAuthor.getText() + "',";
+        sqlQuery += "'" + txtBookPublisher.getText() + "',";
+        sqlQuery += "'" + Integer.parseInt(txtBookYear.getText()) + "')";
+        sqlQuery += "'" + cbxType.getSelectionModel().getSelectedItem().toString() + "',";
+        sendDBCommand(sqlQuery);
+        lstInv.getItems().add(sqlQuery);
+
+    }
+
+    public void insertCafe()
+    {
+        // creating the products     
+        Inventory invRef = new Inventory();
+        String sqlQuery = "";
+        sqlQuery += "INSERT INTO BOOKITDB.Inventory (INV_ID, ITEM_NAME, ITEM_DESC, ITEM_QUANTITY, ITEM_PRICE"
+                + " ISBN, GENRE, AUTHOR, PUBLISHER, BOOK_YEAR, TYPE) VALUES (";
+        sqlQuery += "'" + Inventory.invCount + "',";
+        sqlQuery += "'" + txtItemName.getText() + "',";
+        sqlQuery += "'" + txtItemDesc.getText() + "',";
+        sqlQuery += "'" + Integer.parseInt(txtItemQuantity.getText()) + "',";
+        sqlQuery += "'" + Double.parseDouble(txtItemPrice.getText()) + "',";
+        sqlQuery += "'" + "null" + "',";
+        sqlQuery += "'" + "null" + "',";
+        sqlQuery += "'" + "null" + "',";
+        sqlQuery += "'" + "null" + "',";
+        sqlQuery += "'" + Integer.parseInt("null") + "')";
+        sqlQuery += "'" + cbxType.getSelectionModel().getSelectedItem().toString() + "',";
+        sendDBCommand(sqlQuery);
+        lstInv.getItems().add(sqlQuery);
+
+    }
+
+    public void updateInventory()
+    {
+        Inventory invRef = new Inventory();
+        String sqlQuery = "";
+        sqlQuery = "UPDATE BOOKITDB.Inventory SET ITEM_NAME="
+                + "'" + txtItemName.getText() + "', Item_Desc="
+                + "'" + txtItemDesc.getText() + "', Item_Price="
+                + "'" + Double.parseDouble(txtItemPrice.getText()) + "', Item_Quantity="
+                + "'" + Integer.parseInt(txtItemQuantity.getText()) + "', ISBN="
+                + "'" + txtBookISBN.getText() + "', Genre="
+                + "'" + cbxBookGenre.getSelectionModel().getSelectedItem().toString() + "', Author="
+                + "'" + txtBookAuthor.getText() + "', Publisher="
+                + "'" + txtBookPublisher.getText() + "', Book_Year="
+                + "'" + Integer.parseInt(txtBookYear.getText()) + "' WHERE INV_ID='" + Integer.valueOf(invRef.getInvID()) + "'";
+        lstInv.getItems().add(sqlQuery);
+        sendDBCommand(sqlQuery);
+    }
+
+    public void deleteInventory()
+    {
+        Inventory invRef = new Inventory();
+        String sqlQuery = "";
+        // delete products  from DB
+        sqlQuery = "DELETE FROM BOOKITDB.Inventory WHERE Inv_ID='"
+                + Integer.valueOf(invRef.getInvID()) + "'";
+
+        sendDBCommand(sqlQuery);
+    }
+
     public void runPay(double price)
     {
         orderSubtotal += price;
@@ -655,8 +867,9 @@ public class ManagerView extends LoginMainForm
         bookView.setItems(yearList);
 
     }
-    
-    public void filterGenre() throws SQLException {        
+
+    public void filterGenre() throws SQLException
+    {
         String sqlQuery = "";
         String genre;
         genre = cbxGenre.getSelectionModel().getSelectedItem().toString();
@@ -664,10 +877,11 @@ public class ManagerView extends LoginMainForm
         System.out.println(toUpperCase);
         sqlQuery = "SELECT * FROM BOOKITDB.INVENTORY WHERE TYPE ='Book' AND GENRE ='" + toUpperCase + "'";
         sendDBCommand(sqlQuery);
-        
+
         ArrayList<Book> genreArray = new ArrayList<>();
 
-        while (dbResults.next()) {
+        while (dbResults.next())
+        {
             genreArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
                     Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
                     dbResults.getString(11), Double.valueOf(dbResults.getString(5))));

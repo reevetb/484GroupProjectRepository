@@ -38,7 +38,7 @@ import javafx.scene.text.Text;
  *
  * @author KP
  */
-public class MainForm extends Application
+public class MainForm2 extends Application
 {
     
 

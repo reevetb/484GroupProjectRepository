@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 import javafx.application.Application;
@@ -47,6 +49,8 @@ public class EmployeeView extends LoginMainForm
     ListView empShiftView = new ListView();
     ListView employeeView = new ListView();
     ArrayList<Employee> employeeArray = new ArrayList<>();
+    ArrayList<Shifts> shiftArray = new ArrayList<>();
+    ArrayList<Payroll> payrollArray = new ArrayList<>();
 
     //overall stuff
     TabPane empPane = new TabPane();
@@ -135,47 +139,27 @@ public class EmployeeView extends LoginMainForm
     VBox payButtons = new VBox();
 
     /**
-     * ************************Employee Stuff********************************
+     * ************************TC Stuff********************************
      */
     GridPane tcOverallPane = new GridPane();
-
-    Label lblEmployeeID = new Label("ID:");
-    Label lblEmployeeFName = new Label("First Name: ");
-    Label lblEmployeeLName = new Label("Last Name: ");
-    Label lblEmployeeUsername = new Label("Username: ");
-    Label lblEmployeePassword = new Label("Password: ");
-    Label lblEmployeePay = new Label("Starting wage: ");
-    Label lblEmployeeAddress = new Label("Address: ");
-    Label lblEmployeeCity = new Label("City: ");
-    Label lblEmployeeState = new Label("State: ");
-    Label lblEmployeeZip = new Label("Zip: ");
-    Label lblEmployeePhone = new Label("Phone #: ");
-    Label lblEmployeeType = new Label("Employee Type: ");
-
-    ComboBox cbxEmployeeType = new ComboBox();
-    ComboBox cbxManagerID = new ComboBox();
-
-    TextField txtEmployeeID = new TextField();
-    TextField txtEmployeeFirst = new TextField();
-    TextField txtEmployeeLast = new TextField();
-    TextField txtEmployeeUsername = new TextField();
-    TextField txtEmployeePassword = new TextField();
-    TextField txtEmployeePay = new TextField();
-    TextField txtEmployeeAddress = new TextField();
-    TextField txtEmployeeCity = new TextField();
-    TextField txtEmployeeState = new TextField();
-    TextField txtEmployeeZip = new TextField();
-    TextField txtEmployeePhone = new TextField();
-    Button btnEmployeeAdd = new Button("Add Employee");
-    Button btnEmployeeUpdate = new Button("Update Employee");
-    Button btnEmployeeDelete = new Button("Delete Employee");
+    Employee loginEmp;
 
     //controls for employee check in/out tab
+    Label lblShiftDate = new Label("Shift Date: "); 
     Label lblTime = new Label("Time:");
     TextField txtTime = new TextField();
     Button btnChkIn = new Button("Check In");
     Button btnChkOut = new Button("Check Out");
-
+    Label lblShiftStart = new Label("Shift Start Time: ");
+    Label lblShiftEnd = new Label("Shift End Time: ");
+    TextField txtShiftDate = new TextField();
+    TextField txtShiftStart = new TextField();
+    TextField txtShiftEnd = new TextField();
+    
+    
+    /**
+     * ********************************************************
+     */
     Stage primaryStage = new Stage();
 
     //Employee view constructor
@@ -505,11 +489,69 @@ public class EmployeeView extends LoginMainForm
         tcOverallPane.add(txtTime, 1, 0);
         tcOverallPane.add(btnChkIn, 1, 1);
         tcOverallPane.add(btnChkOut, 1, 2);
+        
         // setting the time text box equal to current time
-        String hour = String.valueOf(LocalTime.now().getHour());
-        String min = String.valueOf(LocalTime.now().getMinute());
-        txtTime.setText(hour + ":" + min);
+//        String hour = String.valueOf(LocalTime.now().getHour());
+//        String min = String.valueOf(LocalTime.now().getMinute());
+//        txtTime.setText(hour + ":" + min);
+//        txtTime.setEditable(false);
+
+        java.sql.Date todaysDate = java.sql.Date.valueOf(LocalDate.now());
+        Time newTime = Time.valueOf(LocalTime.now());
+        int hour = newTime.toLocalTime().getHour();
+        int min = newTime.toLocalTime().getMinute();
+        int sec = newTime.toLocalTime().getSecond();
+        txtTime.setText(newTime.toString());
         txtTime.setEditable(false);
+        
+        
+         // employee clock in button action
+        btnChkIn.setOnAction(e -> {
+            // create new employee shift instance &
+            // add to employee arraylist
+            Shifts newShift = new Shifts(todaysDate, newTime);
+            shiftArray.add(newShift);
+            System.out.println("Clocked in");
+        });
+        
+        // employee clock out button action
+        btnChkOut.setOnAction(e -> {
+            System.out.println("clocked out");
+            // take last shift in array and set clock out time 
+            Time clockOutTime = Time.valueOf(LocalTime.now());
+            Shifts shift = shiftArray.get(shiftArray.size() - 1);
+            shift.setClockOut(clockOutTime);
+            
+            // getting clock out time variable
+            int newHour = clockOutTime.toLocalTime().getHour();
+            int newMin = clockOutTime.toLocalTime().getMinute();
+            int newSec = clockOutTime.toLocalTime().getSecond();
+            
+            // differences between clock in time & clock out time
+            int hourDiff = newHour - hour;
+            double minDiff = newMin - min;
+            double secDiff = newSec - sec;
+            
+            // calculating shift hours & setting them
+            double hours = hourDiff;
+            hours += (minDiff / 60);
+            hours += ((secDiff / 60) / 60);
+            shift.setHours(hours);
+            
+            // calculating if any overtime hours
+            if (hours > 8)
+            {
+                double otHours = hours % 8;
+                shift.setOTHours(otHours);
+            }
+            
+            // create a payroll instance object
+            Payroll newPay = new Payroll(loginEmp.getEmpID(), 1, 
+                    shiftArray.get(shiftArray.size() - 1));
+            payrollArray.add(newPay);
+            
+        });
+      
 
         /**
          * ************************Setting ShiftPane*************************
@@ -528,6 +570,8 @@ public class EmployeeView extends LoginMainForm
     /**
      * ********************Methods****************
      */
+   
+    
     public void runPay(double price)
     {
         orderSubtotal += price;

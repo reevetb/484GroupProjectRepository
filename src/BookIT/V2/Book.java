@@ -24,7 +24,19 @@ public class Book extends Inventory {
 
     public Book(String isbn, String genre, String author, String publisher,
             int bookYr, String itemName, String itemDesc, int quantity, String itemType, double price) {
-        super(itemName, itemDesc, quantity,itemType,price);
+        super(itemName, itemDesc, quantity, itemType, itemPrice);
+        this.isbn = isbn;
+        this.genre = genre;
+        this.author = author;
+        this.publisher = publisher;
+        this.bookYr = bookYr;
+    }
+    public Book(int invID, String itemName, String itemDesc, int quantity, itemType, itemPrice,
+                int String isbn, String genre, String author, String publisher, int bookyear)
+    {
+        super(invID, itemName, itemDesc, quantity, itemType, itemPrice);
+        super();
+        this.Inventory.inv
         this.isbn = isbn;
         this.genre = genre;
         this.author = author;

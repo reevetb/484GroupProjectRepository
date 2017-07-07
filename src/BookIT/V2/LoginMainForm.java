@@ -142,6 +142,7 @@ public class LoginMainForm extends Application
                                       System.out.println("open employee window");
                                       //works
                                       EmployeeView newWindow = new EmployeeView();
+                                      Employee loginEmp;
                                       txtUser1.clear();
                                       txtPass1.clear();
                                       cboLoginType.getSelectionModel().clearSelection();
