@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package BookIT.V2;
 
 import java.sql.Connection;
@@ -32,9 +31,12 @@ import oracle.jdbc.pool.OracleDataSource;
  *
  * @author Trenton
  */
-public class ManagerView extends LoginMainForm {
-    
-    /**********************Overall View stuff***********************/
+public class ManagerView extends LoginMainForm
+{
+
+    /**
+     * ********************Overall View stuff**********************
+     */
     Connection dbConn;
     Statement commStmt;
     ResultSet dbResults;
@@ -51,19 +53,22 @@ public class ManagerView extends LoginMainForm {
 
     //overall stuff
     TabPane managerPane = new TabPane();
+    Tab tab0 = new Tab("Reports");
     Tab tab1 = new Tab("P.O.S.");
     Tab tab2 = new Tab("Employee");
     Tab tab3 = new Tab("Member");
     Tab tab4 = new Tab("Inventory");
     Tab tab5 = new Tab("Expenses");
     Tab tab6 = new Tab("Shifts");
-    
+
     /**
      * ******************POS STUFF******************************************
      */
     TextArea taPay = new TextArea();
 
     ComboBox cbxMemberID = new ComboBox();
+    ComboBox cbxGenre = new ComboBox();
+    ComboBox cbxPrice = new ComboBox();
 
     Inventory newItem;
     Inventory newBook;
@@ -78,12 +83,14 @@ public class ManagerView extends LoginMainForm {
     Label lblTotal = new Label("Total: ");
     Label lblQty = new Label("QTY: ");
     Label lblMemberID = new Label("Member ID: ");
+    Label lblFilterGenre = new Label("Genre: ");
+    Label lblFilterYear = new Label("Max Year: ");
+    Label lblFilterPrice = new Label("Max Price: ");
 
     TabPane posPane = new TabPane();
     Tab booksTab = new Tab("Books");
     Tab cafeTab = new Tab("Cafe");
 
-    //GridPane overallPane = new GridPane();
     GridPane posOverallPane = new GridPane();
     GridPane cashPane = new GridPane();
     GridPane bookPane = new GridPane();
@@ -95,6 +102,7 @@ public class ManagerView extends LoginMainForm {
     GridPane totalPane = new GridPane();
     GridPane totalPaneRight = new GridPane();
     GridPane totalPaneLeft = new GridPane();
+    GridPane filterPane = new GridPane();
 
     Button btn1 = new Button("1");
     Button btn2 = new Button("2");
@@ -117,33 +125,109 @@ public class ManagerView extends LoginMainForm {
     Button btnCard = new Button("CC/Debit");
     Button btnPay = new Button("Pay");
     Button btnFilter = new Button("Filter");
+    Button btnRefresh = new Button("Refresh");
     Button btnSearch = new Button("Search");
     Button btnAddBook = new Button("Add");
     Button btnAddCafe = new Button("Add");
-    Button btnFinalPay = new Button("Pay -->");
+//    Button btnFinalPay = new Button("Pay -->");
+    Button btnFilterItem = new Button("Go!");
+    Button btnDeleteItem = new Button("Remove Item");
 
+    TextField txtFilterYear = new TextField();
     TextField txtSubtotal = new TextField();
     TextField txtTax = new TextField();
     TextField txtTotal = new TextField();
     TextField txtPayment = new TextField();
     VBox payButtons = new VBox();
-    
+
+    /**
+     * ********Employee Stuff*****************************************
+     */
+    GridPane employeePane = new GridPane();
+    GridPane employeePaneOverall = new GridPane();
+    GridPane employeeViewPane = new GridPane();
+
+    Label lblEmployeeID = new Label("ID:");
+    Label lblEmployeeFName = new Label("First Name: ");
+    Label lblEmployeeLName = new Label("Last Name: ");
+    Label lblEmployeeUsername = new Label("Username: ");
+    Label lblEmployeePassword = new Label("Password: ");
+    Label lblEmployeePay = new Label("Starting wage: ");
+    Label lblEmployeeAddress = new Label("Address: ");
+    Label lblEmployeeCity = new Label("City: ");
+    Label lblEmployeeState = new Label("State: ");
+    Label lblEmployeeZip = new Label("Zip: ");
+    Label lblEmployeePhone = new Label("Phone #: ");
+    Label lblEmployeeType = new Label("Employee Type: ");
+    ComboBox cbxEmployeeType = new ComboBox();
+    TextField txtEmployeeID = new TextField();
+    TextField txtEmployeeFirst = new TextField();
+    TextField txtEmployeeLast = new TextField();
+    TextField txtEmployeeUsername = new TextField();
+    TextField txtEmployeePassword = new TextField();
+    TextField txtEmployeePay = new TextField();
+    TextField txtEmployeeAddress = new TextField();
+    TextField txtEmployeeCity = new TextField();
+    TextField txtEmployeeState = new TextField();
+    TextField txtEmployeeZip = new TextField();
+    TextField txtEmployeePhone = new TextField();
+    Button btnEmployeeAdd = new Button("Add Employee");
+    Button btnEmployeeUpdate = new Button("Update Employee");
+    Button btnEmployeeDelete = new Button("Delete Employee");
+
+    /**
+     * *********Member Stuff***********************************************
+     */
+    GridPane memberInfoPane = new GridPane();
+    Label lblMemberUser = new Label("Username:");
+    Label lblMemberPass = new Label("Password:");
+    Label lblMemberEmail = new Label("eMail:");
+    Label lblMemberPhone = new Label("Phone:");
+    Label lblMemberStreet = new Label("Street:");
+    Label lblMemberCity = new Label("City:");
+    Label lblMemberState = new Label("State");
+    Label lblMemberZip = new Label("ZIP:");
+    TextField txtMemberUser = new TextField();
+    TextField txtMemberPass = new TextField();
+    TextField txtMemberEmail = new TextField();
+    TextField txtMemberPhone = new TextField();
+    TextField txtMemberStreet = new TextField();
+    TextField txtMemberCity = new TextField();
+    TextField txtMemberState = new TextField();
+    TextField txtMemberZip = new TextField();
+    Button btnMemberUpdate = new Button("Update");
+
+    /**
+     * ********Inventory Stuff*********************************************
+     */
+    /**
+     * ********Expenses Stuff***********************************************
+     */
+    /**
+     * ********Shifts Stuff ************************************************
+     */
+    /**
+     * *********************************************************************
+     */
     Stage primaryStage = new Stage();
-    
+
     //Manager View constructor
     public ManagerView() throws SQLException
     {
-         //the overall view setup
+        //the overall view setup
+        tab0.setClosable(false);
         tab1.setContent(posOverallPane);
         tab1.setClosable(false);
-        
+        tab2.setContent(employeePaneOverall);
+        tab2.setClosable(false);
 
-        managerPane.getTabs().addAll(tab1, tab2, tab3, tab4, tab5, tab6);
+        managerPane.getTabs().addAll(tab0, tab1, tab2, tab3, tab4, tab5, tab6);
         managerPane.setStyle("-fx-background-image: url(https://ae01.alicdn.com/kf/HTB18yb5JVXXXXbjXXXXq6xXFXXXh/Photo-Backdrops-Children-Vinyl-Photo-Props-for-Studio-Photography-font-b-Background-b-font-font-b.jpg)");
- /**
+        /**
          * ***********************Setting POS PANE**************************
          */
         posOverallPane.setAlignment(Pos.CENTER);
+        //   posOverallPane.setStyle("-fx-background-color: BLACK;");
 
         booksTab.setContent(bookPane);
         booksTab.setClosable(false);
@@ -157,47 +241,27 @@ public class ManagerView extends LoginMainForm {
         bookPaneLeft.setAlignment(Pos.CENTER);
         bookPaneRight.add(bookView, 0, 0);
         bookPaneLeft.add(btnFilter, 1, 0);
-        bookPaneLeft.add(btnSearch, 1, 1);
-        bookPaneLeft.add(btnAddBook, 1, 2);
+        bookPaneLeft.add(btnRefresh, 1, 1);
         bookPane.add(bookPaneRight, 0, 0);
         bookPane.add(bookPaneLeft, 1, 0);
+        bookView.setMinSize(300, 300);
 
         cafePane.setAlignment(Pos.CENTER);
         cafePaneRight.setAlignment(Pos.CENTER);
         cafePaneLeft.setAlignment(Pos.CENTER);
         cafePaneRight.add(cafeView, 0, 0);
-        cafePaneLeft.add(btnAddCafe, 0, 0);
         cafePane.add(cafePaneRight, 0, 0);
         cafePane.add(cafePaneLeft, 1, 0);
 
         cashPane.setAlignment(Pos.CENTER);
-        cashPane.add(btn7, 0, 0);
-        cashPane.add(btn8, 1, 0);
-        cashPane.add(btn9, 2, 0);
-        cashPane.add(btnHundred, 3, 0);
-        cashPane.add(btn4, 0, 1);
-        cashPane.add(btn5, 1, 1);
-        cashPane.add(btn6, 2, 1);
-        cashPane.add(btnFifty, 3, 1);
-        cashPane.add(lblQty, 4, 0);
-        cashPane.add(btnItemUp, 5, 0);
-        cashPane.add(btn1, 0, 3);
-        cashPane.add(btn2, 1, 3);
-        cashPane.add(btn3, 2, 3);
-        cashPane.add(btnTwenty, 3, 3);
-        cashPane.add(btnItemDown, 5, 1);
-        cashPane.add(btn0, 0, 4);
-        cashPane.add(btnDecimal, 1, 4);
-        cashPane.add(btnDouble0, 2, 4);
-        cashPane.add(btnCard, 2, 5);
-        cashPane.add(btnPay, 0, 5);
-        txtPayment.setMaxWidth(35);
-        cashPane.add(txtPayment, 1, 5);
+        cashPane.add(btnPay, 0, 0);
+        btnPay.setMinSize(150, 100);
 
         totalPane.setAlignment(Pos.CENTER);
         totalPaneLeft.setAlignment(Pos.CENTER);
         totalPaneRight.setAlignment(Pos.CENTER);
-        taPay.setMaxSize(150, 150);
+        taPay.setMaxSize(200, 150);
+        taPay.setScaleShape(true);
         totalPaneRight.add(taPay, 0, 0);
         totalPaneLeft.add(lblSubtotal, 1, 0);
         totalPaneLeft.add(txtSubtotal, 2, 0);
@@ -207,9 +271,27 @@ public class ManagerView extends LoginMainForm {
         totalPaneLeft.add(txtTotal, 2, 2);
         totalPaneLeft.add(lblMemberID, 1, 3);
         totalPaneLeft.add(cbxMemberID, 2, 3);
-        totalPaneLeft.add(btnFinalPay, 1, 4);
+//        totalPaneLeft.add(btnFinalPay, 1, 4);
         totalPane.add(totalPaneRight, 1, 0);
         totalPane.add(totalPaneLeft, 0, 0);
+
+        filterPane.setAlignment(Pos.CENTER);
+        filterPane.add(lblFilterGenre, 0, 0);
+        filterPane.add(cbxGenre, 1, 0);
+        filterPane.add(lblFilterYear, 0, 1);
+        filterPane.add(txtFilterYear, 1, 1);
+        filterPane.add(lblFilterPrice, 0, 2);
+        filterPane.add(cbxPrice, 1, 2);
+        filterPane.add(btnFilterItem, 1, 3, 3, 1);
+
+        cbxGenre.getItems().addAll("Fiction", "Non-Fiction", "Mystery", "Sci-Fi", "Young Adult", "Educational",
+                "Romance", "Horror", "Art");
+        cbxPrice.getItems().addAll("$" + 10, "$" + 25, "$" + 50, "$" + 100, "$" + 200);
+
+        Scene filterScene = new Scene(filterPane, 250, 300);
+        Stage filterStage = new Stage();
+        filterStage.setScene(filterScene);
+        filterStage.setTitle("Filter Results");
 
         totalsView.setMaxSize(300, 450);
 
@@ -217,15 +299,183 @@ public class ManagerView extends LoginMainForm {
         posOverallPane.setVgap(10);
 
         posOverallPane.add(totalsView, 0, 0);
-        posOverallPane.add(posPane, 1, 0);
-        posOverallPane.add(totalPane, 0, 1);
-        posOverallPane.add(cashPane, 1, 1);
+        posOverallPane.add(btnDeleteItem, 1, 0, 1, 1);
+        posOverallPane.add(posPane, 2, 0);
+        posOverallPane.add(totalPane, 0, 1, 2, 1);
+        posOverallPane.add(cashPane, 1, 1, 2, 1);
 
         //logic
         fillInventoryBook();
         fillInventoryCafe();
         fillCbxMember();
         cbxMemberID.getItems().addAll("Guest");
+
+        //refresh button 
+        btnRefresh.setOnAction(r ->
+        {
+            try
+            {
+                fillInventoryBook();
+            } catch (SQLException ex)
+            {
+                System.out.println(ex);
+            }
+        });
+
+        //paying
+        btnPay.setOnAction(p ->
+        {
+            GridPane paymentPane = new GridPane();
+            Label lblPayCash = new Label("Cash: $ ");
+            Label lblPayCard = new Label("CC #: ");
+            Button btnPayment = new Button("ENTER");
+            TextField txtPayCash = new TextField();
+            TextField txtPayCard = new TextField();
+            paymentPane.setAlignment(Pos.CENTER);
+            paymentPane.add(lblPayCash, 0, 0);
+            paymentPane.add(lblPayCard, 0, 1);
+            paymentPane.add(txtPayCash, 1, 0);
+            paymentPane.add(txtPayCard, 1, 1);
+            paymentPane.add(btnPayment, 0, 2, 2, 1);
+            Scene paymentScene = new Scene(paymentPane, 300, 250);
+            Stage paymentStage = new Stage();
+            paymentStage.setScene(paymentScene);
+            paymentStage.show();
+
+            btnPayment.setOnAction(pmt ->
+            {
+                String cashPay = txtPayCash.getText();
+                String cardPay = txtPayCard.getText();
+                String txtTotalOutput = "";
+                Double balance = 0.0;
+
+                if (txtPayCash.getText().isEmpty())
+                {
+                    if (txtPayCard.getText().isEmpty())
+                    {
+                        System.out.println("Please enter a payment amount");
+                    } else
+                    {
+                        txtTotalOutput += "Total: " + txtTotal.getText();
+                        txtTotalOutput += "\n Customer Paid: " + txtTotal.getText() + " with card " + cardPay;
+                        txtTotalOutput += "\n---------------";
+                    }
+                } else
+                {
+                    Double customerPay = Double.valueOf(cashPay);
+                    txtTotalOutput += "Total: " + txtTotal.getText();
+                    txtTotalOutput += "\n Customer Pay: " + customerPay;
+                    txtTotalOutput += "\n---------------";
+                    balance = Double.valueOf(txtTotal.getText()) - customerPay;
+                    if (balance == 0)
+                    {
+                        txtTotalOutput += "\n Customer has paid!";
+                    }
+                    if (balance < 0)
+                    {
+                        txtTotalOutput += "\n We owe the customer: $" + balance;
+                    }
+                    if (balance > 0)
+                    {
+                        double newBalance = balance;
+                        txtTotalOutput += "\n Remaining Balance: " + newBalance;
+                        txtTotalOutput += "\n Customer owes: " + newBalance;
+                        txtTotal.setText(String.valueOf(newBalance));
+                        if ((newBalance - balance) == 0)
+                        {
+                            System.out.println("Customer has paid!");
+
+                        } else
+                        {
+                            taPay.clear();
+                            balance = newBalance - customerPay;
+                            txtTotalOutput += "\n Remaining Balance: " + balance;
+                            txtTotalOutput += "\n Customer owes, " + balance;
+
+                        }
+
+                    }
+                }
+                taPay.setText(txtTotalOutput);
+
+            });
+
+        });
+
+        btnDeleteItem.setOnAction(di ->
+        {
+            int itemPriceIndex = totalsView.getSelectionModel().getSelectedIndex();
+
+            newItem = itemTotals.get(itemPriceIndex);
+
+            double priceDelete = newItem.getPrice();
+            System.out.println(priceDelete);
+            deletePay(priceDelete);
+
+            itemTotals.remove(newItem);
+            ObservableList<Inventory> newTotal = FXCollections.observableArrayList(itemTotals);
+            totalsView.setItems(newTotal);
+
+            totalsView.refresh();
+
+        });
+
+        btnFilter.setOnAction(f ->
+        {
+            filterStage.show();
+
+        });
+
+        btnFilterItem.setOnAction(fi ->
+        {
+            if (!(cbxGenre.getSelectionModel().isEmpty()))
+            {
+                try
+                {
+                    filterGenre();
+                } catch (SQLException ex)
+                {
+                    System.out.println(ex);
+                }
+
+                filterStage.close();
+            }
+            if (!(cbxPrice.getSelectionModel().isEmpty()))
+            {
+                try
+                {
+                    filterPrice();
+                } catch (SQLException ex)
+                {
+                    System.out.println(ex);
+                }
+                filterStage.close();
+
+            }
+            if (!(txtFilterYear.getText().isEmpty()))
+            {
+                try
+                {
+                    filterYear();
+                } catch (SQLException ex)
+                {
+                    System.out.println(ex);
+                }
+                filterStage.close();
+            }
+            if (cbxGenre.getSelectionModel().isEmpty() && cbxPrice.getSelectionModel().isEmpty() && txtFilterYear.getText().isEmpty())
+            {
+                GridPane errorPane = new GridPane();
+                Label lblFilterError = new Label("PLEASE MAKE ONE SELECTION!");
+                errorPane.setAlignment(Pos.CENTER);
+                errorPane.add(lblFilterError, 0, 0);
+                Scene errorScene = new Scene(errorPane, 225, 150);
+                Stage errorStage = new Stage();
+                errorStage.setScene(errorScene);
+                errorStage.setTitle("ERROR");
+                errorStage.show();
+            }
+        });
 
         //populating the nodes via a clicked listview item
         cafeView.setOnMouseClicked(e ->
@@ -274,19 +524,160 @@ public class ManagerView extends LoginMainForm {
             txtTotal.setText(Double.valueOf(txtTax.getText())
                     + Double.valueOf(txtSubtotal.getText()) + "");
         });
-        
         /**
-         * ******************************************************************
+         * ***********************Setting Employee
+         * Pane*************************
+         */
+        employeePane.setAlignment(Pos.CENTER);
+        employeePane.add(lblEmployeeID, 0, 0);
+        employeePane.add(txtEmployeeID, 1, 0);
+        employeePane.add(lblEmployeeFName, 0, 1);
+        employeePane.add(txtEmployeeFirst, 1, 1);
+        employeePane.add(lblEmployeeLName, 0, 2);
+        employeePane.add(txtEmployeeLast, 1, 2);
+        employeePane.add(lblEmployeeAddress, 0, 3);
+        employeePane.add(txtEmployeeAddress, 1, 3);
+        employeePane.add(lblEmployeeCity, 0, 4);
+        employeePane.add(txtEmployeeCity, 1, 4);
+        employeePane.add(lblEmployeeState, 0, 5);
+        employeePane.add(txtEmployeeState, 1, 5);
+        employeePane.add(lblEmployeeZip, 0, 6);
+        employeePane.add(txtEmployeeZip, 1, 6);
+        employeePane.add(lblEmployeePhone, 0, 7);
+        employeePane.add(txtEmployeePhone, 1, 7);
+        employeePane.add(lblEmployeeUsername, 0, 8);
+        employeePane.add(txtEmployeeUsername, 1, 8);
+        employeePane.add(lblEmployeePassword, 0, 9);
+        employeePane.add(txtEmployeePassword, 1, 9);
+        employeePane.add(lblEmployeeType, 0, 10);
+        employeePane.add(cbxEmployeeType, 1, 10);
+        employeePane.add(lblEmployeePay, 0, 11);
+        employeePane.add(txtEmployeePay, 1, 11);
+        employeePane.add(btnEmployeeAdd, 0, 12);
+        employeePane.add(btnEmployeeUpdate, 1, 12);
+        employeePane.add(btnEmployeeDelete, 2, 12);
+        employeeViewPane.setAlignment(Pos.CENTER);
+        employeePaneOverall.setAlignment(Pos.CENTER);
+        employeeViewPane.add(employeeView, 0, 0);
+        employeePaneOverall.add(employeePane, 0, 0);
+        employeePaneOverall.add(employeeViewPane, 1, 0);
+        cbxEmployeeType.getItems().addAll("Manager", "Floor", "Cafe");
+
+        /**
+         * *********Setting Member
+         * Pane*****************************************
+         */
+        //Member View 
+        /**
+         * ********Setting Inventory
+         * Pane***************************************
+         */
+        /**
+         * ********Setting Expenses
+         * Pane****************************************
+         */
+        //Expense Pane adds
+        /**
+         * ********Shifts Shifts Pane
+         * ******************************************
+         */
+        /**
+         * *********************************************************************
          */
         //needs to be converted to the overall employee view panes
-        Scene empScene = new Scene(managerPane, 700, 700);
-        primaryStage.setScene(empScene);
+        Scene managerScene = new Scene(managerPane, 1000, 600);
+        primaryStage.setScene(managerScene);
         primaryStage.setTitle("BookIT Manager");
         primaryStage.show();
-        
-        
+
     }
-        public void fillInventoryBook() throws SQLException
+
+    /**
+     * ********************Methods****************
+     */
+    public void runPay(double price)
+    {
+        orderSubtotal += price;
+
+        txtSubtotal.setText(orderSubtotal + "");
+        txtTax.setText((orderSubtotal * 0.06) + "");
+        txtTotal.setText(Double.valueOf(txtTax.getText()) + Double.valueOf(txtSubtotal.getText()) + "");
+    }
+
+    public void deletePay(double price)
+    {
+        orderSubtotal -= price;
+
+        txtSubtotal.setText(orderSubtotal + "");
+        txtTax.setText((orderSubtotal * 0.06) + "");
+        txtTotal.setText(Double.valueOf(txtTax.getText()) + Double.valueOf(txtSubtotal.getText()) + "");
+    }
+
+    public void filterPrice() throws SQLException
+    {
+        String sqlQuery = "";
+        String price;
+        price = cbxPrice.getSelectionModel().getSelectedItem().toString();
+        System.out.println(price);
+        sqlQuery = "SELECT * FROM BOOKITDB.INVENTORY WHERE TYPE ='Book' AND PRICE <=" + price;
+        sendDBCommand(sqlQuery);
+
+        ArrayList<Book> priceArray = new ArrayList<>();
+
+        while (dbResults.next())
+        {
+            priceArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
+                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
+                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+        }
+        ObservableList<Inventory> priceList = FXCollections.observableArrayList(priceArray);
+        bookView.setItems(priceList);
+
+    }
+
+    public void filterYear() throws SQLException
+    {
+        String sqlQuery = "";
+        int year;
+        year = Integer.valueOf(txtFilterYear.getText());
+        sqlQuery = "SELECT * FROM BOOKITDB.INVENTORY WHERE TYPE = 'Book' AND BOOK_YEAR <=" + year;
+
+        sendDBCommand(sqlQuery);
+        ArrayList<Book> yearArray = new ArrayList<>();
+
+        while (dbResults.next())
+        {
+            yearArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
+                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
+                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+        }
+        ObservableList<Inventory> yearList = FXCollections.observableArrayList(yearArray);
+        bookView.setItems(yearList);
+
+    }
+    
+    public void filterGenre() throws SQLException {        
+        String sqlQuery = "";
+        String genre;
+        genre = cbxGenre.getSelectionModel().getSelectedItem().toString();
+        String toUpperCase = genre.toUpperCase();
+        System.out.println(toUpperCase);
+        sqlQuery = "SELECT * FROM BOOKITDB.INVENTORY WHERE TYPE ='Book' AND GENRE ='" + toUpperCase + "'";
+        sendDBCommand(sqlQuery);
+        
+        ArrayList<Book> genreArray = new ArrayList<>();
+
+        while (dbResults.next()) {
+            genreArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
+                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
+                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+        }
+        ObservableList<Inventory> genreList = FXCollections.observableArrayList(genreArray);
+        bookView.setItems(genreList);
+
+    }
+
+    public void fillInventoryBook() throws SQLException
     {
         String sqlQuery = "";
         sqlQuery = "SELECT * FROM BOOKITDB.INVENTORY WHERE TYPE = 'Book'";
@@ -294,18 +685,18 @@ public class ManagerView extends LoginMainForm {
         ArrayList<Book> bookArray = new ArrayList<>();
 
         sendDBCommand(sqlQuery);
-        
-            while (dbResults.next())
-            {
-                bookArray.add(new Book(dbResults.getString(6), dbResults.getString(7),
-                        dbResults.getString(8), dbResults.getString(9),
-                        Integer.valueOf(dbResults.getString(10)), dbResults.getString(2),
-                        dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
-                        dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
 
-            }
-            ObservableList<Inventory> bookList = FXCollections.observableArrayList(bookArray);
-            bookView.setItems(bookList);
+        while (dbResults.next())
+        {
+            bookArray.add(new Book(dbResults.getString(6), dbResults.getString(7),
+                    dbResults.getString(8), dbResults.getString(9),
+                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2),
+                    dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
+                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
+
+        }
+        ObservableList<Inventory> bookList = FXCollections.observableArrayList(bookArray);
+        bookView.setItems(bookList);
 
     }
 
@@ -366,7 +757,6 @@ public class ManagerView extends LoginMainForm {
         {
             System.out.println(e.toString());
         }
-    }    
-    
-    
+    }
+
 }
