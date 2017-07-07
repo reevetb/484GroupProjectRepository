@@ -620,7 +620,7 @@ public class ManagerView extends LoginMainForm
         invView.setItems(invData);
         
         
-        cbxType.getItems().addAll("Book", "Coffee");
+        cbxType.getItems().addAll("Book", "Cafe");
         inventoryPane.setAlignment(Pos.CENTER);
         inventoryPane.add(lblItemName, 0, 0);
         inventoryPane.add(txtItemName, 1, 0);
@@ -658,12 +658,15 @@ public class ManagerView extends LoginMainForm
         btnInventoryAdd.setOnAction(e ->
         {
 
-            if (cbxType.getSelectionModel().getSelectedItem().equals("Book"))
+            if (cbxType.getSelectionModel().getSelectedItem() == "Book")
             {
                 insertBook();
-            } else if (cbxType.getSelectionModel().getSelectedItem().equals("Cafe"))
+                System.out.println("inserting book");
+            } 
+            if (cbxType.getSelectionModel().getSelectedItem() == "Cafe")
             {
                 insertCafe();
+                System.out.println("inserting cafe");
             }
 
         });
@@ -699,7 +702,7 @@ public class ManagerView extends LoginMainForm
     /**
      * ********************Methods****************
      */
-    //CREATE A LOAD STATEMENT FOR INVENTORY
+    
     
      //connection to the database and loading inventory content
     public void loadInventory()
@@ -711,6 +714,8 @@ public class ManagerView extends LoginMainForm
         //calling the sendDBCommand method
         sendDBCommand(sqlQuery);
         invArray.clear();
+        Inventory.invCount = 0;
+        invView.refresh();
 
         //to test the sqlException
         try
@@ -718,6 +723,7 @@ public class ManagerView extends LoginMainForm
             //while there is a next item
             while (dbResults.next())
             {
+              
                 int inv_id = Integer.parseInt(dbResults.getString(1));
                 String item_name = dbResults.getString(2);
                 String item_desc = dbResults.getString(3);
@@ -730,15 +736,18 @@ public class ManagerView extends LoginMainForm
                 int book_year = Integer.parseInt(dbResults.getString(10));
                 String type = dbResults.getString(11);
                 
-                if(dbResults.getString(6).equalsIgnoreCase("null"))
+                if(dbResults.getString(6).equalsIgnoreCase("n/a"))
                 {
                     invArray.add(new Inventory(inv_id, item_name, item_desc, item_Quantity, item_price, type));
-                   
+                     
+                     System.out.println("Inventory Count: " + Inventory.invCount);
                 }
                 else
                 {
                     invArray.add(new Book(inv_id, item_name, item_desc, item_Quantity, item_price, type,
                                             ISBN, genre, author, publisher, book_year));
+                    
+                    System.out.println("Inventory Count: " + Inventory.invCount);
                 }
         
                 System.out.println(invArray.get(invArray.size() - 1).toString());
@@ -751,12 +760,12 @@ public class ManagerView extends LoginMainForm
     }
     public void insertBook()
     {
-        // creating the products     
-        Inventory invRef = new Inventory();
+        // creating the bookstore items     
+        
         String sqlQuery = "";
-        sqlQuery += "INSERT INTO BOOKITDB.Inventory (INV_ID, ITEM_NAME, ITEM_DESC, ITEM_QUANTITY, ITEM_PRICE"
+        sqlQuery += "INSERT INTO BOOKITDB.Inventory (INV_ID, ITEM_NAME, ITEM_DESC, ITEM_QUANTITY, ITEM_PRICE,"
                 + " ISBN, GENRE, AUTHOR, PUBLISHER, BOOK_YEAR, TYPE) VALUES (";
-        sqlQuery += "'" + Inventory.invCount + "',";
+        sqlQuery += "'" + ++Inventory.invCount + "',";
         sqlQuery += "'" + txtItemName.getText() + "',";
         sqlQuery += "'" + txtItemDesc.getText() + "',";
         sqlQuery += "'" + Integer.parseInt(txtItemQuantity.getText()) + "',";
@@ -765,34 +774,39 @@ public class ManagerView extends LoginMainForm
         sqlQuery += "'" + cbxBookGenre.getSelectionModel().getSelectedItem().toString() + "',";
         sqlQuery += "'" + txtBookAuthor.getText() + "',";
         sqlQuery += "'" + txtBookPublisher.getText() + "',";
-        sqlQuery += "'" + Integer.parseInt(txtBookYear.getText()) + "')";
-        sqlQuery += "'" + cbxType.getSelectionModel().getSelectedItem().toString() + "',";
+        sqlQuery += "'" + Integer.parseInt(txtBookYear.getText()) + "',";
+        sqlQuery += "'" + cbxType.getSelectionModel().getSelectedItem() + "')";
         sendDBCommand(sqlQuery);
         
+        System.out.println("Inventory Count: " + Inventory.invCount);
+        
+        loadInventory();
 
     }
 
     public void insertCafe()
     {
-        // creating the products     
-        Inventory invRef = new Inventory();
+        // creating the cafe items     
+        
         String sqlQuery = "";
-        sqlQuery += "INSERT INTO BOOKITDB.Inventory (INV_ID, ITEM_NAME, ITEM_DESC, ITEM_QUANTITY, ITEM_PRICE"
+        sqlQuery += "INSERT INTO BOOKITDB.Inventory (INV_ID, ITEM_NAME, ITEM_DESC, ITEM_QUANTITY, ITEM_PRICE,"
                 + " ISBN, GENRE, AUTHOR, PUBLISHER, BOOK_YEAR, TYPE) VALUES (";
-        sqlQuery += "'" + Inventory.invCount + "',";
+        sqlQuery += "'" + ++Inventory.invCount + "',";
         sqlQuery += "'" + txtItemName.getText() + "',";
         sqlQuery += "'" + txtItemDesc.getText() + "',";
         sqlQuery += "'" + Integer.parseInt(txtItemQuantity.getText()) + "',";
         sqlQuery += "'" + Double.parseDouble(txtItemPrice.getText()) + "',";
-        sqlQuery += "'" + "null" + "',";
-        sqlQuery += "'" + "null" + "',";
-        sqlQuery += "'" + "null" + "',";
-        sqlQuery += "'" + "null" + "',";
-        sqlQuery += "'" + Integer.parseInt("null") + "')";
-        sqlQuery += "'" + cbxType.getSelectionModel().getSelectedItem().toString() + "',";
+        sqlQuery += "'n/a',";
+        sqlQuery += "'n/a',";
+        sqlQuery += "'n/a',";
+        sqlQuery += "'n/a',";
+        sqlQuery += "'" + 0 + "',";
+        sqlQuery += "'" + cbxType.getSelectionModel().getSelectedItem() + "')";
         sendDBCommand(sqlQuery);
-     
 
+        System.out.println("Inventory Count: " + Inventory.invCount);
+        
+         loadInventory();
     }
 
     public void updateInventory()
@@ -810,6 +824,8 @@ public class ManagerView extends LoginMainForm
                 + "'" + txtBookPublisher.getText() + "', Book_Year="
                 + "'" + Integer.parseInt(txtBookYear.getText()) + "' WHERE INV_ID='" + Integer.valueOf(invRef.getInvID()) + "'";
         sendDBCommand(sqlQuery);
+        
+         loadInventory();
     }
 
     public void deleteInventory()
@@ -821,6 +837,7 @@ public class ManagerView extends LoginMainForm
                 + Integer.valueOf(invRef.getInvID()) + "'";
 
         sendDBCommand(sqlQuery);
+        loadInventory();
     }
 
     public void runPay(double price)
