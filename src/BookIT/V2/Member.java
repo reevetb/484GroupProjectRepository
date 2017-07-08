@@ -2,7 +2,7 @@ package BookIT.V2;
 
 public class Member {
 
-    private int memID = 0;
+    private int memID;
     private String fName;
     private String lName;
     private String street;
@@ -11,13 +11,11 @@ public class Member {
     private int zipCode;
     private String cell;
     private String email;
-    private String userName;
-    private String password;
-    public static int memCount = 1;
+ 
+    public static int memCount = 0;
 
     public Member(String fName, String lName, String street, String city,
-            String state, int zipCode, String cell, String email,
-            String userName, String password) {
+            String state, int zipCode, String cell, String email) {
         this.fName = fName;
         this.lName = lName;
         this.street = street;
@@ -26,15 +24,13 @@ public class Member {
         this.zipCode = zipCode;
         this.cell = cell;
         this.email = email;
-        this.userName = userName;
-        this.password = password;
-        memID = ++memCount;
+
+        memID = memCount++;
 
     }
     //loading from the database
     public Member(int memdID, String fName, String lName, String street, String city,
-            String state, int zipCode, String cell, String email,
-            String userName, String password) {
+            String state, int zipCode, String cell, String email) {
         this.fName = fName;
         this.lName = lName;
         this.street = street;
@@ -43,8 +39,6 @@ public class Member {
         this.zipCode = zipCode;
         this.cell = cell;
         this.email = email;
-        this.userName = userName;
-        this.password = password;
         this.memID = memID;
         memCount++;
 
@@ -118,36 +112,20 @@ public class Member {
         this.email = email;
     }
 
-    public String getUserName() {
-        return this.userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean checkCredentials(String userName, String password) {   //If username and password match return true
-        if (this.userName.equals(userName) & this.password.equals(password)) {
-            return true;
-        } else //return false if username and password do not match
-        {
-            return false;
-        }
-
-    }
+   
     
-    @Override
+     @Override
     public String toString()
     {
-        return "Member Email: \n" + this.email;
+        return "Member ID: " + this.getMemID()
+                + "\n\t First Name: " + this.getFName()
+                + "\n\t Last Name: " + this.getLName()
+                + "\n\t Street: " + this.getStreet()
+                + "\n\t City: " + this.getCity()
+                + "\n\t State: " + this.getState()
+                + "\n\t Zipcode: " + this.getZipCode()
+                + "\n\t Cell: " + this.getCell()
+                + "\n\t email: " + this.getEmail();
     }
 
 }

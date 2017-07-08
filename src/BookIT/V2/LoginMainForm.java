@@ -260,7 +260,7 @@ public class LoginMainForm extends Application
         //calling the sendDBCommand method
         sendDBCommand(sqlQuery);
         Employee.empCount = 0;
-        memberArray.clear();
+        empArray.clear();
         //to test the sqlException
         try
         {

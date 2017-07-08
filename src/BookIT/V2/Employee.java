@@ -27,11 +27,11 @@ public class Employee {
     private double empWage;
     private double otWage = empWage* 1.5;
     private String empType;
-    public static int empCount;
+    public static int empCount = 0;
 
     // constructor
     public Employee() {
-        empID = 0;
+        empID = empCount++;
         fName = "";
         lName = "";
         street = "";
@@ -44,7 +44,7 @@ public class Employee {
         empWage = 0.0;
         otWage = 0.0;
         empType = "";
-        empCount = 1;
+        
 
     }
 
@@ -86,6 +86,8 @@ public class Employee {
         this.password = password;
         this.empWage = empWage;
         this.empType = empType;
+        
+        empCount++;
         
     }
 
@@ -214,7 +216,7 @@ public class Employee {
                 + ", \n\tUsername: " + userName 
                 + ", \n\tpassword: " + password 
                 + ", \n\tWage: " + empWage 
-                + ", \n\tWage: " + otWage 
+                + ", \n\tOT_Wage: " + otWage 
                 + ", \n\tType: " + empType;
     }
 }

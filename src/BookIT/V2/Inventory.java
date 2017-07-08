@@ -40,7 +40,7 @@ public class Inventory {
         invID = invCount++;
 
     }
-    
+    //loading from a database
     public Inventory(int invID, String itemName, String itemDesc, int quantity, double price, String type) {
         this.itemName = itemName;
         this.itemDesc = itemDesc;

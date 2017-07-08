@@ -189,17 +189,17 @@ public class ManagerView extends LoginMainForm
     Button btnEmployeeDelete = new Button("Delete Employee");
 
     ////////////////////////////////MEMBER STUFF//////////////////////////////
-    GridPane memberInfoPane = new GridPane();
-    Label lblMemberUser = new Label("Username:");
-    Label lblMemberPass = new Label("Password:");
+  
+    Label lblMemberFN = new Label("First Name:");
+    Label lblMemberLN = new Label("Last Name:");
     Label lblMemberEmail = new Label("eMail:");
     Label lblMemberPhone = new Label("Phone:");
     Label lblMemberStreet = new Label("Street:");
     Label lblMemberCity = new Label("City:");
     Label lblMemberState = new Label("State");
     Label lblMemberZip = new Label("ZIP:");
-    TextField txtMemberUser = new TextField();
-    TextField txtMemberPass = new TextField();
+    TextField txtMemberFN = new TextField();
+    TextField txtMemberLN = new TextField();
     TextField txtMemberEmail = new TextField();
     TextField txtMemberPhone = new TextField();
     TextField txtMemberStreet = new TextField();
@@ -820,7 +820,7 @@ public class ManagerView extends LoginMainForm
         });
 
         ///////////////////////////SETTING EXPENSE PANE/////////////////////////
-        loadExpenses();
+        loadExpense();
         ObservableList<Expenses> expenseData = FXCollections.observableArrayList(expenseArray);
 
         expenseView.setItems(expenseData);
@@ -1232,6 +1232,109 @@ public class ManagerView extends LoginMainForm
 
         sendDBCommand(sqlQuery);
         loadExpense();
+    }
+    
+    public void loadMember()
+    {
+        String sqlQuery = "";
+        String listString = "";
+        sqlQuery = "Select * from BOOKITDB.MEMBERS";
+        //calling the sendDBCommand method
+        sendDBCommand(sqlQuery);
+        Member.memCount = 0;
+        memberArray.clear();
+        //to test the sqlException
+        try
+        {
+            //while there is a next employee
+            while (dbResults.next())
+            {
+
+                int memID = Integer.parseInt(dbResults.getString(1));
+                String memberFN = dbResults.getString(2);
+                String memberLN = dbResults.getString(3);
+                String memberStreet = dbResults.getString(4);
+                String memberCity = dbResults.getString(5);
+                String memberState = dbResults.getString(6);
+                int zipCode = Integer.parseInt(dbResults.getString(7));
+                String memberCell = dbResults.getString(8);
+                String email = dbResults.getString(9);
+              
+
+                memberArray.add(new Member(memID, memberFN, memberLN, memberStreet,
+                memberCity, memberState, zipCode, memberCell, email));
+
+                System.out.println(memberArray.get(memberArray.size() - 1).toString());
+                //set string to read from the DB
+            }
+
+        } catch (SQLException e)
+        {
+            System.out.println(e.toString());
+        }
+        memberView.refresh();
+    }
+
+    public void insertMember()
+    {
+        // creating the bookstore items     
+
+        String sqlQuery = "";
+        sqlQuery += "INSERT INTO BOOKITDB.EMPLOYEES (EMP_ID, FNAME, LNAME, STREET, CITY,"
+                + " STATE, ZIPCODE, CELL, USERNAME, PASSWORD, WAGE, OT_WAGE, EMP_TYPE) VALUES (";
+        sqlQuery += "'" + ++Employee.empCount + "',";
+        sqlQuery += "'" + txtEmployeeFirst.getText() + "',";
+        sqlQuery += "'" + txtEmployeeLast.getText() + "',";
+        sqlQuery += "'" + txtEmployeeAddress.getText() + "',";
+        sqlQuery += "'" + txtEmployeeCity.getText() + "',";
+        sqlQuery += "'" + txtEmployeeState.getText() + "',";
+        sqlQuery += "'" + Integer.parseInt(txtEmployeeZip.getText()) + "',";
+        sqlQuery += "'" + txtEmployeePhone.getText() + "',";
+        sqlQuery += "'" + txtEmployeeUsername.getText() + "',";
+        sqlQuery += "'" + txtEmployeePassword.getText() + "',";
+        sqlQuery += "'" + Double.parseDouble(txtEmployeePay.getText()) + "',";
+        sqlQuery += "'" + Double.parseDouble(txtEmployeePay.getText()) * 1.5 + "',";
+        sqlQuery += "'" + cbxEmployeeType.getSelectionModel().getSelectedItem() + "')";
+        sendDBCommand(sqlQuery);
+
+        System.out.println("Employee Count: " + Employee.empCount);
+
+        loadEmployee();
+    }
+
+    public void updateMember()
+    {
+ 
+        String sqlQuery = "";
+        sqlQuery = "UPDATE BOOKITDB.Employees SET FNAME=" + "'" + txtEmployeeFirst.getText()
+                + "', LNAME=" + "'" + txtEmployeeLast.getText()
+                + "', STREET=" + "'" + txtEmployeeAddress.getText()
+                + "', CITY=" + "'" + txtEmployeeCity.getText()
+                + "', STATE=" + "'" + txtEmployeeState.getText()
+                + "', ZIPCODE=" + "'" + Integer.parseInt(txtEmployeeZip.getText())
+                + "', CELL=" + "'" + txtEmployeePhone.getText()
+                + "', USERNAME=" + "'" + txtEmployeeUsername.getText()
+                + "', PASSWORD=" + "'" + txtEmployeePassword.getText()
+                + "', WAGE=" + "'" + Double.parseDouble(txtEmployeePay.getText())
+                + "', OT_WAGE=" + "'" + Double.parseDouble(txtEmployeePay.getText()) * 1.5
+                + "', EMP_TYPE=" + "'" + cbxEmployeeType.getSelectionModel().getSelectedItem()
+                + "' WHERE EMP_ID='" + (Integer.valueOf(empView.getSelectionModel().getSelectedIndex()+1)) + "'";
+
+        sendDBCommand(sqlQuery);
+
+        loadEmployee();
+    }
+
+    public void deleteMember()
+    {
+       
+        String sqlQuery = "";
+        // delete employee from the database
+        sqlQuery = "DELETE FROM BOOKITDB.EMPLOYEES WHERE EMP_ID='"
+                + Integer.valueOf(empView.getSelectionModel().getSelectedIndex()+1) + "'";
+
+        sendDBCommand(sqlQuery);
+        loadEmployee();
     }
 
     public void runPay(double price)

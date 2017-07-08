@@ -10,28 +10,41 @@ public class Expenses {
     private double expCost;
     private String expDesc;
     private int storeID_FK;
-    public static int invoiceCount;
-    public static int storeCount;
+    public static int invoiceCount = 0;
+    public static int storeCount = 0;
 
     public Expenses() {
-        invoiceNum = 0;
+        invoiceNum = invoiceCount++;
         expType = "";
         expDate = "";
         expCost = 0.0;
         expDesc = "";
         storeID_FK = 0;
-        invoiceCount = 1;
-        storeCount = 1;
+        
+        storeCount++;
     }
 
     public Expenses(String expType, String expDate, double expCost,
-            String expDesc) {
+            String expDesc, int store_id) {
         this.expType = expType;
         this.expDate = expDate;
         this.expCost = expCost;
         this.expDesc = expDesc;
         invoiceNum = invoiceCount++;
-        storeID_FK = storeCount++;
+        this.storeID_FK = store_id;
+        storeCount++;
+    }
+    
+    public Expenses(int invoiceNum, String expType, String expDate, double expCost,
+            String expDesc, int store_id) {
+        this.expType = expType;
+        this.expDate = expDate;
+        this.expCost = expCost;
+        this.expDesc = expDesc;
+        this.invoiceNum = invoiceNum;
+        this.storeID_FK = store_id;
+        storeCount++;
+        invoiceCount++;
     }
 
     public int getInvoiceNum() {
@@ -72,5 +85,15 @@ public class Expenses {
 
     public void setExpDesc(String expDesc) {
         this.expDesc = expDesc;
+    }
+     @Override
+    public String toString()
+    {
+        return "InvoiceNumber: " + this.getInvoiceNum()
+                + "\n\t Expense Type: " + this.getExpType()
+                + "\n\t Expense Date: " + this.getExpDate()
+                + "\n\t Expense Cost: " + this.getExpCost()
+                + "\n\t Expense Desc: " + this.getExpDesc()
+                + "\n\t Store ID: " + this.getStoreID_FK();
     }
 }
