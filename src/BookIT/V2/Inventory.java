@@ -18,17 +18,17 @@ public class Inventory {
     private int quantity;
     private String itemType;
     private double itemPrice;
-    public static int invCount;
+    public static int invCount = 0;
 
     // constructor
     public Inventory() {
-        invID = 0;
+        invID = invCount++;
         itemName = "";
         itemDesc = "";
         quantity = 0;
         itemType ="";
         itemPrice =0.00;
-        invCount = 1;
+        
     }
 
     public Inventory(String itemName, String itemDesc, int quantity, double price, String type) {

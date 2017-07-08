@@ -203,17 +203,18 @@ public class Employee {
 
     @Override
     public String toString(){
-        return "First Name: " + fName
-                + ", \tLast Name: " + lName 
-                + ", \tStreet: " + street 
-                + ", \tCity: " + city 
-                + ", \tState: " + state 
-                + ", \tZipCode: " + zipCode 
-                + ", \tCell: " + cell 
-                + ", \tUsername: " + userName 
-                + ", \tpassword: " + password 
-                + ", \tWage: " + empWage 
-                + ", \tWage: " + otWage 
-                + ", \tType: " + empType;
+        return "ID: " + this.getEmpID()
+                + ", \n\tFirst Name: " + fName
+                + ", \n\tLast Name: " + lName 
+                + ", \n\tStreet: " + street 
+                + ", \n\tCity: " + city 
+                + ", \n\tState: " + state 
+                + ", \n\tZipCode: " + zipCode 
+                + ", \n\tCell: " + cell 
+                + ", \n\tUsername: " + userName 
+                + ", \n\tpassword: " + password 
+                + ", \n\tWage: " + empWage 
+                + ", \n\tWage: " + otWage 
+                + ", \n\tType: " + empType;
     }
 }

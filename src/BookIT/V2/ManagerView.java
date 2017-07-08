@@ -54,6 +54,9 @@ public class ManagerView extends LoginMainForm
     public static ArrayList<Book> bookArray = new ArrayList();
     public static ArrayList<Coffee_Shop> coffeeArray = new ArrayList();
     ListView invView = new ListView();
+    ListView empView = new ListView();
+    ListView expenseView = new ListView();
+    ListView shiftsView = new ListView();
 
     //overall stuff
     TabPane managerPane = new TabPane();
@@ -348,8 +351,7 @@ public class ManagerView extends LoginMainForm
         fillInventoryBook();
         fillInventoryCafe();
         fillCbxMember();
-        
-        
+
         cbxMemberID.getItems().addAll("Guest");
 
         //refresh button 
@@ -566,10 +568,11 @@ public class ManagerView extends LoginMainForm
             txtTotal.setText(Double.valueOf(txtTax.getText())
                     + Double.valueOf(txtSubtotal.getText()) + "");
         });
-        /**
-         * ***********************Setting Employee
-         * Pane*************************
-         */
+        ///////////////////////////SETTING EMPLOYEE PANE/////////////////////////
+        loadEmployee();
+        ObservableList<Employee> empData = FXCollections.observableArrayList(empArray);
+
+        empView.setItems(empData);
         employeePane.setAlignment(Pos.CENTER);
         employeePane.add(lblEmployeeID, 0, 0);
         employeePane.add(txtEmployeeID, 1, 0);
@@ -600,26 +603,46 @@ public class ManagerView extends LoginMainForm
         employeePane.add(btnEmployeeDelete, 2, 12);
         employeeViewPane.setAlignment(Pos.CENTER);
         employeePaneOverall.setAlignment(Pos.CENTER);
-        employeeViewPane.add(employeeView, 0, 0);
+        employeeViewPane.add(empView, 0, 0);
         employeePaneOverall.add(employeePane, 0, 0);
         employeePaneOverall.add(employeeViewPane, 1, 0);
         cbxEmployeeType.getItems().addAll("Manager", "Floor", "Cafe");
-
-        /**
-         * *********Setting Member
-         * Pane*****************************************
-         */
-        //Member View 
-        /**
-         * ******Setting Inventory Pane*************************************
-         */
         
+        btnEmployeeAdd.setOnAction(e ->
+        {
+            insertEmployee();
+            empView.refresh();
+
+        });
+
+        btnInventoryUpdate.setOnAction(e ->
+        {
+            updateEmployee();
+            empView.refresh();
+        });
+
+        btnInventoryDelete.setOnAction(e ->
+        {
+            deleteEmployee();
+            empView.refresh();
+        });
+        
+        
+        
+
+        ///////////////////////////SETTING MEMBER PANE/////////////////////////
+
+        //Member View 
+        
+        
+        
+        
+        //////////////////////////SETTING INV PANE/////////////////////////////
         loadInventory();
         ObservableList<Inventory> invData = FXCollections.observableArrayList(invArray);
-        
+
         invView.setItems(invData);
-        
-        
+
         cbxType.getItems().addAll("Book", "Cafe");
         inventoryPane.setAlignment(Pos.CENTER);
         inventoryPane.add(lblItemName, 0, 0);
@@ -655,6 +678,16 @@ public class ManagerView extends LoginMainForm
         inventoryPaneOverall.add(inventoryPane, 0, 0);
         inventoryPaneOverall.add(inventoryViewPane, 1, 0);
 
+        invView.setOnMouseClicked(j ->
+        {
+            txtItemName.setText(invArray.get(invView.getSelectionModel().getSelectedIndex()).getItemName());
+            txtItemDesc.setText(invArray.get(invView.getSelectionModel().getSelectedIndex()).getItemDesc());
+            txtItemPrice.setText(String.valueOf(invArray.get(invView.getSelectionModel().getSelectedIndex()).getPrice()));
+            txtItemQuantity.setText(String.valueOf(invArray.get(invView.getSelectionModel().getSelectedIndex()).getQuantity()));
+            
+
+        });
+
         btnInventoryAdd.setOnAction(e ->
         {
 
@@ -662,35 +695,43 @@ public class ManagerView extends LoginMainForm
             {
                 insertBook();
                 System.out.println("inserting book");
-            } 
+            }
             if (cbxType.getSelectionModel().getSelectedItem() == "Cafe")
             {
                 insertCafe();
                 System.out.println("inserting cafe");
             }
+            invView.refresh();
 
         });
 
         btnInventoryUpdate.setOnAction(e ->
         {
-            updateInventory();
+            if (cbxType.getSelectionModel().getSelectedItem() == "Book")
+            {
+                updateBookInventory();
+                System.out.println("updated book inventory");
+            }
+            if (cbxType.getSelectionModel().getSelectedItem() == "Cafe")
+            {
+                updateCafeInventory();
+                System.out.println("updated cafe inventory");
+            }
+
+            invView.refresh();
         });
 
         btnInventoryDelete.setOnAction(e ->
         {
             deleteInventory();
+            invView.refresh();
         });
 
-        /**
-         * ********Setting ExpensesPane************************************
-         */
+        ///////////////////////////SETTING EXPENSE PANE/////////////////////////
         //Expense Pane adds
-        /**
-         * *******Shifts Shifts Pane**************************************
-         */
-        /**
-         * **********************************************
-         */
+        ///////////////////////////SETTING SHIFTS PANE/////////////////////////
+       
+        ///////////////////////////////////////////////////////////////////////
         //needs to be converted to the overall employee view panes
         Scene managerScene = new Scene(managerPane, 1000, 600);
         primaryStage.setScene(managerScene);
@@ -702,9 +743,7 @@ public class ManagerView extends LoginMainForm
     /**
      * ********************Methods****************
      */
-    
-    
-     //connection to the database and loading inventory content
+    //connection to the database and loading inventory content
     public void loadInventory()
     {
         String sqlQuery = "";
@@ -723,7 +762,7 @@ public class ManagerView extends LoginMainForm
             //while there is a next item
             while (dbResults.next())
             {
-              
+
                 int inv_id = Integer.parseInt(dbResults.getString(1));
                 String item_name = dbResults.getString(2);
                 String item_desc = dbResults.getString(3);
@@ -735,21 +774,20 @@ public class ManagerView extends LoginMainForm
                 String publisher = dbResults.getString(9);
                 int book_year = Integer.parseInt(dbResults.getString(10));
                 String type = dbResults.getString(11);
-                
-                if(dbResults.getString(6).equalsIgnoreCase("n/a"))
+
+                if (dbResults.getString(6).equalsIgnoreCase("n/a"))
                 {
                     invArray.add(new Inventory(inv_id, item_name, item_desc, item_Quantity, item_price, type));
-                     
-                     System.out.println("Inventory Count: " + Inventory.invCount);
-                }
-                else
+
+                    System.out.println("Inventory Count: " + Inventory.invCount);
+                } else
                 {
                     invArray.add(new Book(inv_id, item_name, item_desc, item_Quantity, item_price, type,
-                                            ISBN, genre, author, publisher, book_year));
-                    
+                            ISBN, genre, author, publisher, book_year));
+
                     System.out.println("Inventory Count: " + Inventory.invCount);
                 }
-        
+
                 System.out.println(invArray.get(invArray.size() - 1).toString());
 
             }
@@ -758,10 +796,11 @@ public class ManagerView extends LoginMainForm
             System.out.println(e.toString());;
         }
     }
+
     public void insertBook()
     {
         // creating the bookstore items     
-        
+
         String sqlQuery = "";
         sqlQuery += "INSERT INTO BOOKITDB.Inventory (INV_ID, ITEM_NAME, ITEM_DESC, ITEM_QUANTITY, ITEM_PRICE,"
                 + " ISBN, GENRE, AUTHOR, PUBLISHER, BOOK_YEAR, TYPE) VALUES (";
@@ -777,9 +816,9 @@ public class ManagerView extends LoginMainForm
         sqlQuery += "'" + Integer.parseInt(txtBookYear.getText()) + "',";
         sqlQuery += "'" + cbxType.getSelectionModel().getSelectedItem() + "')";
         sendDBCommand(sqlQuery);
-        
+
         System.out.println("Inventory Count: " + Inventory.invCount);
-        
+
         loadInventory();
 
     }
@@ -787,7 +826,7 @@ public class ManagerView extends LoginMainForm
     public void insertCafe()
     {
         // creating the cafe items     
-        
+
         String sqlQuery = "";
         sqlQuery += "INSERT INTO BOOKITDB.Inventory (INV_ID, ITEM_NAME, ITEM_DESC, ITEM_QUANTITY, ITEM_PRICE,"
                 + " ISBN, GENRE, AUTHOR, PUBLISHER, BOOK_YEAR, TYPE) VALUES (";
@@ -805,27 +844,43 @@ public class ManagerView extends LoginMainForm
         sendDBCommand(sqlQuery);
 
         System.out.println("Inventory Count: " + Inventory.invCount);
-        
-         loadInventory();
+
+        loadInventory();
     }
 
-    public void updateInventory()
+    public void updateBookInventory()
     {
         Inventory invRef = new Inventory();
         String sqlQuery = "";
-        sqlQuery = "UPDATE BOOKITDB.Inventory SET ITEM_NAME="
-                + "'" + txtItemName.getText() + "', Item_Desc="
-                + "'" + txtItemDesc.getText() + "', Item_Price="
-                + "'" + Double.parseDouble(txtItemPrice.getText()) + "', Item_Quantity="
-                + "'" + Integer.parseInt(txtItemQuantity.getText()) + "', ISBN="
-                + "'" + txtBookISBN.getText() + "', Genre="
-                + "'" + cbxBookGenre.getSelectionModel().getSelectedItem().toString() + "', Author="
-                + "'" + txtBookAuthor.getText() + "', Publisher="
-                + "'" + txtBookPublisher.getText() + "', Book_Year="
-                + "'" + Integer.parseInt(txtBookYear.getText()) + "' WHERE INV_ID='" + Integer.valueOf(invRef.getInvID()) + "'";
+        sqlQuery = "UPDATE BOOKITDB.Inventory SET ITEM_NAME=" + "'" + txtItemName.getText()
+                + "', ITEM_DESC=" + "'" + txtItemDesc.getText()
+                + "', ITEM_QUANTITY=" + "'" + Integer.parseInt(txtItemQuantity.getText())
+                + "', ITEM_PRICE=" + "'" + Double.parseDouble(txtItemPrice.getText())
+                + "', ISBN=" + "'" + txtBookISBN.getText()
+                + "', GENRE=" + "'" + cbxBookGenre.getSelectionModel().getSelectedItem().toString()
+                + "', AUTHOR=" + "'" + txtBookAuthor.getText()
+                + "', PUBLISHER=" + "'" + txtBookPublisher.getText()
+                + "', BOOK_YEAR=" + "'" + Integer.parseInt(txtBookYear.getText())
+                + "' WHERE INV_ID='" + Integer.valueOf(invView.getSelectionModel().getSelectedIndex()) + "'";
+
         sendDBCommand(sqlQuery);
-        
-         loadInventory();
+
+        loadInventory();
+    }
+
+    public void updateCafeInventory()
+    {
+        Inventory invRef = new Inventory();
+        String sqlQuery = "";
+        sqlQuery = "UPDATE BOOKITDB.Inventory SET ITEM_NAME=" + "'" + txtItemName.getText()
+                + "', ITEM_DESC=" + "'" + txtItemDesc.getText()
+                + "', ITEM_QUANTITY=" + "'" + Integer.parseInt(txtItemQuantity.getText())
+                + "', ITEM_PRICE=" + "'" + Double.parseDouble(txtItemPrice.getText())
+                + "' WHERE INV_ID='" + Integer.valueOf(invView.getSelectionModel().getSelectedIndex()) + "'";
+
+        sendDBCommand(sqlQuery);
+
+        loadInventory();
     }
 
     public void deleteInventory()
@@ -833,12 +888,56 @@ public class ManagerView extends LoginMainForm
         Inventory invRef = new Inventory();
         String sqlQuery = "";
         // delete products  from DB
-        sqlQuery = "DELETE FROM BOOKITDB.Inventory WHERE Inv_ID='"
-                + Integer.valueOf(invRef.getInvID()) + "'";
+        sqlQuery = "DELETE FROM BOOKITDB.Inventory WHERE INV_ID='"
+                + Integer.valueOf(invView.getSelectionModel().getSelectedIndex()) + "'";
 
         sendDBCommand(sqlQuery);
         loadInventory();
     }
+    public void loadEmployee()
+    {
+        String sqlQuery = "";
+        String listString = "";
+        sqlQuery = "Select * from BOOKITDB.Employees";
+        //calling the sendDBCommand method
+        sendDBCommand(sqlQuery);
+        Employee.empCount = 0;
+        memberArray.clear();
+        //to test the sqlException
+        try
+        {
+            //while there is a next employee
+            while (dbResults.next())
+            {
+
+                int empID = Integer.parseInt(dbResults.getString(1));
+                String fName = dbResults.getString(2);
+                String lName = dbResults.getString(3);
+                String street = dbResults.getString(4);
+                String city = dbResults.getString(5);
+                String state = dbResults.getString(6);
+                int zipCode = Integer.parseInt(dbResults.getString(7));
+                String cell = dbResults.getString(8);
+                String userName = dbResults.getString(9);
+                String password = dbResults.getString(10);
+                double empWage = Double.parseDouble(dbResults.getString(11));
+                double otWage = Double.parseDouble(dbResults.getString(12));
+                String empType = dbResults.getString(13);
+
+                empArray.add(new Employee(empID, fName, lName, street,
+                        city, state, zipCode, cell, userName, password, empWage,
+                        otWage, empType));
+
+                System.out.println(empArray.get(empArray.size() - 1).toString());
+                //set string to read from the DB
+            }
+
+        } catch (SQLException e)
+        {
+            System.out.println(e.toString());
+        }
+    }
+    
 
     public void runPay(double price)
     {
@@ -874,7 +973,7 @@ public class ManagerView extends LoginMainForm
 //            priceArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
 //                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
 //                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
-           
+
         }
         ObservableList<Inventory> priceList = FXCollections.observableArrayList(priceArray);
         bookView.setItems(priceList);
@@ -897,7 +996,7 @@ public class ManagerView extends LoginMainForm
 //                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
 //                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
 //            
-            yearArray.add(new Book(dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)), 
+            yearArray.add(new Book(dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
                     Double.valueOf(dbResults.getString(5)), dbResults.getString(11), dbResults.getString(6),
                     dbResults.getString(7), dbResults.getString(8), dbResults.getString(9), Integer.valueOf(dbResults.getString(10))));
         }
@@ -923,8 +1022,8 @@ public class ManagerView extends LoginMainForm
 //            genreArray.add(new Book(dbResults.getString(6), dbResults.getString(7), dbResults.getString(8), dbResults.getString(9),
 //                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
 //                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
-            
-            genreArray.add(new Book(dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)), 
+
+            genreArray.add(new Book(dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
                     Double.valueOf(dbResults.getString(5)), dbResults.getString(11), dbResults.getString(6),
                     dbResults.getString(7), dbResults.getString(8), dbResults.getString(9), Integer.valueOf(dbResults.getString(10))));
         }
@@ -949,7 +1048,7 @@ public class ManagerView extends LoginMainForm
 //                    Integer.valueOf(dbResults.getString(10)), dbResults.getString(2),
 //                    dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
 //                    dbResults.getString(11), Double.valueOf(dbResults.getString(5))));
-            bookArray.add(new Book(dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)), 
+            bookArray.add(new Book(dbResults.getString(2), dbResults.getString(3), Integer.valueOf(dbResults.getString(4)),
                     Double.valueOf(dbResults.getString(5)), dbResults.getString(11), dbResults.getString(6),
                     dbResults.getString(7), dbResults.getString(8), dbResults.getString(9), Integer.valueOf(dbResults.getString(10))));
 
@@ -970,7 +1069,7 @@ public class ManagerView extends LoginMainForm
         while (dbResults.next())
         {
             cafeArray.add(new Inventory(dbResults.getString(2), dbResults.getString(3),
-                    Integer.valueOf(dbResults.getString(4)), Double.valueOf(dbResults.getString(5)),dbResults.getString(11)));
+                    Integer.valueOf(dbResults.getString(4)), Double.valueOf(dbResults.getString(5)), dbResults.getString(11)));
         }
 
         ObservableList<Inventory> cafeList = FXCollections.observableArrayList(cafeArray);
