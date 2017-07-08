@@ -719,9 +719,19 @@ public class EmployeeView extends LoginMainForm
         sendDBCommand(sqlQuery);
         while (dbResults.next())
         {
-            memberArray.add(new Member(Integer.valueOf(dbResults.getString(1)), dbResults.getString(2), dbResults.getString(3), dbResults.getString(4),
-                    dbResults.getString(5), dbResults.getString(6), Integer.valueOf(dbResults.getString(7)), dbResults.getString(8), dbResults.getString(9), dbResults.getString(10),
-                    dbResults.getString(11)));
+           int memID = Integer.parseInt(dbResults.getString(1));
+                String memberFN = dbResults.getString(2);
+                String memberLN = dbResults.getString(3);
+                String memberStreet = dbResults.getString(4);
+                String memberCity = dbResults.getString(5);
+                String memberState = dbResults.getString(6);
+                int zipCode = Integer.parseInt(dbResults.getString(7));
+                String memberCell = dbResults.getString(8);
+                String email = dbResults.getString(9);
+              
+
+                memberArray.add(new Member(memID, memberFN, memberLN, memberStreet,
+                memberCity, memberState, zipCode, memberCell, email));
         }
         ObservableList<Member> memberList = FXCollections.observableArrayList(memberArray);
         cbxMemberID.getItems().addAll(memberList);

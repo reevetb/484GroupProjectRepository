@@ -11,7 +11,6 @@ public class Member {
     private int zipCode;
     private String cell;
     private String email;
- 
     public static int memCount = 0;
 
     public Member(String fName, String lName, String street, String city,
@@ -29,7 +28,7 @@ public class Member {
 
     }
     //loading from the database
-    public Member(int memdID, String fName, String lName, String street, String city,
+    public Member(int memID, String fName, String lName, String street, String city,
             String state, int zipCode, String cell, String email) {
         this.fName = fName;
         this.lName = lName;
@@ -40,6 +39,8 @@ public class Member {
         this.cell = cell;
         this.email = email;
         this.memID = memID;
+        
+        
         memCount++;
 
     }

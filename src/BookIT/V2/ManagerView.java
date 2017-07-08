@@ -55,6 +55,7 @@ public class ManagerView extends LoginMainForm
     ListView empView = new ListView();
     ListView expenseView = new ListView();
     ListView shiftsView = new ListView();
+    ListView memberView = new ListView();
 
     //overall stuff
     TabPane managerPane = new TabPane();
@@ -362,7 +363,7 @@ public class ManagerView extends LoginMainForm
         //logic
         fillInventoryBook();
         fillInventoryCafe();
-        fillCbxMember();
+       
 
         cbxMemberID.getItems().addAll("Guest");
 
@@ -638,20 +639,20 @@ public class ManagerView extends LoginMainForm
         btnEmployeeAdd.setOnAction(e ->
         {
             insertEmployee();
-            empView.refresh();
+        
 
         });
 
         btnEmployeeUpdate.setOnAction(e ->
         {
             updateEmployee();
-            empView.refresh();
+       
         });
 
         btnEmployeeDelete.setOnAction(e ->
         {
             deleteEmployee();
-            empView.refresh();
+         
         });
 
         ///////////////////////////SETTING MEMBER PANE/////////////////////////
@@ -662,73 +663,63 @@ public class ManagerView extends LoginMainForm
 
         memberView.setItems(memberData);
         memberPane.setAlignment(Pos.CENTER);
-//        employeePane.add(lblEmployeeID, 0, 0);
-//        employeePane.add(txtEmployeeID, 1, 0);
-        memberPane.add(lblEmployeeFName, 0, 1);
-        memberPane.add(txtEmployeeFirst, 1, 1);
-        memberPane.add(lblEmployeeLName, 0, 2);
-        memberPane.add(txtEmployeeLast, 1, 2);
-        memberPane.add(lblEmployeeAddress, 0, 3);
-        memberPane.add(txtEmployeeAddress, 1, 3);
-        memberPane.add(lblEmployeeCity, 0, 4);
-        memberPane.add(txtEmployeeCity, 1, 4);
-        memberPane.add(lblEmployeeState, 0, 5);
-        memberPane.add(txtEmployeeState, 1, 5);
-        memberPane.add(lblEmployeeZip, 0, 6);
-        memberPane.add(txtEmployeeZip, 1, 6);
-        memberPane.add(lblEmployeePhone, 0, 7);
-        memberPane.add(txtEmployeePhone, 1, 7);
-        memberPane.add(lblEmployeeUsername, 0, 8);
-        memberPane.add(txtEmployeeUsername, 1, 8);
-        memberPane.add(lblEmployeePassword, 0, 9);
-        memberPane.add(txtEmployeePassword, 1, 9);
-        memberPane.add(lblEmployeeType, 0, 10);
-        memberPane.add(cbxEmployeeType, 1, 10);
-        memberPane.add(lblEmployeePay, 0, 11);
-        memberPane.add(txtEmployeePay, 1, 11);
-        memberPane.add(btnEmployeeAdd, 0, 12);
-        memberPane.add(btnEmployeeUpdate, 1, 12);
-        memberPane.add(btnEmployeeDelete, 2, 12);
+        memberPane.add(lblMemberFN, 0, 1);
+        memberPane.add(txtMemberFN, 1, 1);
+        memberPane.add(lblMemberLN, 0, 2);
+        memberPane.add(txtMemberLN, 1, 2);
+        memberPane.add(lblMemberStreet, 0, 3);
+        memberPane.add(txtMemberStreet, 1, 3);
+        memberPane.add(lblMemberCity, 0, 4);
+        memberPane.add(txtMemberCity, 1, 4);
+        memberPane.add(lblMemberState, 0, 5);
+        memberPane.add(txtMemberState, 1, 5);
+        memberPane.add(lblMemberZip, 0, 6);
+        memberPane.add(txtMemberZip, 1, 6);
+        memberPane.add(lblMemberPhone, 0, 7);
+        memberPane.add(txtMemberPhone, 1, 7);
+        memberPane.add(lblMemberEmail, 0, 8);
+        memberPane.add(lblMemberEmail, 1, 8);
+
         memberViewPane.setAlignment(Pos.CENTER);
         memberPaneOverall.setAlignment(Pos.CENTER);
-        memberViewPane.add(empView, 0, 0);
+        memberViewPane.add(memberView, 0, 0);
         memberPaneOverall.add(memberPane, 0, 0);
-        memberPaneOverall.add(employeeViewPane, 1, 0);
+        memberPaneOverall.add(memberViewPane, 1, 0);
      
 
-        empView.setOnMouseClicked(j ->
+        memberView.setOnMouseClicked(j ->
         {
             //filling in the nodes from the listview
-            txtM.setText(empArray.get(empView.getSelectionModel().getSelectedIndex()).getFName());
-            txtEmployeeLast.setText(empArray.get(empView.getSelectionModel().getSelectedIndex()).getLName());
-            txtEmployeeAddress.setText(empArray.get(empView.getSelectionModel().getSelectedIndex()).getStreet());
-            txtEmployeeCity.setText(empArray.get(empView.getSelectionModel().getSelectedIndex()).getCity());
-            txtEmployeeState.setText(empArray.get(empView.getSelectionModel().getSelectedIndex()).getState());
-            txtEmployeeZip.setText(String.valueOf(empArray.get(empView.getSelectionModel().getSelectedIndex()).getZipCode()));
-            txtEmployeePhone.setText(empArray.get(empView.getSelectionModel().getSelectedIndex()).getCell());
-            txtEmployeeUsername.setText(empArray.get(empView.getSelectionModel().getSelectedIndex()).getUserName());
-            txtEmployeePassword.setText(empArray.get(empView.getSelectionModel().getSelectedIndex()).getPassword());
-            txtEmployeePay.setText(String.valueOf(empArray.get(empView.getSelectionModel().getSelectedIndex()).getWage()));
-        });
+            txtMemberFN.setText(memberArray.get(memberView.getSelectionModel().getSelectedIndex()).getFName());
+            txtMemberLN.setText(memberArray.get(memberView.getSelectionModel().getSelectedIndex()).getLName());
+            txtMemberStreet.setText(memberArray.get(memberView.getSelectionModel().getSelectedIndex()).getStreet());
+            txtMemberCity.setText(memberArray.get(memberView.getSelectionModel().getSelectedIndex()).getCity());
+            txtMemberState.setText(memberArray.get(memberView.getSelectionModel().getSelectedIndex()).getState());
+            txtMemberZip.setText(String.valueOf(memberArray.get(memberView.getSelectionModel().getSelectedIndex()).getZipCode()));
+            txtMemberPhone.setText(memberArray.get(memberView.getSelectionModel().getSelectedIndex()).getCell());
+            lblMemberEmail.setText(memberArray.get(memberView.getSelectionModel().getSelectedIndex()).getEmail());
+         });
 
-        btnEmployeeAdd.setOnAction(e ->
+        btnMemberAdd.setOnAction(e ->
         {
-            insertEmployee();
-            empView.refresh();
+            insertMember();
+     
 
         });
 
-        btnEmployeeUpdate.setOnAction(e ->
+        btnMemberUpdate.setOnAction(e ->
         {
-            updateEmployee();
-            empView.refresh();
+            updateMember();
+    
         });
 
-        btnEmployeeDelete.setOnAction(e ->
+        btnMemberDelete.setOnAction(e ->
         {
-            deleteEmployee();
-            empView.refresh();
+            deleteMember();
+        
         });
+        
+        
         //////////////////////////SETTING INV PANE/////////////////////////////
         loadInventory();
         ObservableList<Inventory> invData = FXCollections.observableArrayList(invArray);
@@ -842,7 +833,7 @@ public class ManagerView extends LoginMainForm
         expensePaneOverall.setAlignment(Pos.CENTER);
         expenseViewPane.add(expenseView, 0, 0);
         expensePaneOverall.add(expensePane, 0, 0);
-        employeePaneOverall.add(expenseViewPane, 1, 0);
+        expensePaneOverall.add(expenseViewPane, 1, 0);
         cbxExpenseType.getItems().addAll("Maintenance", "Utilities", "MISC");
 
         expenseView.setOnMouseClicked(j ->
@@ -1157,7 +1148,7 @@ public class ManagerView extends LoginMainForm
         //to test the sqlException
         try
         {
-            //while there is a next employee
+            //while there is a next expense
             while (dbResults.next())
             {
 
@@ -1228,7 +1219,7 @@ public class ManagerView extends LoginMainForm
         String sqlQuery = "";
         // delete and expense from the database
         sqlQuery = "DELETE FROM BOOKITDB.EXPENSES WHERE INVOICE_NUMBER='"
-                + Integer.valueOf(empView.getSelectionModel().getSelectedIndex()+1) + "'";
+                + Integer.valueOf(expenseView.getSelectionModel().getSelectedIndex()+1) + "'";
 
         sendDBCommand(sqlQuery);
         loadExpense();
@@ -1246,7 +1237,7 @@ public class ManagerView extends LoginMainForm
         //to test the sqlException
         try
         {
-            //while there is a next employee
+            //while there is a next member
             while (dbResults.next())
             {
 
@@ -1272,6 +1263,9 @@ public class ManagerView extends LoginMainForm
         {
             System.out.println(e.toString());
         }
+     
+     
+        cbxMemberID.getItems().addAll(memberView);
         memberView.refresh();
     }
 
@@ -1280,61 +1274,54 @@ public class ManagerView extends LoginMainForm
         // creating the bookstore items     
 
         String sqlQuery = "";
-        sqlQuery += "INSERT INTO BOOKITDB.EMPLOYEES (EMP_ID, FNAME, LNAME, STREET, CITY,"
-                + " STATE, ZIPCODE, CELL, USERNAME, PASSWORD, WAGE, OT_WAGE, EMP_TYPE) VALUES (";
-        sqlQuery += "'" + ++Employee.empCount + "',";
-        sqlQuery += "'" + txtEmployeeFirst.getText() + "',";
-        sqlQuery += "'" + txtEmployeeLast.getText() + "',";
-        sqlQuery += "'" + txtEmployeeAddress.getText() + "',";
-        sqlQuery += "'" + txtEmployeeCity.getText() + "',";
-        sqlQuery += "'" + txtEmployeeState.getText() + "',";
-        sqlQuery += "'" + Integer.parseInt(txtEmployeeZip.getText()) + "',";
-        sqlQuery += "'" + txtEmployeePhone.getText() + "',";
-        sqlQuery += "'" + txtEmployeeUsername.getText() + "',";
-        sqlQuery += "'" + txtEmployeePassword.getText() + "',";
-        sqlQuery += "'" + Double.parseDouble(txtEmployeePay.getText()) + "',";
-        sqlQuery += "'" + Double.parseDouble(txtEmployeePay.getText()) * 1.5 + "',";
-        sqlQuery += "'" + cbxEmployeeType.getSelectionModel().getSelectedItem() + "')";
+        sqlQuery += "INSERT INTO BOOKITDB.Members (MEMBER_ID, FNAME, LNAME,"
+                + "STREET, CITY, STATE, ZIP, CELL, EMAIL) VALUES (";
+        sqlQuery += "'" + ++Member.memCount + "',";
+        sqlQuery += "'" + txtMemberFN.getText() + "',";
+        sqlQuery += "'" + txtMemberLN.getText() + "',";
+        sqlQuery += "'" + txtMemberStreet.getText() + "',";
+        sqlQuery += "'" + txtMemberCity.getText() + "',";
+        sqlQuery += "'" + txtMemberState.getText() + "',";
+        sqlQuery += "'" + Integer.parseInt(txtMemberZip.getText()) + "',";
+        sqlQuery += "'" + txtMemberPhone.getText() + "',";
+        sqlQuery += "'" + txtMemberEmail.getText() + "')";
+       
         sendDBCommand(sqlQuery);
 
-        System.out.println("Employee Count: " + Employee.empCount);
+        System.out.println("Member Count: " + Member.memCount);
 
-        loadEmployee();
+        loadMember();
     }
 
     public void updateMember()
     {
  
         String sqlQuery = "";
-        sqlQuery = "UPDATE BOOKITDB.Employees SET FNAME=" + "'" + txtEmployeeFirst.getText()
-                + "', LNAME=" + "'" + txtEmployeeLast.getText()
-                + "', STREET=" + "'" + txtEmployeeAddress.getText()
-                + "', CITY=" + "'" + txtEmployeeCity.getText()
-                + "', STATE=" + "'" + txtEmployeeState.getText()
-                + "', ZIPCODE=" + "'" + Integer.parseInt(txtEmployeeZip.getText())
-                + "', CELL=" + "'" + txtEmployeePhone.getText()
-                + "', USERNAME=" + "'" + txtEmployeeUsername.getText()
-                + "', PASSWORD=" + "'" + txtEmployeePassword.getText()
-                + "', WAGE=" + "'" + Double.parseDouble(txtEmployeePay.getText())
-                + "', OT_WAGE=" + "'" + Double.parseDouble(txtEmployeePay.getText()) * 1.5
-                + "', EMP_TYPE=" + "'" + cbxEmployeeType.getSelectionModel().getSelectedItem()
-                + "' WHERE EMP_ID='" + (Integer.valueOf(empView.getSelectionModel().getSelectedIndex()+1)) + "'";
+        sqlQuery = "UPDATE BOOKITDB.MEMBERS SET FNAME=" + "'" + txtMemberFN.getText()
+                + "', LNAME=" + "'" + txtMemberLN.getText()
+                + "', STREET=" + "'" + txtMemberStreet.getText()
+                + "', CITY=" + "'" + txtMemberCity.getText()
+                + "', STATE=" + "'" + txtMemberState.getText()
+                + "', ZIPCODE=" + "'" + Integer.parseInt(txtMemberZip.getText())
+                + "', CELL=" + "'" + txtMemberPhone.getText()
+                + "', EMAIL=" + "'" + txtMemberEmail.getText()
+                + "' WHERE MEMBER_ID='" + (Integer.valueOf(memberView.getSelectionModel().getSelectedIndex()+1)) + "'";
 
         sendDBCommand(sqlQuery);
 
-        loadEmployee();
+        loadMember();
     }
 
     public void deleteMember()
     {
        
         String sqlQuery = "";
-        // delete employee from the database
-        sqlQuery = "DELETE FROM BOOKITDB.EMPLOYEES WHERE EMP_ID='"
-                + Integer.valueOf(empView.getSelectionModel().getSelectedIndex()+1) + "'";
+        // delete member from the database
+        sqlQuery = "DELETE FROM BOOKITDB.MEMBERS WHERE MEMBER_ID='"
+                + Integer.valueOf(memberView.getSelectionModel().getSelectedIndex()+1) + "'";
 
         sendDBCommand(sqlQuery);
-        loadEmployee();
+        loadMember();
     }
 
     public void runPay(double price)
@@ -1475,23 +1462,33 @@ public class ManagerView extends LoginMainForm
         cafeView.setItems(cafeList);
     }
 
-    public void fillCbxMember() throws SQLException
-    {
-        String sqlQuery = "";
-        sqlQuery = "SELECT * FROM BOOKITDB.MEMBERS";
-        ArrayList<Member> memberArray = new ArrayList<>();
+//    public void fillCbxMember() throws SQLException
+//    {
+//        String sqlQuery = "";
+//        sqlQuery = "SELECT * FROM BOOKITDB.MEMBERS";
+//        ArrayList<Member> memberArray = new ArrayList<>();
+//
+//        sendDBCommand(sqlQuery);
+//        while (dbResults.next())
+//        {
+//           int memID = Integer.parseInt(dbResults.getString(1));
+//                String memberFN = dbResults.getString(2);
+//                String memberLN = dbResults.getString(3);
+//                String memberStreet = dbResults.getString(4);
+//                String memberCity = dbResults.getString(5);
+//                String memberState = dbResults.getString(6);
+//                int zipCode = Integer.parseInt(dbResults.getString(7));
+//                String memberCell = dbResults.getString(8);
+//                String email = dbResults.getString(9);
+//              
+//
+//                memberArray.add(new Member(memID, memberFN, memberLN, memberStreet,
+//                memberCity, memberState, zipCode, memberCell, email));
+//        }
+//        ObservableList<Member> memberList = FXCollections.observableArrayList(memberArray);
+//        cbxMemberID.getItems().addAll(memberList);
 
-        sendDBCommand(sqlQuery);
-        while (dbResults.next())
-        {
-            memberArray.add(new Member(Integer.valueOf(dbResults.getString(1)), dbResults.getString(2), dbResults.getString(3), dbResults.getString(4),
-                    dbResults.getString(5), dbResults.getString(6), Integer.valueOf(dbResults.getString(7)), dbResults.getString(8), dbResults.getString(9), dbResults.getString(10),
-                    dbResults.getString(11)));
-        }
-        ObservableList<Member> memberList = FXCollections.observableArrayList(memberArray);
-        cbxMemberID.getItems().addAll(memberList);
-
-    }
+//    }
 
     public void sendDBCommand(String sqlQuery)
     {
