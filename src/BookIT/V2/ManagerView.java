@@ -34,9 +34,7 @@ import oracle.jdbc.pool.OracleDataSource;
 public class ManagerView extends LoginMainForm
 {
 
-    /**
-     * ********************Overall View stuff**********************
-     */
+    ///////////////////////////////////OVERALL VIEW STUFF/////////////////////
     Connection dbConn;
     Statement commStmt;
     ResultSet dbResults;
@@ -68,9 +66,7 @@ public class ManagerView extends LoginMainForm
     Tab tab5 = new Tab("Expenses");
     Tab tab6 = new Tab("Shifts");
 
-    /**
-     * ******************POS STUFF******************************************
-     */
+    ////////////////////////////////////POS STUFF/////////////////////////////
     TextArea taPay = new TextArea();
 
     ComboBox cbxMemberID = new ComboBox();
@@ -149,9 +145,7 @@ public class ManagerView extends LoginMainForm
     TextField txtPayment = new TextField();
     VBox payButtons = new VBox();
 
-    /**
-     * ********Employee Stuff*****************************************
-     */
+    /////////////////////////////////////EMPLOYEE STUFF////////////////////////
     GridPane employeePane = new GridPane();
     GridPane employeePaneOverall = new GridPane();
     GridPane employeeViewPane = new GridPane();
@@ -184,9 +178,7 @@ public class ManagerView extends LoginMainForm
     Button btnEmployeeUpdate = new Button("Update Employee");
     Button btnEmployeeDelete = new Button("Delete Employee");
 
-    /**
-     * *********Member Stuff***********************************************
-     */
+    ////////////////////////////////MEMBER STUFF//////////////////////////////
     GridPane memberInfoPane = new GridPane();
     Label lblMemberUser = new Label("Username:");
     Label lblMemberPass = new Label("Password:");
@@ -206,9 +198,7 @@ public class ManagerView extends LoginMainForm
     TextField txtMemberZip = new TextField();
     Button btnMemberUpdate = new Button("Update");
 
-    /**
-     * ********Inventory Stuff*********************************************
-     */
+    //////////////////////////////////////INV STUFF///////////////////////////
     Label lblItemName = new Label("Item Name:");
     Label lblItemDesc = new Label("Item Desc:");
     Label lblItemQuantity = new Label("Item Quantity:");
@@ -235,20 +225,14 @@ public class ManagerView extends LoginMainForm
     TextField txtBookPublisher = new TextField();
     TextField txtBookYear = new TextField();
 
-    /**
-     * ********Expenses Stuff***********************************************
-     */
-    /**
-     * ********Shifts Stuff ************************************************
-     */
-    /**
-     * *********************************************************************
-     */
+    ////////////////////////////EXPENSES STUFF////////////////////////////////
+    
+    /////////////////////////////SHIFTS STUFF/////////////////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////
     Stage primaryStage = new Stage();
 
-    /**
-     * *****************************CONSTRUCTOR**************************
-     */
+    ///////////////////////////////////CONSTRUCTOR/////////////////////////////
     //Manager View constructor
     public ManagerView() throws SQLException
     {
@@ -266,9 +250,8 @@ public class ManagerView extends LoginMainForm
 
         managerPane.getTabs().addAll(tab0, tab1, tab2, tab3, tab4, tab5, tab6);
         managerPane.setStyle("-fx-background-image: url(https://ae01.alicdn.com/kf/HTB18yb5JVXXXXbjXXXXq6xXFXXXh/Photo-Backdrops-Children-Vinyl-Photo-Props-for-Studio-Photography-font-b-Background-b-font-font-b.jpg)");
-        /**
-         * ***********************Setting POS PANE**************************
-         */
+        
+        ///////////////////////////SETTING THE POS////////////////////////////
         posOverallPane.setAlignment(Pos.CENTER);
         //   posOverallPane.setStyle("-fx-background-color: BLACK;");
 
@@ -740,9 +723,8 @@ public class ManagerView extends LoginMainForm
 
     }
 
-    /**
-     * ********************Methods****************
-     */
+    ///////////////////////////METHODS/////////////////////////////////////////
+    
     //connection to the database and loading inventory content
     public void loadInventory()
     {
