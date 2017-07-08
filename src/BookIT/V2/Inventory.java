@@ -1,9 +1,10 @@
 /*
-Author: Kyle Porter
-Date: 6/21/17
-Assignment: CIS 484 Group Project
-Purpose: Inventory entity class 
- */
+* Authors: DMO CONSULTING LLC
+* Date: 7/8/2017
+*  
+* Purpose: TO DEVELOP AN IS SYSTEM FOR BOOK BURG BOOK STORE
+* DESCRIPTION: THIS CLASS CREATES AN ENCYCLOPEDIA FOR OUR INVENTORY OBJECTS
+*/
 package BookIT.V2;
 
 /**

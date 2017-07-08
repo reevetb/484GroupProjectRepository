@@ -1,9 +1,10 @@
 /*
-Author: Kyle Porter
-Date: 6/21/17
-Assignment: CIS 484 Group Project
-Purpose: Sales entity class in order to see which inventory is in what store
- */
+* Authors: DMO CONSULTING LLC
+* Date: 7/8/2017
+*  
+* Purpose: TO DEVELOP AN IS SYSTEM FOR BOOK BURG BOOK STORE
+* DESCRIPTION: THIS CLASS CREATES AN ENCYCLOPEDIA FOR OUR SALES OBJECTS
+*/
 package BookIT.V2;
 
 import BookIT.*;

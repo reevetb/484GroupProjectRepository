@@ -1,9 +1,12 @@
-//employee view window
-//called from the loginMainForm and is the view that provides
-//everything for the employees.
-//pos tab
-//clockin clockout tab
-//shifts tab
+/*
+* Authors: DMO CONSULTING LLC
+* Date: 7/8/2017
+*  
+* Purpose: TO DEVELOP AN IS SYSTEM FOR BOOK BURG BOOK STORE
+* DESCRIPTION: EMPLOYEE VIEW WINDOW THAT BRING A POINT OF SALE SYSTEM AND 
+* THE ABILITY TO CLOCK IN AND OUT.
+*/
+
 package BookIT.V2;
 
 import java.sql.Connection;

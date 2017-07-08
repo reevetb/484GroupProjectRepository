@@ -97,8 +97,6 @@ CREATE TABLE MEMBERS
     ZIP                 INTEGER,
     CELL                VARCHAR(13),
     EMAIL               VARCHAR(50),
-    USERNAME            VARCHAR(50) NOT NULL,
-    PASSWORD            VARCHAR(50) NOT NULL,
     PRIMARY KEY         (MEMBER_ID)
 );
 

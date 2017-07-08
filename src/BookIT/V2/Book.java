@@ -1,9 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* Authors: DMO CONSULTING LLC
+* Date: 7/8/2017
+*  
+* Purpose: TO DEVELOP AN IS SYSTEM FOR BOOK BURG BOOK STORE
+* DESCRIPTION: THIS CLASS EXTENDS FROM INVENTORY TO DESCRIBE BOOK ITEMS
  */
-
 package BookIT.V2;
 
 public class Book extends Inventory {

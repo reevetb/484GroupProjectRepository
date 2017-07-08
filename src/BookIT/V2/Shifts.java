@@ -1,9 +1,10 @@
 /*
-Author: Kyle Porter - D.M.O.
-Date: 7/5/17
-Assignment: CIS 484 Group Project 
-Purpose: Shift entity class to keep track of employee shifts
- */
+* Authors: DMO CONSULTING LLC
+* Date: 7/8/2017
+*  
+* Purpose: TO DEVELOP AN IS SYSTEM FOR BOOK BURG BOOK STORE
+* DESCRIPTION: THIS CLASS CREATES AN ENCYCLOPEDIA FOR OUR SHIFT OBJECTS
+*/
 package BookIT.V2;
 
 import java.sql.Date;

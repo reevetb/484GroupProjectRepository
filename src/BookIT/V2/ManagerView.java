@@ -1,8 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* Authors: DMO CONSULTING LLC
+* Date: 7/8/2017
+*  
+* Purpose: TO DEVELOP AN IS SYSTEM FOR BOOK BURG BOOK STORE
+* DESCRIPTION: THE VIEW THE MANAGER SEES THAT ALLOWS THEM TO MANAGE ALL ASPECTS
+OF THE SYSTEM
+*/
 package BookIT.V2;
 
 import java.sql.Connection;
