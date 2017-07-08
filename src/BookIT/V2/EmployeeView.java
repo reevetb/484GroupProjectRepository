@@ -27,6 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import oracle.jdbc.pool.OracleDataSource;
 
 /**
@@ -180,6 +181,7 @@ public class EmployeeView extends LoginMainForm
          * ***********************Setting POS PANE**************************
          */
         posOverallPane.setAlignment(Pos.CENTER);
+        posOverallPane.setPadding(new Insets(25,25,25,25));
 
         tab4.setContent(bookPane);
         tab4.setClosable(false);
@@ -206,7 +208,8 @@ public class EmployeeView extends LoginMainForm
         cafePane.add(cafePaneLeft, 1, 0);
 
         cashPane.setAlignment(Pos.CENTER);
-        cashPane.add(btnPay, 0, 0);
+         cashPane.setPadding(new Insets(25,25,25,25));
+        cashPane.add(btnPay, 2, 0);
         btnPay.setMinSize(150, 100);
 
         totalPane.setAlignment(Pos.CENTER);
@@ -560,7 +563,7 @@ public class EmployeeView extends LoginMainForm
          * ******************************************************************
          */
         //needs to be converted to the overall employee view panes
-        Scene empScene = new Scene(empPane, 1000, 800);
+        Scene empScene = new Scene(empPane, 900, 600);
         primaryStage.setScene(empScene);
         primaryStage.setTitle("Book IT Employee");
         primaryStage.show();
@@ -714,26 +717,15 @@ public class EmployeeView extends LoginMainForm
     {
         String sqlQuery = "";
         sqlQuery = "SELECT * FROM BOOKITDB.MEMBERS";
-        ArrayList<Member> memberArray = new ArrayList<>();
+        ArrayList<Member> memberEVArray = new ArrayList<>();
 
         sendDBCommand(sqlQuery);
         while (dbResults.next())
         {
-           int memID = Integer.parseInt(dbResults.getString(1));
-                String memberFN = dbResults.getString(2);
-                String memberLN = dbResults.getString(3);
-                String memberStreet = dbResults.getString(4);
-                String memberCity = dbResults.getString(5);
-                String memberState = dbResults.getString(6);
-                int zipCode = Integer.parseInt(dbResults.getString(7));
-                String memberCell = dbResults.getString(8);
-                String email = dbResults.getString(9);
-              
-
-                memberArray.add(new Member(memID, memberFN, memberLN, memberStreet,
-                memberCity, memberState, zipCode, memberCell, email));
+            memberEVArray.add(new Member(Integer.valueOf(dbResults.getString(1)), dbResults.getString(2), dbResults.getString(3), dbResults.getString(4),
+                    dbResults.getString(5), dbResults.getString(6), Integer.valueOf(dbResults.getString(7)), dbResults.getString(8), dbResults.getString(9)));
         }
-        ObservableList<Member> memberList = FXCollections.observableArrayList(memberArray);
+        ObservableList<Member> memberList = FXCollections.observableArrayList(memberEVArray);
         cbxMemberID.getItems().addAll(memberList);
 
     }

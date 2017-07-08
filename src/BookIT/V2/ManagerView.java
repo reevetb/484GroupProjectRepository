@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -45,12 +46,13 @@ public class ManagerView extends LoginMainForm
     ListView<Inventory> totalsView = new ListView<>();
     ArrayList<Inventory> mainArray = new ArrayList<>();
     ArrayList<Inventory> itemTotals = new ArrayList<>();
+    ArrayList<Member> memberArray = new ArrayList<>();
     ListView empShiftView = new ListView();
     ListView employeeView = new ListView();
     ArrayList<Employee> employeeArray = new ArrayList<>();
     public static ArrayList<Inventory> invArray = new ArrayList();
     public static ArrayList<Book> bookArray = new ArrayList();
-    public static ArrayList<Coffee_Shop> coffeeArray = new ArrayList();
+//    public static ArrayList<Coffee_Shop> coffeeArray = new ArrayList();
     ListView invView = new ListView();
     ListView empView = new ListView();
     ListView expenseView = new ListView();
@@ -123,7 +125,6 @@ public class ManagerView extends LoginMainForm
     GridPane employeePaneOverall = new GridPane();
     GridPane employeeViewPane = new GridPane();
 
-
     Button btn1 = new Button("1");
     Button btn2 = new Button("2");
     Button btn3 = new Button("3");
@@ -160,7 +161,6 @@ public class ManagerView extends LoginMainForm
     VBox payButtons = new VBox();
 
     /////////////////////////////////////EMPLOYEE STUFF////////////////////////
- 
     Label lblEmployeeID = new Label("ID:");
     Label lblEmployeeFName = new Label("First Name: ");
     Label lblEmployeeLName = new Label("Last Name: ");
@@ -190,7 +190,6 @@ public class ManagerView extends LoginMainForm
     Button btnEmployeeDelete = new Button("Delete Employee");
 
     ////////////////////////////////MEMBER STUFF//////////////////////////////
-  
     Label lblMemberFN = new Label("First Name:");
     Label lblMemberLN = new Label("Last Name:");
     Label lblMemberEmail = new Label("eMail:");
@@ -253,12 +252,9 @@ public class ManagerView extends LoginMainForm
     Button btnAddExpense = new Button("Add Expense");
     Button btnUpdateExpense = new Button("Update Expense");
     Button btnDeleteExpense = new Button("Delete Expense");
-    
-    
+
     /////////////////////////////SHIFTS STUFF/////////////////////////////////
-  
-    
-    
+    ///////////////////////////SETTING REPORTS PANE/////////////////////////
     //////////////////////////////////////////////////////////////////////////
     Stage primaryStage = new Stage();
 
@@ -272,10 +268,13 @@ public class ManagerView extends LoginMainForm
         tab1.setClosable(false);
         tab2.setContent(employeePaneOverall);
         tab2.setClosable(false);
+        tab3.setContent(memberPaneOverall);
         tab3.setClosable(false);
         tab4.setContent(inventoryPaneOverall);
         tab4.setClosable(false);
+        tab5.setContent(expensePaneOverall);
         tab5.setClosable(false);
+        tab6.setContent(shiftsPaneOverall);
         tab6.setClosable(false);
 
         managerPane.getTabs().addAll(tab0, tab1, tab2, tab3, tab4, tab5, tab6);
@@ -283,6 +282,7 @@ public class ManagerView extends LoginMainForm
 
         ///////////////////////////SETTING THE POS////////////////////////////
         posOverallPane.setAlignment(Pos.CENTER);
+        posOverallPane.setPadding(new Insets(25,25,25,25));
         //   posOverallPane.setStyle("-fx-background-color: BLACK;");
 
         booksTab.setContent(bookPane);
@@ -363,7 +363,6 @@ public class ManagerView extends LoginMainForm
         //logic
         fillInventoryBook();
         fillInventoryCafe();
-       
 
         cbxMemberID.getItems().addAll("Guest");
 
@@ -587,8 +586,6 @@ public class ManagerView extends LoginMainForm
 
         empView.setItems(empData);
         employeePane.setAlignment(Pos.CENTER);
-//        employeePane.add(lblEmployeeID, 0, 0);
-//        employeePane.add(txtEmployeeID, 1, 0);
         employeePane.add(lblEmployeeFName, 0, 1);
         employeePane.add(txtEmployeeFirst, 1, 1);
         employeePane.add(lblEmployeeLName, 0, 2);
@@ -639,53 +636,53 @@ public class ManagerView extends LoginMainForm
         btnEmployeeAdd.setOnAction(e ->
         {
             insertEmployee();
-        
 
         });
 
         btnEmployeeUpdate.setOnAction(e ->
         {
             updateEmployee();
-       
+
         });
 
         btnEmployeeDelete.setOnAction(e ->
         {
             deleteEmployee();
-         
+
         });
 
         ///////////////////////////SETTING MEMBER PANE/////////////////////////
         //Member View 
-        
         loadMember();
         ObservableList<Member> memberData = FXCollections.observableArrayList(memberArray);
 
         memberView.setItems(memberData);
         memberPane.setAlignment(Pos.CENTER);
         memberPane.add(lblMemberFN, 0, 1);
-        memberPane.add(txtMemberFN, 1, 1);
         memberPane.add(lblMemberLN, 0, 2);
-        memberPane.add(txtMemberLN, 1, 2);
         memberPane.add(lblMemberStreet, 0, 3);
-        memberPane.add(txtMemberStreet, 1, 3);
         memberPane.add(lblMemberCity, 0, 4);
-        memberPane.add(txtMemberCity, 1, 4);
         memberPane.add(lblMemberState, 0, 5);
-        memberPane.add(txtMemberState, 1, 5);
         memberPane.add(lblMemberZip, 0, 6);
-        memberPane.add(txtMemberZip, 1, 6);
         memberPane.add(lblMemberPhone, 0, 7);
-        memberPane.add(txtMemberPhone, 1, 7);
         memberPane.add(lblMemberEmail, 0, 8);
-        memberPane.add(lblMemberEmail, 1, 8);
 
+        memberPane.add(txtMemberFN, 1, 1);
+        memberPane.add(txtMemberLN, 1, 2);
+        memberPane.add(txtMemberStreet, 1, 3);
+        memberPane.add(txtMemberCity, 1, 4);
+        memberPane.add(txtMemberState, 1, 5);
+        memberPane.add(txtMemberZip, 1, 6);
+        memberPane.add(txtMemberPhone, 1, 7);
+        memberPane.add(txtMemberEmail, 1, 8);
+        memberPane.add(btnMemberAdd, 0, 10);
+        memberPane.add(btnMemberUpdate, 1, 10);
+        memberPane.add(btnMemberDelete, 2, 10);
         memberViewPane.setAlignment(Pos.CENTER);
         memberPaneOverall.setAlignment(Pos.CENTER);
         memberViewPane.add(memberView, 0, 0);
         memberPaneOverall.add(memberPane, 0, 0);
         memberPaneOverall.add(memberViewPane, 1, 0);
-     
 
         memberView.setOnMouseClicked(j ->
         {
@@ -698,28 +695,26 @@ public class ManagerView extends LoginMainForm
             txtMemberZip.setText(String.valueOf(memberArray.get(memberView.getSelectionModel().getSelectedIndex()).getZipCode()));
             txtMemberPhone.setText(memberArray.get(memberView.getSelectionModel().getSelectedIndex()).getCell());
             lblMemberEmail.setText(memberArray.get(memberView.getSelectionModel().getSelectedIndex()).getEmail());
-         });
+        });
 
         btnMemberAdd.setOnAction(e ->
         {
             insertMember();
-     
 
         });
 
         btnMemberUpdate.setOnAction(e ->
         {
             updateMember();
-    
+
         });
 
         btnMemberDelete.setOnAction(e ->
         {
             deleteMember();
-        
+
         });
-        
-        
+
         //////////////////////////SETTING INV PANE/////////////////////////////
         loadInventory();
         ObservableList<Inventory> invData = FXCollections.observableArrayList(invArray);
@@ -825,7 +820,7 @@ public class ManagerView extends LoginMainForm
         expensePane.add(lblExpenseDesc, 0, 4);
         expensePane.add(txtExpenseDesc, 1, 4);
         expensePane.add(lblStoreID, 0, 5);
-        expensePane.add(txtStoreID , 1, 5);
+        expensePane.add(txtStoreID, 1, 5);
         expensePane.add(btnAddExpense, 0, 7);
         expensePane.add(btnUpdateExpense, 1, 7);
         expensePane.add(btnDeleteExpense, 2, 7);
@@ -848,13 +843,13 @@ public class ManagerView extends LoginMainForm
         btnAddExpense.setOnAction(e ->
         {
             addExpense();
-           
+
         });
 
         btnUpdateExpense.setOnAction(e ->
         {
             updateExpense();
-    
+
         });
 
         btnDeleteExpense.setOnAction(e ->
@@ -862,12 +857,12 @@ public class ManagerView extends LoginMainForm
             deleteExpense();
 
         });
-           
 
         ///////////////////////////SETTING SHIFTS PANE/////////////////////////
+        ///////////////////////////SETTING REPORTS PANE/////////////////////////
         ///////////////////////////////////////////////////////////////////////
         //needs to be converted to the overall employee view panes
-        Scene managerScene = new Scene(managerPane, 800, 600);
+        Scene managerScene = new Scene(managerPane, 900, 600);
         primaryStage.setScene(managerScene);
         primaryStage.setTitle("BookIT Manager");
         primaryStage.show();
@@ -927,8 +922,7 @@ public class ManagerView extends LoginMainForm
         {
             System.out.println(e.toString());;
         }
-        
-        
+
     }
 
     public void insertBook()
@@ -995,7 +989,7 @@ public class ManagerView extends LoginMainForm
                 + "', AUTHOR=" + "'" + txtBookAuthor.getText()
                 + "', PUBLISHER=" + "'" + txtBookPublisher.getText()
                 + "', BOOK_YEAR=" + "'" + Integer.parseInt(txtBookYear.getText())
-                + "' WHERE INV_ID='" + Integer.valueOf(invView.getSelectionModel().getSelectedIndex()+1) + "'";
+                + "' WHERE INV_ID='" + Integer.valueOf(invView.getSelectionModel().getSelectedIndex() + 1) + "'";
 
         sendDBCommand(sqlQuery);
 
@@ -1010,7 +1004,7 @@ public class ManagerView extends LoginMainForm
                 + "', ITEM_DESC=" + "'" + txtItemDesc.getText()
                 + "', ITEM_QUANTITY=" + "'" + Integer.parseInt(txtItemQuantity.getText())
                 + "', ITEM_PRICE=" + "'" + Double.parseDouble(txtItemPrice.getText())
-                + "' WHERE INV_ID='" + Integer.valueOf(invView.getSelectionModel().getSelectedIndex()+1) + "'";
+                + "' WHERE INV_ID='" + Integer.valueOf(invView.getSelectionModel().getSelectedIndex() + 1) + "'";
 
         sendDBCommand(sqlQuery);
 
@@ -1019,7 +1013,7 @@ public class ManagerView extends LoginMainForm
 
     public void deleteInventory()
     {
-     
+
         String sqlQuery = "";
         // delete products  from DB
         sqlQuery = "DELETE FROM BOOKITDB.Inventory WHERE INV_ID='"
@@ -1103,7 +1097,7 @@ public class ManagerView extends LoginMainForm
 
     public void updateEmployee()
     {
- 
+
         String sqlQuery = "";
         sqlQuery = "UPDATE BOOKITDB.Employees SET FNAME=" + "'" + txtEmployeeFirst.getText()
                 + "', LNAME=" + "'" + txtEmployeeLast.getText()
@@ -1117,7 +1111,7 @@ public class ManagerView extends LoginMainForm
                 + "', WAGE=" + "'" + Double.parseDouble(txtEmployeePay.getText())
                 + "', OT_WAGE=" + "'" + Double.parseDouble(txtEmployeePay.getText()) * 1.5
                 + "', EMP_TYPE=" + "'" + cbxEmployeeType.getSelectionModel().getSelectedItem()
-                + "' WHERE EMP_ID='" + (Integer.valueOf(empView.getSelectionModel().getSelectedIndex()+1)) + "'";
+                + "' WHERE EMP_ID='" + (Integer.valueOf(empView.getSelectionModel().getSelectedIndex() + 1)) + "'";
 
         sendDBCommand(sqlQuery);
 
@@ -1126,16 +1120,16 @@ public class ManagerView extends LoginMainForm
 
     public void deleteEmployee()
     {
-       
+
         String sqlQuery = "";
         // delete employee from the database
         sqlQuery = "DELETE FROM BOOKITDB.EMPLOYEES WHERE EMP_ID='"
-                + Integer.valueOf(empView.getSelectionModel().getSelectedIndex()+1) + "'";
+                + Integer.valueOf(empView.getSelectionModel().getSelectedIndex() + 1) + "'";
 
         sendDBCommand(sqlQuery);
         loadEmployee();
     }
-    
+
     public void loadExpense()
     {
         String sqlQuery = "";
@@ -1158,10 +1152,9 @@ public class ManagerView extends LoginMainForm
                 Double expCost = Double.parseDouble(dbResults.getString(4));
                 String expDesc = dbResults.getString(5);
                 int store_id = Integer.parseInt(dbResults.getString(6));
-                
 
                 expenseArray.add(new Expenses(invoiceNum, expType, expDate, expCost,
-                                    expDesc, store_id));
+                        expDesc, store_id));
 
                 System.out.println(expenseArray.get(expenseArray.size() - 1).toString());
                 //set string to read from the DB
@@ -1199,14 +1192,14 @@ public class ManagerView extends LoginMainForm
     public void updateExpense()
     {
         //update an expense from the database
- 
+
         String sqlQuery = "";
         sqlQuery = "UPDATE BOOKITDB.EXPENSES SET EXPENSE_TYPE=" + "'" + cbxExpenseType.getSelectionModel().getSelectedItem()
                 + "', EXPENSE_DATE=" + "'" + txtExpenseDate.getText()
                 + "', EXPENSE_COST=" + "'" + Double.parseDouble(txtExpenseCost.getText())
                 + "', EXPENSE_DESC=" + "'" + txtExpenseDesc.getText()
                 + "', STORE_ID=" + "'" + Integer.parseInt(txtStoreID.getText())
-                + "' WHERE INVOICE_NUMBER='" + (Integer.valueOf(expenseView.getSelectionModel().getSelectedIndex()+1)) + "'";
+                + "' WHERE INVOICE_NUMBER='" + (Integer.valueOf(expenseView.getSelectionModel().getSelectedIndex() + 1)) + "'";
 
         sendDBCommand(sqlQuery);
 
@@ -1215,16 +1208,16 @@ public class ManagerView extends LoginMainForm
 
     public void deleteExpense()
     {
-       
+
         String sqlQuery = "";
         // delete and expense from the database
         sqlQuery = "DELETE FROM BOOKITDB.EXPENSES WHERE INVOICE_NUMBER='"
-                + Integer.valueOf(expenseView.getSelectionModel().getSelectedIndex()+1) + "'";
+                + Integer.valueOf(expenseView.getSelectionModel().getSelectedIndex() + 1) + "'";
 
         sendDBCommand(sqlQuery);
         loadExpense();
     }
-    
+
     public void loadMember()
     {
         String sqlQuery = "";
@@ -1247,13 +1240,12 @@ public class ManagerView extends LoginMainForm
                 String memberStreet = dbResults.getString(4);
                 String memberCity = dbResults.getString(5);
                 String memberState = dbResults.getString(6);
-                int zipCode = Integer.parseInt(dbResults.getString(7));
+                int memberZipCode = Integer.parseInt(dbResults.getString(7));
                 String memberCell = dbResults.getString(8);
-                String email = dbResults.getString(9);
-              
+                String memberEmail = dbResults.getString(9);
 
                 memberArray.add(new Member(memID, memberFN, memberLN, memberStreet,
-                memberCity, memberState, zipCode, memberCell, email));
+                        memberCity, memberState, memberZipCode, memberCell, memberEmail));
 
                 System.out.println(memberArray.get(memberArray.size() - 1).toString());
                 //set string to read from the DB
@@ -1263,12 +1255,10 @@ public class ManagerView extends LoginMainForm
         {
             System.out.println(e.toString());
         }
-     
-     
-        cbxMemberID.getItems().addAll(memberView);
+
+      
         memberView.refresh();
     }
-
     public void insertMember()
     {
         // creating the bookstore items     
@@ -1285,7 +1275,7 @@ public class ManagerView extends LoginMainForm
         sqlQuery += "'" + Integer.parseInt(txtMemberZip.getText()) + "',";
         sqlQuery += "'" + txtMemberPhone.getText() + "',";
         sqlQuery += "'" + txtMemberEmail.getText() + "')";
-       
+
         sendDBCommand(sqlQuery);
 
         System.out.println("Member Count: " + Member.memCount);
@@ -1295,7 +1285,7 @@ public class ManagerView extends LoginMainForm
 
     public void updateMember()
     {
- 
+
         String sqlQuery = "";
         sqlQuery = "UPDATE BOOKITDB.MEMBERS SET FNAME=" + "'" + txtMemberFN.getText()
                 + "', LNAME=" + "'" + txtMemberLN.getText()
@@ -1305,7 +1295,7 @@ public class ManagerView extends LoginMainForm
                 + "', ZIPCODE=" + "'" + Integer.parseInt(txtMemberZip.getText())
                 + "', CELL=" + "'" + txtMemberPhone.getText()
                 + "', EMAIL=" + "'" + txtMemberEmail.getText()
-                + "' WHERE MEMBER_ID='" + (Integer.valueOf(memberView.getSelectionModel().getSelectedIndex()+1)) + "'";
+                + "' WHERE MEMBER_ID='" + (Integer.valueOf(memberView.getSelectionModel().getSelectedIndex() + 1)) + "'";
 
         sendDBCommand(sqlQuery);
 
@@ -1314,16 +1304,15 @@ public class ManagerView extends LoginMainForm
 
     public void deleteMember()
     {
-       
+
         String sqlQuery = "";
         // delete member from the database
         sqlQuery = "DELETE FROM BOOKITDB.MEMBERS WHERE MEMBER_ID='"
-                + Integer.valueOf(memberView.getSelectionModel().getSelectedIndex()+1) + "'";
+                + Integer.valueOf(memberView.getSelectionModel().getSelectedIndex() + 1) + "'";
 
         sendDBCommand(sqlQuery);
         loadMember();
     }
-
     public void runPay(double price)
     {
         orderSubtotal += price;
@@ -1462,33 +1451,22 @@ public class ManagerView extends LoginMainForm
         cafeView.setItems(cafeList);
     }
 
-//    public void fillCbxMember() throws SQLException
-//    {
-//        String sqlQuery = "";
-//        sqlQuery = "SELECT * FROM BOOKITDB.MEMBERS";
-//        ArrayList<Member> memberArray = new ArrayList<>();
-//
-//        sendDBCommand(sqlQuery);
-//        while (dbResults.next())
-//        {
-//           int memID = Integer.parseInt(dbResults.getString(1));
-//                String memberFN = dbResults.getString(2);
-//                String memberLN = dbResults.getString(3);
-//                String memberStreet = dbResults.getString(4);
-//                String memberCity = dbResults.getString(5);
-//                String memberState = dbResults.getString(6);
-//                int zipCode = Integer.parseInt(dbResults.getString(7));
-//                String memberCell = dbResults.getString(8);
-//                String email = dbResults.getString(9);
-//              
-//
-//                memberArray.add(new Member(memID, memberFN, memberLN, memberStreet,
-//                memberCity, memberState, zipCode, memberCell, email));
-//        }
-//        ObservableList<Member> memberList = FXCollections.observableArrayList(memberArray);
-//        cbxMemberID.getItems().addAll(memberList);
+    public void fillCbxMember() throws SQLException
+    {
+        String sqlQuery = "";
+        sqlQuery = "SELECT * FROM BOOKITDB.MEMBERS";
 
-//    }
+        memberArray.clear();
+        sendDBCommand(sqlQuery);
+        while (dbResults.next())
+        {
+            memberArray.add(new Member(Integer.valueOf(dbResults.getString(1)), dbResults.getString(2), dbResults.getString(3), dbResults.getString(4),
+                    dbResults.getString(5), dbResults.getString(6), Integer.valueOf(dbResults.getString(7)), dbResults.getString(8), dbResults.getString(9)));
+        }
+        ObservableList<Member> memberList = FXCollections.observableArrayList(memberArray);
+        cbxMemberID.getItems().addAll(memberList);
+
+    }
 
     public void sendDBCommand(String sqlQuery)
     {
