@@ -6,7 +6,7 @@
 * DESCRIPTION: THIS CLASS CREATES AN ENCYCLOPEDIA FOR OUR MEMBER OBJECTS
 */
 
-package BookIT.V2;
+//package BookIT.V2;
 
 public class Member {
 

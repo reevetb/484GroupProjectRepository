@@ -5,7 +5,7 @@
 * Purpose: TO DEVELOP AN IS SYSTEM FOR BOOK BURG BOOK STORE
 * DESCRIPTION: THIS CLASS CREATES AN ENCYCLOPEDIA FOR OUR SHIFT OBJECTS
 */
-package BookIT.V2;
+//package BookIT.V2;
 
 import java.sql.Date;
 import java.sql.Time;

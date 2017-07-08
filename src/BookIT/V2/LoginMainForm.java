@@ -6,7 +6,7 @@
 * DESCRIPTION: THE MAIN GUI THAT PROMPTS USERS TO LOGIN AND WILL BRING YOU TO
 * THE APPRORIATE WINDOW BASED OFF OF USER PERMISSIONS
 */
-package BookIT.V2;
+//package BookIT.V2;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

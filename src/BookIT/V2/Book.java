@@ -5,7 +5,7 @@
 * Purpose: TO DEVELOP AN IS SYSTEM FOR BOOK BURG BOOK STORE
 * DESCRIPTION: THIS CLASS EXTENDS FROM INVENTORY TO DESCRIBE BOOK ITEMS
  */
-package BookIT.V2;
+//package BookIT.V2;
 
 public class Book extends Inventory {
 

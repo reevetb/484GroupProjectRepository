@@ -6,7 +6,7 @@
 * DESCRIPTION: THE VIEW THE MANAGER SEES THAT ALLOWS THEM TO MANAGE ALL ASPECTS
 OF THE SYSTEM
 */
-package BookIT.V2;
+//package BookIT.V2;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
